@@ -2,7 +2,7 @@
 \usepackage{graphicx}
 
 
-\graphicspath{ {/home/morais/Documents/tese/writing/} }
+\graphicspath{ {/home/morais/Documents/tese/tese/paper/img/} }
 
 %Gummi|061|=)
 \title{\textbf{Measuring the effects of IPv4 address exhaustion on allocation and routing dynamics}}
@@ -493,6 +493,7 @@ We used Merit RADB \cite{RADB} which is a public registry of network routing inf
 
 \subsection{Data cleaning}
 --- Mention we checked data quality
+The RouteViews collectors contains the bgp information provided by the peer ASes. For our case study, most of the information is redundant. As we intend to analyze the prefixes that are being advertised and who is advertising them (origin), this information will be provided by most of the peer Ases. The first step to arrange our data and remove redundant information was to identify the most relevant peers. These would be the ones that would provide us the most complete view of the entire internet reagarding the number of prefixes that are advertising and how reliable they were throughout the entire time period of our analises. In \ref{fig:peers1} it is shown all the information gathered from 2001 until 2014. 
 
 \begin{figure}[h!]
 \centering
@@ -501,12 +502,16 @@ We used Merit RADB \cite{RADB} which is a public registry of network routing inf
 \label{fig:peers1}
 \end{figure}
 
+It is possible to see that a great number of peers provide less information than others and also that a high number of peers don't provide information whitout breaks throughout the time period. We then procceeded to remove all the peers that delivered a lower number of advertised prefixes or that didn't deliver information at a determined point in time. The result is shown in \ref{fig:peers2}.  
+
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=0.4]{peers2.pdf}
 \caption{Peers 2}
 \label{fig:peers2}
 \end{figure}
+
+By doing this we reduced drastically the amount of data that would have to be analyzed and at the same time we would have a dataset capable of ensuring the desired data quality. 
 
 \section{Results}
 
