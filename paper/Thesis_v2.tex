@@ -32,7 +32,7 @@ evolved over time. Hereby we pay particular attention to scenarios
 resulting out of IPv4 address exhaustion, such as possible address space
 transfers.
 
-\section{Introduction}
+\section{Background}
 
 from paper THE INTERNET IN TRANSITION: THE STATE OF THE TRANSITION TO IPV6 IN
 TODAY'S INTERNET AND OF MEASURES TO SUPPORT THE CONTINUED USE OF
@@ -478,7 +478,9 @@ for the forthcoming 12 months to one that encompassed only three months of futur
 One of the most important source of information is the Potaroo web page \cite{Potaroo}. 
 Here we can see statistics regarding IPv4 address space allocation. There is information for each RIR regarding IPv4 address pool status, allocations made and the total span of address space advertised in the BGP routing table over time. It is also possible to obtain the delegation files for each RIR or a joint file.
 
-\section{Approach}
+----Mention that in particular we are interested in
+
+\section{Datasets}
 
 In order to study the advertised IPv4 address space we used BGP table dumps from RouteViews \cite{RouteViews}. This provided us the required raw BGP data for our analysis. As our requirements were just to have a global overview of the prefixes that are being advertised and its origin, to use only this data source would be enough. In case we had to infer about the BGP paths and try to build an internet map, we would certainly have to use more sources (e.g. BGP table dumps from RIPE), but for our analysis this was not necessary as we could obtain a comprehensive view of the global routing system.
 We used four collectors, after some previous tests, which would give us the best possible overview of the global system for the entire study period. Some other related work \cite{Address_Space_Deaggregation} used just one collector and still obtained significant results, but we wanted to be on the sure side and decided to use four collectors. 
@@ -489,7 +491,8 @@ We used the Whois \cite{Whois} query and response protocol used for querying dat
 
 We used Merit RADB \cite{RADB} which is a public registry of network routing information as an Internet Registries data source. The choice was to use RADB because its mission is to mirror all Internet Registries  databases to provide the most complete view possible of the entire IRR. 
 
-\section{Results}
+\subsection{Data cleaning}
+--- Mention we checked data quality
 
 \begin{figure}[h!]
 \centering
@@ -504,6 +507,10 @@ We used Merit RADB \cite{RADB} which is a public registry of network routing inf
 \caption{Peers 2}
 \label{fig:peers2}
 \end{figure}
+
+\section{Results}
+
+
 
 \begin{figure}[h!]
 \centering
