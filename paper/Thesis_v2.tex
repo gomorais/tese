@@ -476,8 +476,17 @@ registry was depleted in February 2011, which was also the time when this regist
 framework that assigned addresses to entities in a quantity that encompassed their planned requirements
 for the forthcoming 12 months to one that encompassed only three months of future requirement.
 
+----Mention that in particular we are interested in
+
 \chapter{Related Work}
 - Capturing Ghosts: Predicting the Used IPv4 Space by inferring Unobserved Addresses
+"The related measure of routed address space has been estimated on prefixes advertised by BGP[Analysis of the IPv4 Address Space Delegation Structure]. Some used ICMP to probe the all allocated internet to infer on the usage." They (their key contribution) used a new statistical capture-recapture technique to estimate the used IPv4 address space from several sources of active and passive measurement data. "Data from nine sources over the past three years suggests 5.8 million used /24 subnets and 740 million used IPv4 addresses. Our CR (capture-recapture) indicates a significantly higher 1.1 billion IPv4 addresses in use across 6.3 million /24 subnets, with usage growing at around 0.5 million /24 subnets and 160 million IPv4 addresses per year." "At this rate all remaining /24 subnets will be used by 2022."
+
+- Analysis of the IPv4 Address Space Delegation Structure
+ "Address allocation patterns and its impact on routing table growth were
+studied in [17, 23, 29]" 
+
+
 - A first llok at IPv4 transfer Markets
 - A comparative study on IP Prefixe and their Origin ASes in BGP and the IRR
 - The Great IPv4 Land Grab: Resource Certification for the IPv4 Grey Market
@@ -488,7 +497,6 @@ for the forthcoming 12 months to one that encompassed only three months of futur
 One of the most important source of information is the Potaroo web page \cite{Potaroo}. 
 Here we can see statistics regarding IPv4 address space allocation. There is information for each RIR regarding IPv4 address pool status, allocations made and the total span of address space advertised in the BGP routing table over time. It is also possible to obtain the delegation files for each RIR or a joint file.
 
-----Mention that in particular we are interested in
 
 \chapter{Datasets}
 
@@ -568,6 +576,13 @@ By doing this we reduced drastically the amount of data that would have to be an
 \label{fig:compareAggregationCycles24}
 \end{figure}
 
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.4]{routingStatusGlobal.pdf}
+\caption{routingStatusGlobal}
+\label{fig:routingStatusGlobal}
+\end{figure}
+
 \chapter{Conclusion}
 \bibliographystyle{plain}
 \renewcommand\bibname{\chapter{References}}
@@ -620,6 +635,25 @@ youtube\_1.shtml
 	\emph{Merit RADB - The Routing Assets Database}.
 	[Online]. Available: http://www.ra.net/
 
+\bibitem{Impact_Structure_Routing_Tables}
+	H. Narayan, R. Govindan, G. Varghese,
+	\emph{The Impact of Address Allocation and Routing on the Structure and Implementation of Routing Tables}.
+	In Proceedings of the ACM SIGCOMM, 2003.
+	
+\bibitem{Slowing_Routing_Table_Growth}
+	S. Bellovin, R. Bush, T. Griffin, J. Rexford,
+	\emph{Slowing routing table growth by filtering based on address allocation policies}.
+	June 2001. www.cs.princeton.edu/ jrex.
 
+\bibitem{BGP_Routing_Table_Evolution}
+	X. Meng, Z. Xu, B. Zhang, G. Huston, S. Lu, L. Zhang,
+	\emph{IPv4 Address Allocation and the BGP Routing Table Evolution}.
+	In Proceedings of the ACM SIGCOMM Computer Communication Review, pages 71–80, New York, NY, USA, 2005. ACM Press.
+
+\bibitem{Delegation_Structure}
+	A. Sriraman, K.R.B. Butler, P.D. McDaniel, P. Raghavan,
+	\emph{Analysis of the IPv4 Address Space Delegation Structure}.
+	In IEEE Symposium on Computers and Communications (ISCC), pages 501-508, Jul. 2007.
+	
 \end{thebibliography}	
 \end{document}
