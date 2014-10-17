@@ -487,11 +487,39 @@ for the forthcoming 12 months to one that encompassed only three months of futur
 studied in [17, 23, 29]" 
 
 
-- A first llok at IPv4 transfer Markets
+- A first look at IPv4 transfer Markets
+"We analyzed address transfers that have already been completed (and documented by RIRs) finding that 75\% of transferred addresses involve underutilized prefixes, and are generally advertised via BGP into the global routing table shortly after the transfers take place. These indicators suggest that address markets, at least what we can see of them, are serving their intended purpose of facilitating a redistribution of underutilized addresses to entities that need them." "The number of transferred prefixes is still smalll, and we have discerned no significant effects on global routing tables, such as increased fragmentation of address blocks or unusual growth in routing table sizes. But we have observed an increasing trend in the number of transfers published by the RIRs, indicating that the popularity of these markets is increasing."
+
 - A comparative study on IP Prefixe and their Origin ASes in BGP and the IRR
+ "The IRR is a set of globally distributed databases with which ASes can register their routing and address-related information. It is often believed that the quality of the IRR data is not reliable since there are few economic incentives for ASes to register and update their routing information in a timely manner. To validate these negative beliefs, we carry out a comprehensive analysis of (IP prefix, its origin AS) pairs in BGP against the corresponding information registered with the IRR, and vice versa."
+ "Our comparative study highlights that in contrast to common negative claims, registration of BGP PO pairs in the IRR is prevalent, which gives us opportunities to build important services based on the IRR data."
+"RR for BGP prefix filtering service. IRR data can be used to validate BGP Prefix-Origin AS pairs. A similar proposal known as RPKI is underway to ensure the integrity of BGP messages for secure inter-domain routing [7]. Considering that RPKI would take many years to be fully functional, we stress the role of the IRR as an important viable alternative source of trustworthy PO pairs, which can help thwart IP prefix origin AS based hijacking attacks and BGP misconfigurations."
+"As the IRR does not cover the whole IP space and its largest missing part belongs to ARIN (§ 4), we propose to augment the IRR by the ARIN origin AS dataset [26]. In addition, as POM ratios substantially vary across different RRs, the IRR can help improve the security level of BGP routing by making BGP routers selectively rely on the corresponding IRR data, considering these observations."
+
+
 - The Great IPv4 Land Grab: Resource Certification for the IPv4 Grey Market
+"The era of free IPv4 address allocations has ended and the grey market in IPv4 addresses is now emerging. This paper argues that one cannot and should not try to regulate who sells addresses and at what price, but one does need to provide some proof of ownership in the form of resource certification. In this paper we identify key requirements of resource certification, gained from both theoretical analysis and operational history. We further argue these requirements can be achieved by making use of the existing reverse DNS
+hierarchy, enhanced with DNS Security." 
+"In this work, we have shown that by using the reverse DNS, one can add a very critical element to crystallize resource certification in a way that aligns operational costs with benefits. Our approach is not only incrementally deployable, but does not require any infrastructure changes on either the authorities source or the clients."
+
+
 - Evolution of Internet Address Space Deaggregation: Myths and Reality
+"Our primary objective is to challenge such widespread assumptions (“myths”) and not solely to confirm previous findings [1]–[3]. Surprisingly, we find severe discrepancies between existing myths and reality. According to our results, there is no trend towards more aggressive prefix deaggregation or traffic engineering over time. With respect to update dynamics, we observe that deaggregated prefixes generally do not generate a disproportionate number of BGP updates, with respect to their share of the BGP routing table."
+"According to our results, there is no trend towards more aggressive prefix deaggregation or traffic engineering over time. With respect to update dynamics, deaggregated prefixes generally do not generate a
+disproportionate number of BGP updates with respect to their share of the BGP routing table. "
+"Instead, what our results reveal is that the global impact of “bad guys” on Internet address space deaggregation and BGP churn has not changed for the worse in recent years. These problems have been present for a long time and have not become more prevalent recently."
+
+
 - An Analysis of BGP Multiple Origin AS (MOAS) Conflicts
+"We analyzed data from archived BGP routing tables over 1279 days. Most of the conflicts
+were short-lived, lasting only a small number of days."
+"There are a number of possible explanations for MOAS conflicts. Unique cases such as exchange points, some
+forms of multi-homing, and faults all contribute to the MOAS conflicts. Each of these factors was observed in this study."
+"On the one hand, MOAS conflicts can occur for valid reasons, such as multi-homing without BGP and advertising routes to exchange points. On the other hand, router misconfigurations have also produced MOAS conflicts. Large scale network outages and other problems have been associated with MOAS conflicts." 
+
+
+
+
 
 
 One of the most important source of information is the Potaroo web page \cite{Potaroo}. 
