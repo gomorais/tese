@@ -44,37 +44,21 @@ transfers.
 \chapter{Background}
 
 As defined by the Federal Networking Council (FNC) in October 1995, the term internet "refers to the global information system that -- (i) is logically linked together by a globally unique address space based on the Internet Protocol (IP) or its subsequent extensions/follow-ons; (ii) is able to support communications using the Transmission Control Protocol/Internet Protocol (TCP/IP) suite or its subsequent extensions/follow-ons, and/or other IP-compatible protocols; and (iii) provides, uses or makes accessible, either publicly or privately, high level services layered on the communications and related infrastructure described herein". To Internet Protocol (IP) being used was version 4 or IPv4 allowing a use of around 4 billion addresses to ensure a globally unique address space. 
-But as early as the 90s concerns have been raised in the technical community reagarding the scalability of the number of addresses in IPv4 when facing a world wide deployment with a high density of communicating devices. To tackle this issue IPv6 was created which allows 2^128, that is more than 7.9×10^28 times as many as IPv4 addresses. 
+But as early as the 90s concerns have been raised in the technical community reagarding the scalability of the number of addresses in IPv4 when facing a world wide deployment with a high density of communicating devices. To tackle this issue IPv6 was created which allows 2\^128, that is more than 7.9×10\^28 times as many as IPv4 addresses. 
 The Internet Assigned Numbers Authority (IANA) allocated the last /8 blocks of addresses to the Regional Internet Registries in February 2011 and APNIC and RIPE already started allocating addresses from their last /8 blocks, which led to stricter allocation policies. Althought this event and the fact that the technical specification of IPv6 was mostly completed by 1996, the transition from IPv4 to IPv6 never happened. It has been possible to extend the life of IPv4 address space and the question that arises is how are alloctions and routing dynamics affected by this?     
 
 The objective of this thesis is exactly to study how allocations and routing have been changing since the announced depletion of IPv4 addresses. 
 
 \section{Internet Assigned Numbers Authority}
-from paper THE INTERNET IN TRANSITION: THE STATE OF THE TRANSITION TO IPV6 IN
-TODAY'S INTERNET AND OF MEASURES TO SUPPORT THE CONTINUED USE OF
-IPV4
 
-Addresses and address structures
-Addresses in this context are defined by a communications protocol. The address is a unique
-identifier used by the communications protocol to distinguish active elements, so that the protocol can
-provide the necessary support to enable the communication of data between endpoints of the network
-defined by the operation of the protocol.
-In the context of the Internet protocol an "IP address" is a unique identifier assigned to a
-computer's interface that runs the internet protocol suite (IP) and is connected to an IP network. The
-common format of an IP address is a 32-bit number, allowing for a theoretical maximum of some
-4.3 billion values for unique addresses.
-The IP address has a minimal internal structure, which is a division into a network part and a host
-part. All hosts connected to a common network share the same value of the network part of their address,
-and uniquely identify themselves by the unique host part of the address.
+In a communication protocol contex, an address is an unique identifier used to distinguish between active elements, so that the protocol can provide the necessary support to enable communication between endpoints of the network defined by the operation of the protocol. In the Internet protocol context, an "IP address is an unique identifier that is assigned to a computer's interface running the internet protocol and connected to an IP network. The format of an IP address is a 32-bit number which is normally expressed as 4 octets in "dotted decimal" notation, such as 10.0.0.1. Theoretically are allowed a maximum of 4.3 billion values for unique addresses. The IP address has a minimal internal structure, which is a division into a network part and a host part. All hosts connected to a common network share the same value of the network part of their address, and uniquely identify themselves by the unique host part of the address. Currently there are two types of IP addresses in use: IP version 4 (IPv4), which was described before and IP version 6 (IPv6). IPv4 was deployed in January 1983 and is the most commonly used version. IPv6 addresses are 128-bit numbers and are expressed as hexadecimal strings, such as 2001:0ab2:3b3::56 and it started to be deployed in 1999. Although it was created to replace IPv4, it's full deployment still didn't happen.
 
 
-The Internet Registry System and IANA http://www.ripe.net/internet-coordination/internet-governance/internet-technical-community/the-rir-system and https://www.iana.org/numbers
-
-The Internet Assigned Numbers Authority, also known as IANA, is responsible for the global coordination of the Internet Protocol (IP) address system and also of the Autonomous Systems Numbers which are used for routing traffic on the internet. There are two types of IP addresses in use: IP version 4 (IPv4) and IP version 6 (IPv6). IPv4 addresses are 32-bit numbers which are normally expressed as 4 octets in "dotted decimal" notation, such as 10.0.0.1. It was deployed in January 1983 and is the most commonly used version. IPv6 addresses are 128-bit numbers and are expressed as hexadecimal strings, such as 2001:0ab2:3b3::56. It started to be deployed in 1999. Although it was supposed to replace IPv4, it's full deployment still didn't happen. 
+The Internet Assigned Numbers Authority, also known as IANA, is responsible for the global coordination of the Internet Protocol (IP) address system and also of the Autonomous Systems Numbers which are used for routing traffic on the internet.  
 
 \begin{figure}[h!]
 \centering
-\includegraphics[scale=0.3]{IR-structure-diagram.png}
+\includegraphics[scale=0.5]{IR-structure-diagram.png}
 \caption{Global Structure of the Internet Registry System}
 from http://www.ripe.net/internet-coordination/internet-governance/internet-technical-community/the-rir-system
 \label{fig:ir_structure_diagram}
@@ -84,7 +68,7 @@ IP addresses are assigned in hierarchical manner as shown in Figure \ref{fig:ir_
 
 \begin{figure}[h!]
 \centering
-\includegraphics[scale=0.3]{RIR.jpeg}
+\includegraphics[scale=0.5]{RIR.jpeg}
 \caption{Regional Internet Registries Service Regions}
 from http://www.ripe.net/internet-coordination/internet-governance/internet-technical-community/the-rir-system
 \label{fig:rirs_image}
@@ -107,8 +91,6 @@ The Internet Registry IP Allocation Guidelines were described in RFC 2050, which
 from http://www.ripe.net/ripe/docs/ripe-606
 
 \section{Border Gateway Protocol}
-
-from paper bgpsurvey.pdf
 
 The internet has a decentralized architecture composed of many interconnected networks, where the end systems are called hosts. At an intermediate level there are routers, which are responsible for selecting the paths that information takes in order to get to the respective end system. The selection of the right path is done by a routing process is determined by routing protocols. These protocols are responsible not only for performing path selectiong, but also to communicate reachability information. A group of IP networks which has a single defined external routing policy is called an Autonomous System (AS) and the process of routing whithin an AS is called intradomain routing, while routing between ASes is called interdomain routing. The de facto protocol used on the Internet for interdomain routing is the Border Gateway Protocol (BGP).
 Although BGP has been deployed since the comercialization of the Internet, and version 4 of the protocol has been used for over a decade, it doesn't provide any kind of performance or security guarantees. This limition has already contributed to instabilities and outages \cite{Misdirection} such as a youtube outage caused by Pakistan Telekom \cite{Pakistan}. 
@@ -412,17 +394,11 @@ This representation provides a set of routes and a description of administrative
 
 \chapter{Problem Statement}
 
-from paper THE INTERNET IN TRANSITION: THE STATE OF THE TRANSITION TO IPV6 IN
-TODAY'S INTERNET AND OF MEASURES TO SUPPORT THE CONTINUED USE OF
-IPV4
+Since the 90s that the technical community knows that the use of IPv4 could not scale in a global deployment containing vast concentrations of communicating devices, due to the fact that IPv4 is limited to 4 billion addresses. To tackle this, IPv6 was created. Its technical specification was completed by 1996 and at this time it was initiated a programme to promote the need to transition from IPv4 to IPv6 before the anticipated exhaustion of the IPv4 address pool. The major challenge to achieve this is that IPv6 is not backward compatible with IPv4, meaning that we cannot just replace IPv4 with IPv6. End devices, networks and service delivery points need to be able to support both protocols simultaneously and be able to provide a dual protocol capability before the IPv4 component of the network is taken out of service.     
 
-Since the 90s that the technical community knows that the use of IPv4 could not scale in a global deployment containing vast concentrations of communicating devices, due to the fact that IPv4 is limited to 4 billion addresses. The technical specification was completed by 1996 and at this time it was initiated a programme to promote the need to transition from IPv4 to IPv6 before the anticipated exhaustion of the IPv4 address pool. The major challenge to achieve this is that IPv6 is not backward compatible with IPv4, meaning that we cannot just replace IPv4 with IPv6. End devices, networks and service delivery points need to be able to support both protocols simultaneously and be able to provide a dual protocol capability before the IPv4 component of the network is taken out of service.     
+As reported in \cite{IPv6_state}, the transition to IPv6 is still in an early stage, while the Internet faces an accelerated growth with the deployment of more and more connected devices, where almost any new device tends to be connected to it.  This evolution has put pressure on the supply of IPv4 and we assisting to a state of IPv4 address exhaustion. At the same time the transition to IPv6 has not been following a rapid deployment. The hope at the time of the specification was that service providers would prevent the exhaustion of IPv4 addresses and switch to an all-IPv6 network before the pool of IPv4 addresses was depleted. Unfortunately this didn't happen and in February 2011 the pool of IPv4 addresses administred by the Internet Assigned Numbers Authority (IANA) was fully allocated. Two years after, by August 2013, two Regional Internet Registries, APNIC and RIPE, reached a critical low number of managed IPv4 addresses. Nevertheless, the overwhelming majority of end users and services on the Internet continues to rely on IPv4. This implies that the transition to IPv6 needs to be planned as a dual-stack transition, starting from an exclusive model of just using IPv4 to a dual protocol stack mode.
 
-As illustrated in (reference to paper), the transition to IPv6 is still in an early stage, while the Internet as seen an accelerated growth, with the deployment of more and more connected devices, where mobile devices are playing an important role. This evolution has put pressure on the supply of IPv4, where we assist to a state of IPv4 address exaushtion. At the same time the transition to IPv6, has not been following the rapid deployment. The hope was at the time of the specification was that service providers would prevent the exhaustion of IPv4 addresses and switch to an all-IPv6 network before the pool of IPv4 addresses was depleted. Unfortunately this didn't happen and in February 2011 the pool of IPv4 addresses administred by the Internet Assigned Numbers Authority (IANA) was fully allocated. Two years after, by August 2013, two Regional Internet Registries, APNIC and RIPE, reached a critical low number of managed IPv4 addresses. Nevertheless, the overwhelming majority of end users and services on the Internet continues to rely on IPv4. Because of this the transition to IPv6 was planned as a dual-stack transition, starting from an exclusive model of just using IPv4 to a dual protocol stack mode.
-
-One reason for the delay in deploying IPv6 lies in the supply chain for the Internet's service provider sector. The integration of support for IPv6 in the service provider and customer equipment has taken many years.  
-
-Another reason is the large scale use of Network Address Translation (NAT) by service providers. NAT is placed at the edge of a network and allows multiple devices inside to share a single exterior public address and it has become a common model for Internet service deployment on wired networks. 
+One reason of the reasons for the delay in deploying IPv6 lies in the supply chain for the Internet's service provider sector. The integration of support for IPv6 in the service provider and customer equipment has taken many years. Another reason is the large scale use of Network Address Translation (NAT) by service providers. NAT is placed at the edge of a network and allows multiple devices inside to share a single exterior public address and it has become a common model for Internet service deployment on wired networks. 
 
 The current statistics on address distribution are shown in \ref{fig:rirs_available_ipv4}.
 
@@ -434,56 +410,18 @@ from https://www.nro.net/wp-content/uploads/NRO\_Q2\_2014-2.pdf June 2014
 \label{fig:rirs_available_ipv4}
 \end{figure}
 
-We can see that ...
+We can see that only AFRINIC still has 3.2 /8s, RIPENCC 1.07 /8s where all the other registries have less that 1 /8 block of addresses. This indicates how low is the current size of the pool blocks of IPv4 addresses in each RIR. To face this problem the Regional Internet Registries changed the allocation policies. The first RIR to reach a conclusion of the general address allocation function for IPv4 addresses was APNIC, on April 2011. Since then, APNIC is operating its IPv4
+allocations under a "Last /8 Policy" \cite{APNIC_last8} where each entity may apply for one, and only one, allocation of up to 1024 addresses. The intent of this policy is to hold onto a small pool of addresses to assist new entrants in the area of Internet Service Provision to operate in dual-stack mode with some a small amount of IPv4 for their IPv4 dual-stack needs. The second RIR to also run to the end of its general address allocation policies has been the RIPE NCC, which exhausted its pool on 14 September 2012. The RIPE NCC has also moved into a framework of a Last /8 Policy \cite{RIPE_last8} with similar constraints in place in APNIC. 
 
 When a local registry or an ISP gets addresses assigned, they can use it in a number of ways. If the address is used for interactions with the public Internet, this address has to be advertised on the routing system. Each individual routing annoucement covers a range of addresses and it doesn't mean that all of these addresses are uniquely assigned to an end device, but normally it is considered that the announcement of a network prefix indicates that the addresses included are being used in some way. Addresses can also be used for some other purpose besides the public Internet, so if one address is not being advertised in the Internet's routing system, it does not a clear indication that it is not being used in an active network.
 
 Due to the fact that many assigned IPv4 addresses might not be being used, it has been discussed within each reagion the possibility of trying to reclaim these addresses. This has several issues for the registries as the agreements between them and the address holders do not oblige the address holders to immediately advertise the assigned addresses on the public Internet and these addresses can also be used in a context where they are not advertised on the public Internet. There is also the case where blocks of addresses were distributed before the creation of the RIR's, called legacy blocks, where there are no formal obligation on the address holder. There has been cases where the responsible RIR has been able to reclaim addresses, specially due to the fact that the address holder didn't fulfill his obligation with respect to the agreement between the parts involved, but the total number of addresses reclaimed had no real impact in the address runout issue.
 
-from paper Scarcity in IP addresses: IPv4 Address Transfer Markets and the Regional Internet Address Registries http://www.internetgovernance.org/wordpress/wp-content/uploads/IPAddress\_TransferMarkets.pdf
+Another way to reutilize IPv4 address space is to allow organizations holding IPv4 addresses to sell address blocks to other organizations interested in bying them. The IP address transfer markets could be a way to extend the life of the IP address space. One major benefit of this type of market could be to offer an incentive for address space holders to release unused address resources. An open and legitime transfer market would, as mentioned before, give an incentive to reclaim unused address space, but could also help in a better and accurate registration and administration of address space instead of a gray or black IPv4 address market. A better and accurate registration and administration would benefit Internet security.  
 
-In response to the depletion of the IPv4 address space one option could be to allow organizations holding IPv4 addresses to sell address blocks to other organizations interested in bying them. The IP address transfer markets could be a way to extend the life of the IP address space. One major benefit of such a market would be to offer an incentive for address space holders to release unused address resources. An open and legitime transfer market would, as mentioned before, give an incentive to reclaim unused address space, but could also help in a better and accurate registration and administration of address space instead of a gray or black IPv4 address market, which would benefit Internet security.  
+The fact is that the IP address transfer market can no longer be denied, specially after the deal in which Microsoft bought Notel's address space assets. Either because people believe there should not be a fee for such a resource or because the the transfer market might delay the migration to IPv6, many in the Internet technical community still feel skeptical about it. The truth is that it is difficult to have a comprehensive picture of this market, because the IP number allocations is controlled by five separate regional registries, each one with different databases, disclosure practices and different policies regarding transfers. 
 
-from paper Dimensioning the Elephant: An Empirical Analysis of the IPv4 Number Market http://www.internetgovernance.org/wordpress/wp-content/uploads/IPv4marketTPRC20122.pdf
-
-The IP address transfer market can no longer be denied, specially after the deal in which Microsoft bought Notel's address space assets. Either because people believe there should not be a fee for such a resource or because the the transfer market might delay the migration to IPv6, many in the Internet technical community still feel skeptical about it. The truth is that it is difficult to have a comprehensive picture of this market, because the IP number allocations is controlled by five separate regional registries, each one with different databases, disclosure practices and different policies regarding transfers. 
-
-Regarding all this we intend to investigate effects of IPv4 address exhaustion, wether on how it changed the way RIR's are allocating resources or how these resources are being routed.
-
-
-from paper THE INTERNET IN TRANSITION: THE STATE OF THE TRANSITION TO IPV6 IN
-TODAY'S INTERNET AND OF MEASURES TO SUPPORT THE CONTINUED USE OF
-IPV4 
-
-Predictions on IPv4 runout
-The central pool of IPv4 addresses managed by the IANA functions operator distributed its final
-set of address allocations to the RIRs early February 2011. At this stage it continues to manage a set of
-address reservations made by the IETF as part of its protocol parameter registry services function, and also
-manages a temporary pool of returned so-called legacy addresses prior to their re-distribution to the RIRs.
-Of the five RIRs, the first to reach a conclusion of the general address allocation function for
-IPv4 addresses was APNIC, on 19 April 2011. Since then, APNIC is operating its continuing IPv4
-allocations under a "Last /8 Policy" where each serviced entity may apply for one, and only one, allocation
-of up to 1024 addresses. The intent of this policy is to hold onto a small pool of addresses to assist new
-entrants in the area of Internet Service Provision to operate in dual-stack mode with some small amount of
-IPv4 to service the IPv4 side of their dual-stack needs, with the explicit awareness, noted when the Asia
-Pacific regional address policy community was contemplating the adoption of this particular address
-policy, that the address block available to each applicant under this policy could be used in conjunction
-with IPv4 CGNs so as to allow this very small block of IPv4 addresses to be used in far larger dual-stack
-networked environments.15
-The second RIR to also run to the end of its general address allocation policies has been the RIPE
-NCC, which exhausted its pool on 14 September 2012. The RIPE NCC has also moved into a framework
-of a Last /8 Policy with similar constraints in place in APNIC.16
-The remaining three RIRs, namely ARIN, LACNIC and AFRINIC, are yet to run out of IPv4
-addresses.
-
-In the case of the ARIN registry, it currently holds some 31,267,072 addresses in its local address
-pool. In estimating the projected run-out time for this registry it is noted that the model of address
-consumption in the region served by this registry changed significantly at the same time as the IANA
-registry was depleted in February 2011, which was also the time when this registry changed from a policy
-framework that assigned addresses to entities in a quantity that encompassed their planned requirements
-for the forthcoming 12 months to one that encompassed only three months of future requirement.
-
-----Mention that in particular we are interested in
+In particular we are interested in studying the effects of IPv4 address exhaustion in on allocation and routing dynmics.
 
 \chapter{Related Work}
 - Capturing Ghosts: Predicting the Used IPv4 Space by inferring Unobserved Addresses
@@ -567,53 +505,53 @@ By doing this we reduced drastically the amount of data that would have to be an
 
 \chapter{Results}
 
-
+Our first analysis  
 
 \begin{figure}[h!]
 \centering
-\includegraphics[scale=0.4]{comparePrefixes.pdf}
+\includegraphics[scale=0.35]{comparePrefixes.pdf}
 \caption{comparePrefixes}
 \label{fig:comparePrefixes}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
-\includegraphics[scale=0.4]{comparePrefixes_24.pdf}
+\includegraphics[scale=0.35]{comparePrefixes_24.pdf}
 \caption{comparePrefixes24}
 \label{fig:comparePrefixes_24}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
-\includegraphics[scale=0.4]{compareAggregation.pdf}
+\includegraphics[scale=0.35]{compareAggregation.pdf}
 \caption{compareAggregation}
 \label{fig:compareAggregation}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
-\includegraphics[scale=0.4]{compareAggregation_24.pdf}
+\includegraphics[scale=0.35]{compareAggregation_24.pdf}
 \caption{compareAggregation24}
 \label{fig:compareAggregation24}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
-\includegraphics[scale=0.4]{compareAggregationCycles.pdf}
+\includegraphics[scale=0.35]{compareAggregationCycles.pdf}
 \caption{compareAggregationCycles}
 \label{fig:compareAggregationCycles}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
-\includegraphics[scale=0.4]{compareAggregationCycles_24.pdf}
+\includegraphics[scale=0.35]{compareAggregationCycles_24.pdf}
 \caption{compareAggregationCycles24}
 \label{fig:compareAggregationCycles24}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
-\includegraphics[scale=0.4]{routingStatusGlobal.pdf}
+\includegraphics[scale=0.35]{routingStatusGlobal.pdf}
 \caption{routingStatusGlobal}
 \label{fig:routingStatusGlobal}
 \end{figure}
@@ -641,7 +579,14 @@ youtube\_1.shtml
 	L. Cittadini, W. Mühlbauer, S. Uhlig, R. Bush, P. Francois and O.Maennel,
 	\emph{Evolution of Internet Address Space Deaggregation: Myths and Reality}.
 	IEEE JSAC, Aug 2010.
+
+\bibitem{IPv6_state}
+	G. Huston,
+	\emph{THE INTERNET IN TRANSITION: THE STATE OF THE TRANSITION TO IPv6 IN TODAY'S
+INTERNET AND OF MEASURES TO SUPPORT THE CONTINUED USE OF IPv4}.
+	Communication, Infrastructures and Services Policy (CISP), Jun 2013.
 	
+
 \bibitem{IPv4_Transfer_Markets}
 	I. Livadariu, A. Elmokashfi, A. Dhamdhere, Kc Claffy,
 	\emph{A First Look at IPv4 Transfer Markets}.
@@ -651,6 +596,16 @@ youtube\_1.shtml
 	IANA,
 	\emph{IANA IPv4 Address Space Registry}.
 	[Online]. Available: http://www.iana.org/assignments/ipv4-address-space/ipv4-address-space.xhtml
+	
+\bibitem{RIPE_last8}
+	RIPE Request an IPv4 /22 From the Last /8,
+	\emph{RIPE Request an IPv4 /22 From the Last /8}.
+	[Online]. Available: http://www.ripe.net/lir-services/resource-management/allocations-and-assignments/request-an-ipv4-22-from-the-last-8
+
+\bibitem{APNIC_last8}
+	APNIC Request an IPv4 /22 From the Last /8,
+	\emph{APNIC Request an IPv4 /22 From the Last /8}.
+	[Online]. Available: http://www.apnic.net/publications/news/2011/final-8
 	
 \bibitem{Potaroo}
 	G. Huston,
@@ -693,6 +648,10 @@ youtube\_1.shtml
 	In IEEE Symposium on Computers and Communications (ISCC), pages 501-508, Jul. 2007.
 	
 	http://www.internetsociety.org/internet/what-internet/history-internet/brief-history-internet
+	
+	IPv4 Address Transfer Markets and the Regional Internet Address Registries http://www.internetgovernance.org/wordpress/wp-content/uploads/IPAddress\_TransferMarkets.pdf
+	
+	An Empirical Analysis of the IPv4 Number Market http://www.internetgovernance.org/wordpress/wp-content/uploads/IPv4marketTPRC20122.pdf
 	
 \end{thebibliography}	
 \end{document}
