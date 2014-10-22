@@ -505,7 +505,7 @@ By doing this we reduced drastically the amount of data that would have to be an
 
 \chapter{Results}
 
-Our first analysis  
+Our first approach was to analyze the number of prefixes that changed origin during the time period. To do this we map for every month the advertised prefix to its origin AS. Next we check how many prexifes are being advertised, in the next month by a different AS. The results are shown in \ref{fig:comparePrefixes}.
 
 \begin{figure}[h!]
 \centering
@@ -514,6 +514,10 @@ Our first analysis
 \label{fig:comparePrefixes}
 \end{figure}
 
+We can notice an increasing tendency in the number os prefixes that changed its origin AS. One might say that this increase is due to the higher amount of prefixes that are being advertised. But we noticed that from 2001 until 2005 this number decreased, which was a period where less prefixes were being advertised and started to increase from this period on. When we compare the moving average with the number of prefixes that are being advertised \cite{Potaroo}, we notice that for the current year this was a very low number of around 1500 occurrences for a total of around 500 000 prefixes. There are several reasons for a change of origin in a prefix \cite{IPv4_Transfer_Markets}, such as transfers, BGP misconfigurations or prefix hijacks and because the prefix moved between two ASes belonging to the same organization.     
+
+In \ref{fig:comparePrefixes_24} are shown the results of dividing the prefixes into subnets of size /24. By doing this we can get an idea of the size of the prefixes that change origins.  
+
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=0.35]{comparePrefixes_24.pdf}
@@ -521,12 +525,16 @@ Our first analysis
 \label{fig:comparePrefixes_24}
 \end{figure}
 
+By looking at the moving average we see that the amount of subnets of size /24 that change origin along the time period didn't oscillate much. There are are several peaks that point to changes of large blocks of addresses, such as /16s or /8s.      
+
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=0.35]{compareAggregation.pdf}
 \caption{compareAggregation}
 \label{fig:compareAggregation}
 \end{figure}
+
+
 
 \begin{figure}[h!]
 \centering
