@@ -483,7 +483,7 @@ We used the Whois \cite{Whois} query and response protocol used for querying dat
 We used Merit RADB \cite{RADB} which is a public registry of network routing information as an Internet Registries data source. The choice was to use RADB because its mission is to mirror all Internet Registries  databases to provide the most complete view possible of the entire IRR. 
 
 \section{Data cleaning}
-The RouteViews collectors contains the bgp information provided by the peer ASes. For our case study, most of the information is redundant. As we intend to analyze the prefixes that are being advertised and who is advertising them (origin), this information will be provided by most of the peer Ases. The first step to arrange our data and remove redundant information was to identify the most relevant peers. These would be the ones that would provide us the most complete view of the entire internet reagarding the number of prefixes that are advertising and how reliable they were throughout the entire time period of our analises. In \ref{fig:peers1} it is shown all the information gathered from 2001 until 2014. 
+The RouteViews collectors contains the bgp information provided by the peer ASes. For our case study, most of the information is redundant. As we intend to analyze the prefixes that are being advertised and who is advertising them (origin), this information will be provided by most of the peer Ases. The first step to arrange our data and remove redundant information was to identify the most relevant peers. These would be the ones that would provide us the most complete view of the entire internet reagarding the number of prefixes that are advertising and how reliable they were throughout the entire time period of our analises. In Figure \ref{fig:peers1} it is shown all the information gathered from 2001 until 2014. 
 
 \begin{figure}[h!]
 \centering
@@ -492,9 +492,9 @@ The RouteViews collectors contains the bgp information provided by the peer ASes
 \label{fig:peers1}
 \end{figure}
 
-It is possible to see that a great number of peers provide less information than others and also that a high number of peers don't provide information whitout breaks throughout the time period. We then procceeded to remove all the peers that delivered a lower number of advertised prefixes or that didn't deliver information at a determined point in time. The result is shown in \ref{fig:peers2}.  
+It is possible to see that a great number of peers provide less information than others and also that a high number of peers don't provide information whitout breaks throughout the time period. We then procceeded to remove all the peers that delivered a lower number of advertised prefixes or that didn't deliver information at a determined point in time. The result is shown in Figure \ref{fig:peers2}.  
 
-\begin{figure}[h!]
+\begin{figure}[ht!]
 \centering
 \includegraphics[scale=0.4]{peers2.pdf}
 \caption{Peers 2}
@@ -505,9 +505,9 @@ By doing this we reduced drastically the amount of data that would have to be an
 
 \chapter{Results}
 
-Our first approach was to analyze the number of prefixes that changed origin during the time period. To do this we map for every month the advertised prefix to its origin AS. Next we check how many prexifes are being advertised, in the next month by a different AS. The results are shown in \ref{fig:comparePrefixes}.
+Our first approach was to analyze the number of prefixes that changed origin during the time period. To do this we map for every month the advertised prefix to its origin AS. Next we check how many prexifes are being advertised, in the next month by a different AS. The results are shown in Figure \ref{fig:comparePrefixes}.
 
-\begin{figure}[h!]
+\begin{figure}[ht!]
 \centering
 \includegraphics[scale=0.35]{comparePrefixes.pdf}
 \caption{comparePrefixes}
@@ -516,46 +516,105 @@ Our first approach was to analyze the number of prefixes that changed origin dur
 
 We can notice an increasing tendency in the number os prefixes that changed its origin AS. One might say that this increase is due to the higher amount of prefixes that are being advertised. But we noticed that from 2001 until 2005 this number decreased, which was a period where less prefixes were being advertised and started to increase from this period on. When we compare the moving average with the number of prefixes that are being advertised \cite{Potaroo}, we notice that for the current year this was a very low number of around 1500 occurrences for a total of around 500 000 prefixes. There are several reasons for a change of origin in a prefix \cite{IPv4_Transfer_Markets}, such as transfers, BGP misconfigurations or prefix hijacks and because the prefix moved between two ASes belonging to the same organization.     
 
-In \ref{fig:comparePrefixes_24} are shown the results of dividing the prefixes into subnets of size /24. By doing this we can get an idea of the size of the prefixes that change origins.  
+In Figure \ref{fig:comparePrefixes_24} are shown the results of dividing the prefixes into subnets of size /24. By doing this we can get an idea of the size of the prefixes that change origins.  
 
-\begin{figure}[h!]
+\begin{figure}[ht!]
 \centering
 \includegraphics[scale=0.35]{comparePrefixes_24.pdf}
 \caption{comparePrefixes24}
 \label{fig:comparePrefixes_24}
 \end{figure}
 
-By looking at the moving average we see that the amount of subnets of size /24 that change origin along the time period didn't oscillate much. There are are several peaks that point to changes of large blocks of addresses, such as /16s or /8s.      
+By looking at the moving average we see that the amount of subnets of size /24 that change origin along the time period didn't oscillate much. There are are several peaks that point to changes of large blocks of addresses, such as /16s or /8s.
 
-\begin{figure}[h!]
+The next step was to aggregate the origin changes. The procedure was to group the origin changes and given two ASes, if they appeared in several changes, it would be count as one occurrence. Considering the case where two prefixes 1.1.2.0/24 and 1.1.3.0/24 where both advertised by AS1 and in the next iteration they started being advertised by AS2, it would lead to the pair (AS1, AS2) for each of the prefixes. The result would be one for the grouped origins that we are considering. In Figure \ref{fig:compareAggregation} are shown the results when applying this metric.       
+
+\begin{figure}[ht!]
 \centering
 \includegraphics[scale=0.35]{compareAggregation.pdf}
 \caption{compareAggregation}
 \label{fig:compareAggregation}
 \end{figure}
 
+We can see that some of the peaks dissapeared and that the graph progression turned a bit "smoother" in comparison with Figure \ref{fig:comparePrefixes}. This means that many of the origins changes that occurred were between the same pair of ASes. We also continue to notice along the time period a growing trend in the number of origin changes.
+In Figure \ref{fig:compareAggregation24} we applied the same principle, but now after decomposing the advertised prefixes into /24 subnets. 
 
 
-\begin{figure}[h!]
+\begin{figure}[ht!]
 \centering
 \includegraphics[scale=0.35]{compareAggregation_24.pdf}
 \caption{compareAggregation24}
 \label{fig:compareAggregation24}
 \end{figure}
 
-\begin{figure}[h!]
+
+
+Comparing this result with Figure \ref{fig:comparePrefixes_24} we can see huge differences. We can also notice that the graph progression became "smoother". By decomposing the advertised prefixes into /24s subnets we will get some extra information. In the previous Figure \ref{fig:compareAggregation} we were just considering exact matches between advertised prefixes from one iteration to the next. For example, if the two prefixes 1.1.0.0/16 and 1.1.1.0/24 are being advertised by AS1 and AS2 respectively and 1.1.0.0/16 is being advertised at a certain point in time while 1.1.1.0/24 is being advertised at the next point in time, when we test them for an exact match, they will not match, but if instead we decompose them into /24s, they will match for the 1.1.1.0/24 subnet resulting in an origin change for this subnet. For this reason there are higher values in this Figure then in the previous one. Here we can have a better perception of how many origin changes in /24s are happening and also to notice some deaggregation happening.  
+
+
+
+\begin{figure}[ht!]
 \centering
 \includegraphics[scale=0.35]{compareAggregationCycles.pdf}
 \caption{compareAggregationCycles}
 \label{fig:compareAggregationCycles}
 \end{figure}
 
-\begin{figure}[h!]
+In Figure \ref{fig:compareAggregationCycles} the procedure was basically the same, but here we also took into consideration the situation where the prefix origin changes to a different one and then at a certain point in time returns to the previous one, making somewhat of a cycle in its evolution. Considering the prefix 1.1.0.0/16 being advertised by AS1 in a certain point in time. In the next time period it changes its origin AS to AS2 and starts to be counted as an origin change. If at a later point in time this prefix starts to be advertised again by AS1 we remove it from the counting as a change. Here we remove situations where institutions that have more than one AS number, use them for traffic engineering, for example.  In comparison with Figure \ref{fig:compareAggregation} we can see that the graph progression became "smoother" and that the overall value of prefix changes got lower.
+
+\begin{figure}[ht!]
 \centering
 \includegraphics[scale=0.35]{compareAggregationCycles_24.pdf}
 \caption{compareAggregationCycles24}
 \label{fig:compareAggregationCycles24}
 \end{figure}
+
+Figure \ref{fig:compareAggregationCycles24} shows the results of applying this cycle removal to Figure \ref{fig:compareAggregation24}. We can again see that the graph progression became "smoother" and that the overall value of prefix changes got lower. 
+
+Our next analysis inferred on the number of days that passed sinced a prefix was allocated and started to be routed. Here we take the prefixes allocated from the allocation files and deaggregate them into /24 subnets. We then use these subnets to search in BGP raw data a first time that we see an occurrence of the subnet and when we encounter one we calculate the days that passed since it was allocated. We use a allocation filter so that when we search through the BGP raw data we only do a positive match if the encountered prefix has already been before the time instance of the BGP file.  
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[scale=0.35]{densityGlobal.pdf}
+\caption{densityGlobal}
+\label{fig:densityGlobal}
+\end{figure}
+
+In Figure \ref{fig:densityGlobal} it is shown a density plot regarding the number of days that passed. We can see that the higher density is until 1250 days that passed. We can then see that the density increased again between 2500 and 5000 days. This is due to the fact that the allocation files contain allocations since 1982 while there are only BGP data files since 2001. To overcome this...
+
+An important day for our analysis is February 3 2011, when the Internet Assigned Numbers Authority allocated the remaining /8 blocks to the Regional Internet Registries. Therefore we decided to analyze what happen before and after this date with regards to the number o days that took for a allocated prefix to be seen in routing. The results for before the date are shown in Figure \ref{fig:densityBefore}
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[scale=0.35]{densityBefore.pdf}
+\caption{densityBefore}
+\label{fig:densityBefore}
+\end{figure}
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[scale=0.35]{densityAfter.pdf}
+\caption{densityAfter}
+\label{fig:densityAfter}
+\end{figure}
+
+In Figure \ref{fig:densityYearly} is represented standard deviation
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[scale=0.35]{densityYearly.pdf}
+\caption{densityYearly}
+\label{fig:densityYearly}
+\end{figure}
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[scale=0.35]{densityYearlyShort.pdf}
+\caption{densityYearly}
+\label{fig:densityYearly}
+\end{figure}
+
+
 
 \begin{figure}[h!]
 \centering
