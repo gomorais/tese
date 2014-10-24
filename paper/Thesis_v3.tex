@@ -580,23 +580,41 @@ Our next analysis inferred on the number of days that passed sinced a prefix was
 \label{fig:densityGlobal}
 \end{figure}
 
-In Figure \ref{fig:densityGlobal} it is shown a density plot regarding the number of days that passed. We can see that the higher density is until 1250 days that passed. We can then see that the density increased again between 2500 and 5000 days. This is due to the fact that the allocation files contain allocations since 1982 while there are only BGP data files since 2001. To overcome this...
-
-An important day for our analysis is February 3 2011, when the Internet Assigned Numbers Authority allocated the remaining /8 blocks to the Regional Internet Registries. Therefore we decided to analyze what happen before and after this date with regards to the number o days that took for a allocated prefix to be seen in routing. The results for before the date are shown in Figure \ref{fig:densityBefore}
-
-\begin{figure}[ht!]
-\centering
-\includegraphics[scale=0.35]{densityBefore.pdf}
-\caption{densityBefore}
-\label{fig:densityBefore}
-\end{figure}
+In Figure \ref{fig:densityGlobal} it is shown a density plot regarding the number of days that passed. We can see that the higher density is until 1250 days that passed. We can then see that the density increased again between 2500 and 5000 days. This is due to the fact that the allocation files contain allocations since 1982 while there are only BGP data files since 2001. For this reason we decided to just process allocations made after the year 2001, or our results would be biased.The relevant values are maximum = 11315, mean = 1327.47, median = 256 and standard deviation = 1763.316. 
+Has we can see in Figure \ref{fig:densityGlobal2001}, the density values that were shown between 2500
+and 5000 days  are not present anymore and the density values are now between 0 and 1000, being the majority between 0 and 250. The relevant values are maximum = 4338, mean = 155.1632, median = 56 and standard deviation = 246.6986.
 
 \begin{figure}[ht!]
 \centering
-\includegraphics[scale=0.35]{densityAfter.pdf}
-\caption{densityAfter}
-\label{fig:densityAfter}
+\includegraphics[scale=0.35]{densityGlobal2001.pdf}
+\caption{densityGlobal2001}
+\label{fig:densityGlobal2001}
 \end{figure}
+
+An important day for our analysis is February 3 2011, when the Internet Assigned Numbers Authority allocated the remaining /8 blocks to the Regional Internet Registries. Therefore we decided to analyze what happen before and after this date with regards to the number of days that took for a allocated prefix to be seen in routing. Our assumption was that after 2011 and after the RIRs changed their allocation polices, companies needing IPv4 addresses would also use them faster then before. 
+The results for before February 3, 2011 are shown in Figure \ref{fig:densityBefore}. Once again we have to limit our study to prefixes allocated after 2001.  
+
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[scale=0.35]{densityBefore2001.pdf}
+\caption{densityBefore2001}
+\label{fig:densityBefore2001}
+\end{figure}
+
+The relevant values are maximum = 4338, mean = 162.2353, median = 58 and standard deviation = 255.6121.
+
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[scale=0.35]{densityAfter2001.pdf}
+\caption{densityAfter2001}
+\label{fig:densityAfter2001}
+\end{figure}
+
+The relevant values are maximum = 1154, mean = 119.257, median = 40 and standard deviation = 191.2714.
+
+
 
 In Figure \ref{fig:densityYearly} is represented standard deviation
 
@@ -623,7 +641,119 @@ In Figure \ref{fig:densityYearly} is represented standard deviation
 \label{fig:routingStatusGlobal}
 \end{figure}
 
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.35]{routeStatusGlobal8.pdf}
+\caption{routingStatusGlobal8}
+\label{fig:routingStatusGlobal8}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.35]{routeStatusArin.pdf}
+\caption{routingStatusArin}
+\label{fig:routingStatusArin}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.35]{routeStatusArin8.pdf}
+\caption{routingStatusArin}
+\label{fig:routingStatusArin}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.35]{routeStatusAfrinic.pdf}
+\caption{routingStatusAfrinic}
+\label{fig:routingStatusAfrinic}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.35]{routeStatusAfrinic8.pdf}
+\caption{routingStatusAfrinic8}
+\label{fig:routingStatusAfrinic8}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.35]{routeStatusApnic.pdf}
+\caption{routingStatusApnic}
+\label{fig:routingStatusApnic}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.35]{routeStatusApnic8.pdf}
+\caption{routingStatusApnic8}
+\label{fig:routingStatusApnic8}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.35]{routeStatusLacnic.pdf}
+\caption{routingStatusLacnic}
+\label{fig:routingStatusLacnic}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.35]{routeStatusLacnic8.pdf}
+\caption{routingStatusLacnic8}
+\label{fig:routingStatusLacnic8}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.35]{routeStatusRipe.pdf}
+\caption{routingStatusRipe}
+\label{fig:routingStatusRipe}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.35]{routeStatusRipe8.pdf}
+\caption{routingStatusRipe8}
+\label{fig:routingStatusRipe8}
+\end{figure}
+
+test
+
+test
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.35]{routeStatusRelativeFull.pdf}
+\caption{routingStatusRelativeFull}
+\label{fig:routingStatusRelativeFull}
+\end{figure}
+
+test
+
+test
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.35]{routeStatusRelativePart.pdf}
+\caption{routingStatusRelativePart}
+\label{fig:routingStatusRelativePart}
+\end{figure}
+
+test 
+\clearpage
+test
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.35]{routeStatusRelativeNot.pdf}
+\caption{routingStatusRelativeNot}
+\label{fig:routingStatusRelativeNot}
+\end{figure}
+
 \chapter{Conclusion}
+
+
 \bibliographystyle{plain}
 \renewcommand\bibname{\chapter{References}}
 \begin{thebibliography}{count}
