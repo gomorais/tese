@@ -580,9 +580,9 @@ Our next analysis inferred on the number of days that passed sinced a prefix was
 \label{fig:densityGlobal}
 \end{figure}
 
-In Figure \ref{fig:densityGlobal} it is shown a density plot regarding the number of days that passed. We can see that the higher density is until 1250 days that passed. We can then see that the density increased again between 2500 and 5000 days. This is due to the fact that the allocation files contain allocations since 1982 while there are only BGP data files since 2001. For this reason we decided to just process allocations made after the year 2001, or our results would be biased.The relevant values are maximum = 11315, mean = 1327.47, median = 256 and standard deviation = 1763.316. 
+In Figure \ref{fig:densityGlobal} it is shown a density plot regarding the number of days that passed. We can see that the higher density is until 1250 days that passed. We can then see that the density increased again between 2500 and 5000 days. This is due to the fact that the allocation files contain allocations since 1982 while there are only BGP data files since 2001. For this reason we decided to just process allocations made after the year 2001, or our results would be biased. Just by analyzing the plot it is hard to get to a conclusion and some statistical values are important, such as maximum = 11315, mean = 1327.47, median = 256 and standard deviation = 1763.316. 
 Has we can see in Figure \ref{fig:densityGlobal2001}, the density values that were shown between 2500
-and 5000 days  are not present anymore and the density values are now between 0 and 1000, being the majority between 0 and 250. The relevant values are maximum = 4338, mean = 155.1632, median = 56 and standard deviation = 246.6986.
+and 5000 days  are not present anymore and the density values are now between 0 and 1000, being the majority between 0 and 250. If we compare the previous statistical values with the current ones,maximum = 4338, mean = 155.1632, median = 56 and standard deviation = 246.6986, we can notice a huge difference. The maximum value is almost three times less, the mean eight times less,the median around five times and the standard deviation also much lower. This was due to be considering allocated prefixes before 2001 and the sample was being biased.
 
 \begin{figure}[ht!]
 \centering
@@ -592,7 +592,7 @@ and 5000 days  are not present anymore and the density values are now between 0 
 \end{figure}
 
 An important day for our analysis is February 3 2011, when the Internet Assigned Numbers Authority allocated the remaining /8 blocks to the Regional Internet Registries. Therefore we decided to analyze what happen before and after this date with regards to the number of days that took for a allocated prefix to be seen in routing. Our assumption was that after 2011 and after the RIRs changed their allocation polices, companies needing IPv4 addresses would also use them faster then before. 
-The results for before February 3, 2011 are shown in Figure \ref{fig:densityBefore}. Once again we have to limit our study to prefixes allocated after 2001.  
+The results for before February 3, 2011 are shown in Figure \ref{fig:densityBefore2001}. Once again we have to limit our study to prefixes allocated after 2001.  
 
 
 \begin{figure}[ht!]
@@ -602,7 +602,7 @@ The results for before February 3, 2011 are shown in Figure \ref{fig:densityBefo
 \label{fig:densityBefore2001}
 \end{figure}
 
-The relevant values are maximum = 4338, mean = 162.2353, median = 58 and standard deviation = 255.6121.
+The statistical values for this distribution are: maximum = 4338; mean = 162.2353; median = 58 and standard deviation = 255.6121. We can already see that the maximum value for this distribution is the same as the value for the global distribution and the mean was higher then the global one. This is already an indication that this distribution has some of the biggest values in term of days passed. When we consider the median and the standard deviation, we can assume that this distribution will have higher values then a distribution just considering the period after 2011, which is shown in Figure \ref{fig:densityAfter2001}.
 
 
 \begin{figure}[ht!]
@@ -612,11 +612,7 @@ The relevant values are maximum = 4338, mean = 162.2353, median = 58 and standar
 \label{fig:densityAfter2001}
 \end{figure}
 
-The relevant values are maximum = 1154, mean = 119.257, median = 40 and standard deviation = 191.2714.
-
-
-
-In Figure \ref{fig:densityYearly} is represented standard deviation
+The statistical values for this distribution are: maximum = 1154, mean = 119.257, median = 40 and standard deviation = 191.2714. We can notice a higher density between 100 and 500 days in Figure \ref{fig:densityBefore2001} than in Figure \ref{fig:densityAfter2001}, but to reach a conclusion we need to compare the statistical values. By comparing them we can see that the distribution from before 2011 has a higher maximum value, higher mean, higher median and a higher standard deviation. We can conclude that the prefixes allocated after 2011 take in average less time to be seen in the BGP raw data than the ones allocated before. We need to make a reamark and refer that the time span between 2001 and 2011 is bigger than from 2011 and 2014. This means that we can have prefixes that were allocated between 2011 and 2014 and they were still not seen in the BGP data, being possible to seem them at a later point in time, changing the values that were see now.
 
 \begin{figure}[ht!]
 \centering
@@ -625,6 +621,9 @@ In Figure \ref{fig:densityYearly} is represented standard deviation
 \label{fig:densityYearly}
 \end{figure}
 
+In Figure \ref{fig:densityYearly} is represented the average number of days that passed for the prefixe to be seen in routing for each year of allocation. We can see that since 1982 until 2001 the values are decreasing linearly, due to the issue stated before. In  Figure \ref{fig:densityYearlyShor} is represented the relevant time period from 2001 until 2014. It is possible to see that the values were relatively constant until 2011 and since then they started to decrease. Again it can mean that since then prefix holders are using the prefixes quickly, but to be absolutely sure we needed a higher time span.
+
+
 \begin{figure}[ht!]
 \centering
 \includegraphics[scale=0.35]{densityYearlyShort.pdf}
@@ -632,7 +631,8 @@ In Figure \ref{fig:densityYearly} is represented standard deviation
 \label{fig:densityYearly}
 \end{figure}
 
-
+The next step in our work was to analyze the routing dynamics, in particular to see the amount of prefixes that are being advertised in BGP and its behaviour. 
+In Figure \ref{fig:routingStatusGlobal} it is shown the number of allocated prefixes and their routing status. We define routing status as: full routed prefixes; partially routed prefixes and not routed prefixes. Full routed prefixes are the  
 
 \begin{figure}[h!]
 \centering
