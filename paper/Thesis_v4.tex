@@ -43,6 +43,19 @@ transfers.
 
 \chapter{Introduction}
 
+The IP protocol is the principal communications protocol used on the Internet to deliver packets from a source host to a destination host. This is done based on the IP addresses in the packet headers, having each host an unique address. 
+The first version of this protocol and still the most dominant one is IPv4. The format of an IP address is a 32-bit number allowing a use of around 4 billion addresses. With the boom that we have been assisting in the past years regarding devices needing IP addresses, the number 4 billion reached its limit.     
+In February 2011 the organization responsible to allocate blocks of addresses to further use, the Internet Assigned Numbers Authority (IANA) allocated the last block of addresses to the Regional Internet Registries (RIR) which are in turn reponsible for allocating in their region. Each RIR asks IANA for more IP addresses by need and since the data this is no longer possible. Furthermore some RIRs have already reached a critical point and have a limited number of addresses. It means that we are facing a IPv4 address exhaustion problem and with the transition to IPv6 still not completed, we still need IPv4 addresses to supply the growing Internet market. To supply the demand IPv4 address transfer markets appeared, which are subject of debate. There are markets regulated by the RIRs, but it is not known if address space holders will adhere to the RIR policies and, most probably, IPv4 addresses will change hands without RIR knowledge.
+All these factors can cause fragmentation of the address space and larger IPv4 routing tables. Also in terms of security can be a problem that resources change hands without any kind of control, because it makes it harder to identify if the address being advertised was really allocated to the one advertising it. 
+Therefore it is important to understand what is happening in the IPv4 address space. 
+
+\subsubsection{Problem Statement}
+
+
+
+
+For the problem statement, say what you want to tackle in this thesis
+and why this matters! "in this thesis, we analyze the [...]"
 
 \chapter{Background}
 
@@ -52,6 +65,8 @@ The Internet Assigned Numbers Authority (IANA) allocated the last /8 blocks of a
 
 The objective of this thesis is exactly to study how allocations and routing have been changing since the announced depletion of IPv4 addresses. 
 
+\section{IPv4 Address Distribution}
+da
 \section{Internet Assigned Numbers Authority}
 
 In a communication protocol contex, an address is an unique identifier used to distinguish between active elements, so that the protocol can provide the necessary support to enable communication between endpoints of the network defined by the operation of the protocol. In the Internet protocol context, an "IP address is an unique identifier that is assigned to a computer's interface running the internet protocol and connected to an IP network. The format of an IP address is a 32-bit number which is normally expressed as 4 octets in "dotted decimal" notation, such as 10.0.0.1. Theoretically are allowed a maximum of 4.3 billion values for unique addresses. The IP address has a minimal internal structure, which is a division into a network part and a host part. All hosts connected to a common network share the same value of the network part of their address, and uniquely identify themselves by the unique host part of the address. Currently there are two types of IP addresses in use: IP version 4 (IPv4), which was described before and IP version 6 (IPv6). IPv4 was deployed in January 1983 and is the most commonly used version. IPv6 addresses are 128-bit numbers and are expressed as hexadecimal strings, such as 2001:0ab2:3b3::56 and it started to be deployed in 1999. Although it was created to replace IPv4, it's full deployment still didn't happen.
@@ -395,7 +410,7 @@ This representation provides a set of routes and a description of administrative
    if the ASs are connected in more than one way and the routing policy
    and differs at these two connections.
 
-\chapter{Problem Statement}
+\section{IPv4 Address Exhaustion}
 
 Since the 90s that the technical community knows that the use of IPv4 could not scale in a global deployment containing vast concentrations of communicating devices, due to the fact that IPv4 is limited to 4 billion addresses. To tackle this, IPv6 was created. Its technical specification was completed by 1996 and at this time it was initiated a programme to promote the need to transition from IPv4 to IPv6 before the anticipated exhaustion of the IPv4 address pool. The major challenge to achieve this is that IPv6 is not backward compatible with IPv4, meaning that we cannot just replace IPv4 with IPv6. End devices, networks and service delivery points need to be able to support both protocols simultaneously and be able to provide a dual protocol capability before the IPv4 component of the network is taken out of service.     
 
@@ -506,7 +521,7 @@ It is possible to see that a great number of peers provide less information than
 
 By doing this we reduced drastically the amount of data that would have to be analyzed and at the same time we would have a dataset capable of ensuring the best possible data quality. 
 
-\chapter{Results}
+\chapter{Analysis  Results}
 
 Our first approach was to analyze the number of prefixes that changed origin during the time period. To do this we map for every month the advertised prefix to its origin AS. Next we check how many prexifes are being advertised, in the next month by a different AS. The results are shown in Figure \ref{fig:comparePrefixes}.
 
