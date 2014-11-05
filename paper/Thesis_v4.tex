@@ -47,81 +47,37 @@ The IP protocol is the principal communications protocol used on the Internet to
 The first version of this protocol and still the most dominant one is IPv4. The format of an IP address is a 32-bit number allowing a use of around 4 billion addresses. With the boom that we have been assisting in the past years regarding devices needing IP addresses, the number 4 billion reached its limit.     
 In February 2011 the organization responsible to allocate blocks of addresses to further use, the Internet Assigned Numbers Authority (IANA) allocated the last block of addresses to the Regional Internet Registries (RIR) which are in turn reponsible for allocating in their region. Each RIR asks IANA for more IP addresses by need and since the data this is no longer possible. Furthermore some RIRs have already reached a critical point and have a limited number of addresses. It means that we are facing a IPv4 address exhaustion problem and with the transition to IPv6 still not completed, we still need IPv4 addresses to supply the growing Internet market. To supply the demand IPv4 address transfer markets appeared, which are subject of debate. There are markets regulated by the RIRs, but it is not known if address space holders will adhere to the RIR policies and, most probably, IPv4 addresses will change hands without RIR knowledge.
 All these factors can cause fragmentation of the address space and larger IPv4 routing tables. Also in terms of security can be a problem that resources change hands without any kind of control, because it makes it harder to identify if the address being advertised was really allocated to the one advertising it. 
-Therefore it is important to understand what is happening in the IPv4 address space. 
+Therefore it is important to understand what is happening with the IPv4 address space. 
 
 \subsubsection{Problem Statement}
 
+In this thesis, we propose to analyze the affects of IPv4 exaushtion on the routing and allocationd dynamics. Being aware of the IPv4 address depletion and knowing that there is still a growing need for addresses we intend to analyze how routing is being influenced and try to answer some questions, such as "is the number of prefixes that are being routed increasing?", "are the allocated prefixes being full routed, just part of them or not at all?", "are allocated prefix blocks being used by multiple Ases and how this has been changing?". These question are important to answer not only for more technical aspects, such as growing of router routing tables, but also to have a understanding of how much address space is really in use and if it is possible to reuse IPv4 addresses. Facing a IPv4 depletion and being necessary to continue using IPv4 this is definitely an important aspect that cannot be desregarded. If there is a way to recover IPv4 address space that is not in use, we should consider steps to do so. 
+Another aspect to have a glance at is how the registries are coping with the increase of prefixes being advertised and are these being registred somehow. Although this thesis is not about security, it is important to have an understanding of the amount of prefixes being routed that are actually registred and that we can get information about their holders. This information might be relevant not only for security reasons, but also for troubleshooting.  
 
 
-
-For the problem statement, say what you want to tackle in this thesis
-and why this matters! "in this thesis, we analyze the [...]"
 
 \chapter{Background}
 
 As defined by the Federal Networking Council (FNC) in October 1995, the term internet "refers to the global information system that -- (i) is logically linked together by a globally unique address space based on the Internet Protocol (IP) or its subsequent extensions/follow-ons; (ii) is able to support communications using the Transmission Control Protocol/Internet Protocol (TCP/IP) suite or its subsequent extensions/follow-ons, and/or other IP-compatible protocols; and (iii) provides, uses or makes accessible, either publicly or privately, high level services layered on the communications and related infrastructure described herein". To Internet Protocol (IP) being used was version 4 or IPv4 allowing a use of around 4 billion addresses to ensure a globally unique address space. 
 But as early as the 90s concerns have been raised in the technical community reagarding the scalability of the number of addresses in IPv4 when facing a world wide deployment with a high density of communicating devices. To tackle this issue IPv6 was created which allows 2\^128, that is more than 7.9×10\^28 times as many as IPv4 addresses. 
-The Internet Assigned Numbers Authority (IANA) allocated the last /8 blocks of addresses to the Regional Internet Registries in February 2011 and APNIC and RIPE already started allocating addresses from their last /8 blocks, which led to stricter allocation policies. Althought this event and the fact that the technical specification of IPv6 was mostly completed by 1996, the transition from IPv4 to IPv6 never happened. It has been possible to extend the life of IPv4 address space and the question that arises is how are alloctions and routing dynamics affected by this?     
+The Internet Assigned Numbers Authority (IANA) allocated the last /8 blocks of addresses to the Regional Internet Registries in February 2011 and APNIC and RIPE already started allocating addresses from their last /8 blocks, which led to stricter allocation policies. Althought this event and the fact that the technical specification of IPv6 was mostly completed by 1996, the transition from IPv4 to IPv6 never happened. It has been possible to extend the life of IPv4 address space and the question that arises is how are allocations and routing dynamics affected by this?
+The holders of blocks of IPv4 addresses need an Autonomous System (AS) number that will be matched to the prefix they are advertising. In order to forward packets from one source AS to a destination AS, routing is needed and therefore we will have a look at how routing works at this level. 
 
-The objective of this thesis is exactly to study how allocations and routing have been changing since the announced depletion of IPv4 addresses. 
+\section{Routing on the Internet}
 
-\section{IPv4 Address Distribution}
-da
-\section{Internet Assigned Numbers Authority}
+The internet has a decentralized architecture composed of many interconnected networks, where the end systems are called hosts. At an intermediate level there are routers, which are responsible for selecting the paths that information takes in order to get to the respective end system. The selection of the right path is done by a routing process and is determined by routing protocols. These protocols are responsible not only for performing path selectiong, but also to communicate reachability information. A group of IP networks which has a single defined external routing policy is called an Autonomous System (AS) and the process of routing whithin an AS is called intradomain routing, while routing between ASes is called interdomain routing. The de facto protocol used on the Internet for interdomain routing is the Border Gateway Protocol (BGP). BGP provides ASes a way to obtain reachability information from neighboring ASes and propagate this information to all routers inside the AS, allows each subnet to advertise its existence to the Internet and allows ASes to determine which routes are "good" to other subnets based on reachability information and AS policy.
 
-In a communication protocol contex, an address is an unique identifier used to distinguish between active elements, so that the protocol can provide the necessary support to enable communication between endpoints of the network defined by the operation of the protocol. In the Internet protocol context, an "IP address is an unique identifier that is assigned to a computer's interface running the internet protocol and connected to an IP network. The format of an IP address is a 32-bit number which is normally expressed as 4 octets in "dotted decimal" notation, such as 10.0.0.1. Theoretically are allowed a maximum of 4.3 billion values for unique addresses. The IP address has a minimal internal structure, which is a division into a network part and a host part. All hosts connected to a common network share the same value of the network part of their address, and uniquely identify themselves by the unique host part of the address. Currently there are two types of IP addresses in use: IP version 4 (IPv4), which was described before and IP version 6 (IPv6). IPv4 was deployed in January 1983 and is the most commonly used version. IPv6 addresses are 128-bit numbers and are expressed as hexadecimal strings, such as 2001:0ab2:3b3::56 and it started to be deployed in 1999. Although it was created to replace IPv4, it's full deployment still didn't happen.
-
-
-The Internet Assigned Numbers Authority, also known as IANA, is responsible for the global coordination of the Internet Protocol (IP) address system and also of the Autonomous Systems Numbers which are used for routing traffic on the internet.  
-
-\begin{figure}[h!]
-\centering
-\includegraphics[scale=0.5]{IR-structure-diagram.png}
-\caption{Global Structure of the Internet Registry System}
-from http://www.ripe.net/internet-coordination/internet-governance/internet-technical-community/the-rir-system
-\label{fig:ir_structure_diagram}
-\end{figure}
-
-IP addresses are assigned in hierarchical manner as shown in Figure \ref{fig:ir_structure_diagram}. Internet Service Providers obtain allocations of addresses from a Local Internet Registry (LIR), a National Internet Registry (NIR) or from the corresponding Regional Internet Registry (RIR) and in turn they assign IP addresses to end users. IANA's main purpose is to allocate IP addresses from pools of unallocated addresses to the Regional Internet Registries according to their needs. IANA does not make allocation of IP addresses directly to ISPs or users except for allocations of multicast addresses or protocol specific needs. If a RIR requires further IP addresses for allocation, IANA makes an additional allocation to the RIR. There are five RIRs, each one responsible for a specific region: AFRINIC for Africa Region, APNIC for Asia Pacific Region, ARIN for North America Region, LACNIC for Latin America and the Caribbean Regions, RIPE NCC for Europe, Middle East and Central Asia Regions. The five RIRs are represented in Figure \ref{fig:rirs_image}.
-
-\begin{figure}[h!]
-\centering
-\includegraphics[scale=0.5]{RIR.jpeg}
-\caption{Regional Internet Registries Service Regions}
-from http://www.ripe.net/internet-coordination/internet-governance/internet-technical-community/the-rir-system
-\label{fig:rirs_image}
-\end{figure}
-
-\section{Regional Internet Registries}
-from http://www.ripe.net/internet-coordination/internet-governance/internet-technical-community/the-rir-system and http://www.ripe.net/lir-services/resource-management/faq/faq-ipv4-address-space
-
-
-Among the tasks of a RIR are the coordination and representation of the members in its region. RIRs work together in order to develop consistent policies and promote best current practice for the Internet. As mentioned before RIRs are also responsible for allocating and assigning IP addresses within their respective regions. 
-
-Local Internet Registries (LIR) are  established under the authority of a RIR and are responsible for the distribution and registration of address space at a local level. LIRs also ensure that resource allocation policies from RIRs are followed at a local level. LIRs are essentially members of a RIR and are normally operated by Internet Service Providers, but can also be large corportaions, governments and regulators.
-
-from http://meetings.ripe.net/ripe-42/presentations/ripe42-lir-rfc2050/sld002.html using rfc - http://www.rfc-editor.org/rfc/rfc2050.txt and http://www.rfc-editor.org/rfc/rfc7020.txt
-
-The Internet Registry IP Allocation Guidelines were described in RFC 2050, which became obsolete with the introduction of RFC 7020. The objective of this document is to provide information about the Internet Numbers Registry System used in the distribution of globally unique Internet Protocol (IP) address space and autonomous system (AS) numbers and not to propose changes to the current system. Internet number resources are distributed according to three main goals: Allocation Pool Management; Hierarchical Allocation and Registration Accuracy. The goal of Allocation Pool Management is to allocate number resources in accordance to the needs of those running networks, but takink into consideration pool limitations when allocating. This is relevant as the pools from which IP addresses and AS numbers are allocated are finite. Hierarchical Allocation refers to the need of allocating IP addresses in a way that permits their aggregation into a minimum number of routing announcements, in order to ensure continued scaling of the Internet's routing system. The last goal, Registration Accuracy,  requires that a registry of allocations is maintained in order to provide accurate registration information of allocations and ensure uniqueness. This way it is ensured that IP addresses and AS numbers are not allocated to more than one organization.  
-
-
-   
-from http://www.ripe.net/ripe/docs/ripe-606
-
-\section{Border Gateway Protocol}
-
-The internet has a decentralized architecture composed of many interconnected networks, where the end systems are called hosts. At an intermediate level there are routers, which are responsible for selecting the paths that information takes in order to get to the respective end system. The selection of the right path is done by a routing process is determined by routing protocols. These protocols are responsible not only for performing path selectiong, but also to communicate reachability information. A group of IP networks which has a single defined external routing policy is called an Autonomous System (AS) and the process of routing whithin an AS is called intradomain routing, while routing between ASes is called interdomain routing. The de facto protocol used on the Internet for interdomain routing is the Border Gateway Protocol (BGP).
 Although BGP has been deployed since the comercialization of the Internet, and version 4 of the protocol has been used for over a decade, it doesn't provide any kind of performance or security guarantees. This limition has already contributed to instabilities and outages \cite{Misdirection} such as a youtube outage caused by Pakistan Telekom \cite{Pakistan}. 
 
 	Thousands ASes make part of the internet and use BGP to exchange information about how to reach blocks of destination IP addresses, which are called IP prefixes. Everytime a new route is available a BGP-speaking router sends an announcement message and when a route no longer exists, it sends a withdrawal message (incremental protocol). BGP is considered a path-vector protocol, because each AS adds its own AS number to the beginning of the AS path before advertising the route to the next AS. Each router will then select one preferred BGP route for each destination prefix. When selecting a route complex policies may be applied which will also decide whether to advertise the route to a neighboring router in another AS.   
 
-	- IP prefixes and AS Numbers
+\subsubsection{IP prefixes and AS Numbers}
 	
 	An IP address is a 32-bit number, normally represented in dotted-decimal notation (168.1.2.3), where each of the four octets is represented by a seperate integer. When addresses are assigned to institutions they are blocks of adjacent addresses, which will be represented by the first address of the block and a mask length. The prefix 168.1.2.0/24 contains all the addresses where the first three octets are 168.1.2 and the fourth octet is between 0 and 255, meaning all the addresses between 168.1.2.0 and 168.1.2.255. Allocating addresses in blocks also has the advantage that these blocks can be advertised by routers as a block, instead of having to advertise every IP address, leading to smaller routing tables and less route advertisements. IP prefixes may be contained within another, when that happens an IP router decides to forward a data packet by choosing the longest prefix match according to the destination IP address of that packet. For example, if a router has routing information for two prefixes 168.1.0.0/16 and 168.1.2.0/24 and needs to forward a packet with the destination IP address 168.1.2.3 it will choose the more specific prefix 168.1.2.0/24. 
 
 AS numbers are assigned in a similar manner where from 1 to 64511 are public and have Internet-wide scope. Each number corresponds to only one AS. These numbers can appear in the AS-path attribute of BGP advertisements. Some institutions may not need an unique AS number, for example, if it connects to a single upstream provider that has the responsibility of providing connectivity to the rest of the Internet. In this case the customer may be assigned a private AS number with ranges from 64512 to 65535 for BGP communication with its provider. The provider would then advertise the routes on behalf of the customer. This allows providers to reuse the same private AS number for their customers.
 
-When an AS introduces a destination prefix into the global routing system, by advertising the prefix to its neighboring ASes, it is called the originating AS. In Figure \ref{fig:bgpAdvertisement} we see AS 1 advertising a route for 10.0.0.0/8 with an AS path of "1". When AS 2 receives this advertisement, appends its own AS number to the front of the path and advertises the route with an AS path of "2,1" to the next AS . In the end of this process we see that AS 5 has two diferent paths to the route 10.0.0.0/8 related to its neighbouring ASes.
+When an AS introduces a destination prefix into the global routing system, by advertising the prefix to its neighboring ASes, it is called the originating AS. In Figure \ref{fig:bgpAdvertisement} we see AS 1 advertising a route for 10.0.0.0/8 with an AS path of "1". When AS 2 receives this advertisement, appends its own AS number to the front of the path and advertises the route with an AS path of "2,1" to the next AS. In the end of this process we see that AS 5 has two diferent paths to the route 10.0.0.0/8 related to its neighbouring ASes.
 
 \begin{figure}[h!]
 \centering
@@ -139,7 +95,7 @@ One vulnerability is that BGP does not ensure that a BGP-speaking router making 
 \label{fig:bgpMaliciousAdvertisement}
 \end{figure}
 
-In the case that the offending AS just drops all packets destined to the hijacked addresses, the effect is known as a black hole, where the destinations seem unreachable to the parts of the Internet affected by this prefix advertisement. In the case that the AS decides to direct the traffic to hosts under its control the effect can be more severe, as the they can pretend to be the service provided by the hijacked destination. In this situation the traffic received by the AS can be analyzed and sensitive information, such as passwords or credit-card numbers, can fall in the wrong hands. It can also happen that the prefix hijacking is used to analyze the traffic before forwarding it to the correct destination, which would be a breach in the user's privacy. In order for an AS to do such an hijacking attack, it could advertise more specific prefixes then the ones in the original block (e.g., 10.1.128.0/17 and 10.1.0.0/16). This would work because of the longest prefix match rule used by IP routers, that forward packets to the more specific address range. In Figure \ref{fig:bgpDeaggregationAdvertisement} we can see an example. By advertising a more specific prefix (10.0.0.0/9), AS 5 will receive the traffic that had destination to AS 1 .
+In the case that the offending AS just drops all packets destined to the hijacked addresses, the effect is known as a black hole, where the destinations seem unreachable to the parts of the Internet affected by this prefix advertisement. In the case that the AS decides to direct the traffic to hosts under its control the effect can be more severe, as the they can pretend to be the service provided by the hijacked destination. In this situation the traffic received by the AS can be analyzed and sensitive information, such as passwords or credit-card numbers, can fall in the wrong hands. It can also happen that the prefix hijacking is used to analyze the traffic before forwarding it to the correct destination, which would be a breach in the user's privacy. In order for an AS to do such an hijacking attack, it could advertise more specific prefixes then the ones in the original block (e.g., 10.1.128.0/17 and 10.1.0.0/16). This would work because of the longest prefix match rule used by IP routers, that forward packets to the more specific address range. In Figure \ref{fig:bgpDeaggregationAdvertisement} we can see an example. By advertising a more specific prefix (10.0.0.0/9), AS 5 will receive the traffic that had destination to AS 1.
 
 \begin{figure}[h!]
 \centering
@@ -164,35 +120,54 @@ Besides being connected through physical links ASes are also bound by business o
 
 As seen before BGP routers can can be configured with route attributes in order to influentiate the route that is chosen. This allows to filter received (import policy) and advertised routes (export policy) to its neighbors while choosing where to forward its traffic. The problem is that the way an AS selects routes can be manipulated by sending BGP route announcements with bogus attributes. The AS-path attribute could be truncated to look shorter and therefore more attractive or add additional AS hops at the end. An AS could remove a particular hop from the AS path to modify traffic through certain ASes, or may add an AS number to the AS path so the the target AS would delete ith own AS number thinking it was a loop. An AS could also try to attach MED values to the routes to try to influentiate the route decision. 
 
-from book computer networking
+One way to achieve a more reliable routing is by using the Routing Registries. We will explain later in more detail what are the Routing Registries, but their purpose is to provide a shared and global view of routing information. With an accurate routing registry of prefix ownership, AS-level connectivity and routing policies ASes could easily detect and discard invalid routes.  
 
-BGP provides each AS ways  to:
+After looking to how packets are forwarded in the Internet, the question that follows is how are IPv4 prefixes and AS numbers assigned. To that effect we will have a closer lookg to the Internet Assigned Numbers Authority and Regional Internet Registries.
 
-- Obtain reachability information from neighboring ASes.
-- Propagate the reachability information to all routers internal to the AS
-- Determine "good" routes to subnets based on the reachability information and AS policy
-- Most importantly, BGP allows each subnet to advertise its existence to the rest of the Internet
+\section{IPv4 Address Distribution}
+da
+\subsection{Internet Assigned Numbers Authority}
 
-In BGP, destinations are not hosts bu CIDRized prefixes, with each prefix representing a subnet or a collection of subnets. BGP peers advertise routes to each other. Two important attributes are AS-PATH and NEXT-HOP:
- - AS-PATH: contains the ASs through which the advertisement for the prefix has passed. When a prefix is passed into an AS, the AS adds its AS number to the AS-PATH attribute.
- -NEXT-HOP: is the router interface that begins the AS-PATH. 
+In a communication protocol context, an address is an unique identifier used to distinguish between active elements, so that the protocol can provide the necessary support to enable communication between endpoints of the network defined by the operation of the protocol. In the Internet protocol context, an "IP address is an unique identifier that is assigned to a computer's interface running the internet protocol and connected to an IP network. The format of an IP address is a 32-bit number which is normally expressed as 4 octets in "dotted decimal" notation, such as 10.0.0.1. Theoretically are allowed a maximum of 4.3 billion values for unique addresses. The IP address has a minimal internal structure, which is a division into a network part and a host part. All hosts connected to a common network share the same value of the network part of their address, and uniquely identify themselves by the unique host part of the address. Currently there are two types of IP addresses in use: IP version 4 (IPv4), which was described before and IP version 6 (IPv6). IPv4 was deployed in January 1983 and is the most commonly used version. IPv6 addresses are 128-bit numbers and are expressed as hexadecimal strings, such as 2001:0ab2:3b3::56 and it started to be deployed in 1999. Although it was created to replace IPv4, it's full deployment still didn't happen.
 
 
+The Internet Assigned Numbers Authority, also known as IANA, is responsible for the global coordination of the Internet Protocol (IP) address system and also of the Autonomous Systems Numbers which are used for routing traffic on the internet.  
 
-D. Routing Registries
-Despite the benefits of protective route filtering,
-detecting and disregarding bogus BGP routes is more
-challenging when the erroneous information stems from a
-misconfiguration or an attack several AS hops away.
-Having a shared, global view of Bcorrect[ routing
-information would make it much easier to detect invalid
-routes. An accurate routing registry [48] of, for example,
-prefix ownership, AS-level connectivity, and routing
-policies would enable security-conscious ASes to detect
-and discard invalid routes. 
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.5]{IR-structure-diagram.png}
+\caption{Global Structure of the Internet Registry System, source:\cite{FIG_GLOBAL_IRS}}
+\label{fig:ir_structure_diagram}
+\end{figure}
+
+IP addresses are assigned in hierarchical manner as shown in Figure \ref{fig:ir_structure_diagram}. Internet Service Providers obtain allocations of addresses from a Local Internet Registry (LIR), a National Internet Registry (NIR) or from the corresponding Regional Internet Registry (RIR) and in turn they assign IP addresses to end users. IANA's main purpose is to allocate IP addresses from pools of unallocated addresses to the Regional Internet Registries according to their needs. IANA does not make allocation of IP addresses directly to ISPs or users except for allocations of multicast addresses or protocol specific needs. If a RIR requires further IP addresses for allocation, IANA makes an additional allocation to the RIR. There are five RIRs, each one responsible for a specific region: AFRINIC for Africa Region, APNIC for Asia Pacific Region, ARIN for North America Region, LACNIC for Latin America and the Caribbean Regions, RIPE NCC for Europe, Middle East and Central Asia Regions. The five RIRs are represented in Figure \ref{fig:rirs_image}.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.5]{RIR.jpeg}
+\caption{Regional Internet Registries Service Regions, source:\cite{FIG_GLOBAL_IRS}}
+\label{fig:rirs_image}
+\end{figure}
+
+\subsection{Regional Internet Registries}
+from http://www.ripe.net/internet-coordination/internet-governance/internet-technical-community/the-rir-system and http://www.ripe.net/lir-services/resource-management/faq/faq-ipv4-address-space
 
 
-\section{Internet Routing Registries}
+Among the tasks of a RIR are the coordination and representation of the members in its region. RIRs work together in order to develop consistent policies and promote best current practice for the Internet. As mentioned before RIRs are also responsible for allocating and assigning IP addresses within their respective regions. 
+
+Local Internet Registries (LIR) are  established under the authority of a RIR and are responsible for the distribution and registration of address space at a local level. LIRs also ensure that resource allocation policies from RIRs are followed at a local level. LIRs are essentially members of a RIR and are normally operated by Internet Service Providers, but can also be large corportaions, governments and regulators.
+
+from http://meetings.ripe.net/ripe-42/presentations/ripe42-lir-rfc2050/sld002.html using rfc - http://www.rfc-editor.org/rfc/rfc2050.txt and http://www.rfc-editor.org/rfc/rfc7020.txt
+
+The Internet Registry IP Allocation Guidelines were described in RFC 2050, which became obsolete with the introduction of RFC 7020. The objective of this document is to provide information about the Internet Numbers Registry System used in the distribution of globally unique Internet Protocol (IP) address space and autonomous system (AS) numbers and not to propose changes to the current system. Internet number resources are distributed according to three main goals: Allocation Pool Management; Hierarchical Allocation and Registration Accuracy. The goal of Allocation Pool Management is to allocate number resources in accordance to the needs of those running networks, but takink into consideration pool limitations when allocating. This is relevant as the pools from which IP addresses and AS numbers are allocated are finite. Hierarchical Allocation refers to the need of allocating IP addresses in a way that permits their aggregation into a minimum number of routing announcements, in order to ensure continued scaling of the Internet's routing system. The last goal, Registration Accuracy,  requires that a registry of allocations is maintained in order to provide accurate registration information of allocations and ensure uniqueness. This way it is ensured that IP addresses and AS numbers are not allocated to more than one organization.  
+
+
+   
+from http://www.ripe.net/ripe/docs/ripe-606
+
+
+
+\subsection{Internet Routing Registries}
 http://www.nanog.org/meetings/nanog51/presentations/Sunday/NANOG51.Talk34.NANOG51%20IRR%20Tutorial.pdf
 
 from http://www.nsfnet-legacy.org/about.php
@@ -207,10 +182,10 @@ The National Science Foundation inherited the responsability for developing the 
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=0.5]{nsfnet_topology.png}
-\caption{NSFNET Topology}
-from http://www.merit.edu/research/nsfnet.php
+\caption{NSFNET Topology, source: \cite{NSFNET_Topology}}
 \label{fig:nfsnet_image}
 \end{figure}
+
 
 PRDB goal was to maintain information regarding legitimate destination announcements from the various regional networks. This information was very important in order to prevent routing loops. Only after BGP replaced EGP as the inter-domain routing protocol, it became no longer necessary to controll the avoidance of routing loops in such a administratively way. With this change, the information in PRDB turned to be mainly used to gather routing policies, such as path preferences and to generate configuration files for backbone routers.
 
@@ -423,8 +398,7 @@ The current statistics on address distribution are shown in \ref{fig:rirs_availa
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=0.3]{ipv4inRir.png}
-\caption{AVAILABLE IPv4 /8s IN EACH RIR}
-from https://www.nro.net/wp-content/uploads/NRO\_Q2\_2014-2.pdf June 2014
+\caption{AVAILABLE IPv4 /8s IN EACH RIR, source:\cite{IPv4_EACH_RIR}}
 \label{fig:rirs_available_ipv4}
 \end{figure}
 
@@ -861,6 +835,22 @@ INTERNET AND OF MEASURES TO SUPPORT THE CONTINUED USE OF IPv4}.
 	\emph{IANA IPv4 Address Space Registry}.
 	[Online]. Available: http://www.iana.org/assignments/ipv4-address-space/ipv4-address-space.xhtml
 	
+
+\bibitem{FIG_GLOBAL_IRS}
+	RIPENCC,
+	\emph{Global Structure of the Internet Registry System}.
+	[Online]. Available: http://www.ripe.net/internet-coordination/internet-governance/internet-technical-community/the-rir-system
+	
+\bibitem{NSFNET_Topology}
+	Merit,
+	\emph{NSFNET Topology}.
+	[Online]. Available: http://www.merit.edu/research/nsfnet.php	
+	
+\bibitem{IPv4_EACH_RIR}
+	Number Resource Organization,
+	\emph{AVAILABLE IPv4 /8s IN EACH RIR}.
+	[Online]. Available: https://www.nro.net/wp-content/uploads/NRO\_Q2\_2014-2.pdf
+	
 \bibitem{RIPE_last8}
 	RIPE Request an IPv4 /22 From the Last /8,
 	\emph{RIPE Request an IPv4 /22 From the Last /8}.
@@ -910,6 +900,8 @@ INTERNET AND OF MEASURES TO SUPPORT THE CONTINUED USE OF IPv4}.
 	A. Sriraman, K.R.B. Butler, P.D. McDaniel, P. Raghavan,
 	\emph{Analysis of the IPv4 Address Space Delegation Structure}.
 	In IEEE Symposium on Computers and Communications (ISCC), pages 501-508, Jul. 2007.
+	
+	from book computer networking
 	
 	http://www.internetsociety.org/internet/what-internet/history-internet/brief-history-internet
 	
