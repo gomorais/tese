@@ -125,11 +125,11 @@ One way to achieve a more reliable routing is by using the Routing Registries. W
 After looking to how packets are forwarded in the Internet, the question that follows is how are IPv4 prefixes and AS numbers assigned. To that effect we will have a closer lookg to the Internet Assigned Numbers Authority and Regional Internet Registries.
 
 \section{IPv4 Address Distribution}
-da
+
+In a communication protocol context, an address is an unique identifier used to distinguish between active elements, so that the protocol can provide the necessary support to enable communication between endpoints of the network defined by the operation of the protocol. In the Internet protocol context, an "IP address is an unique identifier that is assigned to a computer's interface running the internet protocol and connected to an IP network. The format of an IP address is a 32-bit number which is normally expressed as 4 octets in "dotted decimal" notation, such as 10.0.0.1. Theoretically are allowed a maximum of 4.3 billion values for unique addresses. The IP address has a minimal internal structure, which is a division into a network part and a host part. All hosts connected to a common network share the same value of the network part of their address, and uniquely identify themselves by the unique host part of the address. Currently there are two types of IP addresses in use: IP version 4 (IPv4), which was described before and IP version 6 (IPv6). IPv4 was deployed in January 1983 and is the most commonly used version. IPv6 addresses are 128-bit numbers and are expressed as hexadecimal strings, such as 2001:0ab2:3b3::56 and it started to be deployed in 1999. Although it was created to replace IPv4, it's full deployment still didn't happen. 
+To ensure that these addresses are unique there is the need of an organization responsible for delegating addresses and coordinating the Internet Protocol address system. 
+
 \subsection{Internet Assigned Numbers Authority}
-
-In a communication protocol context, an address is an unique identifier used to distinguish between active elements, so that the protocol can provide the necessary support to enable communication between endpoints of the network defined by the operation of the protocol. In the Internet protocol context, an "IP address is an unique identifier that is assigned to a computer's interface running the internet protocol and connected to an IP network. The format of an IP address is a 32-bit number which is normally expressed as 4 octets in "dotted decimal" notation, such as 10.0.0.1. Theoretically are allowed a maximum of 4.3 billion values for unique addresses. The IP address has a minimal internal structure, which is a division into a network part and a host part. All hosts connected to a common network share the same value of the network part of their address, and uniquely identify themselves by the unique host part of the address. Currently there are two types of IP addresses in use: IP version 4 (IPv4), which was described before and IP version 6 (IPv6). IPv4 was deployed in January 1983 and is the most commonly used version. IPv6 addresses are 128-bit numbers and are expressed as hexadecimal strings, such as 2001:0ab2:3b3::56 and it started to be deployed in 1999. Although it was created to replace IPv4, it's full deployment still didn't happen.
-
 
 The Internet Assigned Numbers Authority, also known as IANA, is responsible for the global coordination of the Internet Protocol (IP) address system and also of the Autonomous Systems Numbers which are used for routing traffic on the internet.  
 
@@ -150,32 +150,16 @@ IP addresses are assigned in hierarchical manner as shown in Figure \ref{fig:ir_
 \end{figure}
 
 \subsection{Regional Internet Registries}
-from http://www.ripe.net/internet-coordination/internet-governance/internet-technical-community/the-rir-system and http://www.ripe.net/lir-services/resource-management/faq/faq-ipv4-address-space
-
 
 Among the tasks of a RIR are the coordination and representation of the members in its region. RIRs work together in order to develop consistent policies and promote best current practice for the Internet. As mentioned before RIRs are also responsible for allocating and assigning IP addresses within their respective regions. 
 
 Local Internet Registries (LIR) are  established under the authority of a RIR and are responsible for the distribution and registration of address space at a local level. LIRs also ensure that resource allocation policies from RIRs are followed at a local level. LIRs are essentially members of a RIR and are normally operated by Internet Service Providers, but can also be large corportaions, governments and regulators.
 
-from http://meetings.ripe.net/ripe-42/presentations/ripe42-lir-rfc2050/sld002.html using rfc - http://www.rfc-editor.org/rfc/rfc2050.txt and http://www.rfc-editor.org/rfc/rfc7020.txt
-
 The Internet Registry IP Allocation Guidelines were described in RFC 2050, which became obsolete with the introduction of RFC 7020. The objective of this document is to provide information about the Internet Numbers Registry System used in the distribution of globally unique Internet Protocol (IP) address space and autonomous system (AS) numbers and not to propose changes to the current system. Internet number resources are distributed according to three main goals: Allocation Pool Management; Hierarchical Allocation and Registration Accuracy. The goal of Allocation Pool Management is to allocate number resources in accordance to the needs of those running networks, but takink into consideration pool limitations when allocating. This is relevant as the pools from which IP addresses and AS numbers are allocated are finite. Hierarchical Allocation refers to the need of allocating IP addresses in a way that permits their aggregation into a minimum number of routing announcements, in order to ensure continued scaling of the Internet's routing system. The last goal, Registration Accuracy,  requires that a registry of allocations is maintained in order to provide accurate registration information of allocations and ensure uniqueness. This way it is ensured that IP addresses and AS numbers are not allocated to more than one organization.  
 
-
-   
-from http://www.ripe.net/ripe/docs/ripe-606
-
-
+After the allocations are made, the allocated prefixes need to be advertised on the internet in order to have reachability. As mentioned before, in order for an IP prefix to be reachable, it needs to be advertised in the Internet and the protocol responsible for this is BGP. At a global level, this means that thousands of routers need to be configured to ensure reachbility. To make this process less painful the Internet Routing Registries were created, which should work as a global repository of announced routes and routing policies so that backbone routers could be easily configured. 
 
 \subsection{Internet Routing Registries}
-http://www.nanog.org/meetings/nanog51/presentations/Sunday/NANOG51.Talk34.NANOG51%20IRR%20Tutorial.pdf
-
-from http://www.nsfnet-legacy.org/about.php
-http://www.nsf.gov/about/history/nsf0050/internet/launch.htm
-http://www.hernandocadett.com/content/stability-and-consistency-internet-wide-network-routing
-https://www.nsf.gov/news/news\_summ.jsp?cntn\_id=103050
-http://www.merit.edu/research/nsfnet\_article.php
-http://www.merit.edu/services/meritradb/history.php
 
 The National Science Foundation inherited the responsability for developing the U.S. Internet from the Advanced Research Projects Agency (ARPA) and the Internet Routing Registry concept goes back to the 1980's and to the National Science Foundation Network (NSFNet).  NSFNET refers to the program sponsored by the National Science Foundation, initiated in 1985, with the purpose of support and promote advanced networking among U.S. research and education institutions. Among its participants were Merit Network, Inc., IBM, MCI, Advanced Network \& Services, Inc., the State of Michigan and many institutions in research and education. As a way to configure the MSFNET's backbone routers, the Policy Routing Database (PRDB) was used since 1989. Merit planned the retirement of PRDB for December 1994, which would be replace by the Routing Arbiter Database (RADB). RADB would then become part of the Internet Routing Registry (IRR) along with RIPE NCC, MCI and other registries. The IRR objective was to be a global public repository of announced routes and routing policy in a common format so that ISPs could use this information to configure their backbone routers and analyze routing policy.
 
@@ -189,13 +173,11 @@ The National Science Foundation inherited the responsability for developing the 
 
 PRDB goal was to maintain information regarding legitimate destination announcements from the various regional networks. This information was very important in order to prevent routing loops. Only after BGP replaced EGP as the inter-domain routing protocol, it became no longer necessary to controll the avoidance of routing loops in such a administratively way. With this change, the information in PRDB turned to be mainly used to gather routing policies, such as path preferences and to generate configuration files for backbone routers.
 
-With the transition of NSFNET to the commercial Internet, the National Science Foundation selected Merit Network and a partner organization to act as Routing Arbiters. The goal of the PRDB would be now to record global routing policy information based on each Autonomous System's policy and RADB comes into the scene. RIPE had pioneered work to record global routing policy information in Europe and the data exchange format described in RIPE-181 (RFC 1786) was adopted as the standar for Internet Routing Registries. This model was also taken by RADB. 
+With the transition of NSFNET to the commercial Internet, the National Science Foundation selected Merit Network and a partner organization to act as Routing Arbiters. The goal of the PRDB would be now to record global routing policy information based on each Autonomous System's policy and RADB comes into the scene. RIPE had pioneered work to record global routing policy information in Europe and the data exchange format described in RIPE-181 (RFC 1786) was adopted as the standard for Internet Routing Registries. This model was also taken by RADB. 
 
 The transition from PRDB presented several problems as the tools used to configure the NSFNET/ANSnet routers were based on PRDB attributes and not RIPE-181. But by December 1994, all the data in PRDB had been converted to RIPE-181-style expressions and on February next year, the RADB had been populated with RIPE-181-style Maintainer and AS Objects. 
 
 \subsubsection{RIPE-181}
-from http://www.irr.net/docs/rfc1786.txt
-
 
 The RFC-1786, which was originally published as a RIPE document (RIPE-181), describes the original database formats that were used by RIPE NCC to store routing policy in its database. As mentioned before RIPE also serves as an allocation registry, which means that its database also contains non-routing oriented objects. 
 This documents was also referred as ripe-81++ as it was an update to the original 'ripe-81' proposal for representing and storing routing polices in the RIPE database. Several extensions proposed by Merit Inc. were incorporated into this document and it provided a generalized IP routing policy representation to be used by the Internet routing registries. As it's purpose is to be a general document for Internet routing registries, one can replace the RIPE routing registries by "Regional routing registry".
@@ -311,10 +293,8 @@ There are some recommendations that the creation and allocation of an AS should 
     - In the case that a network operator connects to more than one AS with 	different routing policies, it is required for them to have their own 		AS number. 
     - The AS should always try to be populated with as many routes as 		  possible, as long as all routes have the same routing policy
    
-An As is represented by an "aut-num" object and "route" objects representing the routes originated by the AS. The "aut-num" object stores administrative information as well as the routing policies of the AS. The origin attributes of the route objects define the set of routes originated by the AS, where each object has only one origin attribute. In table \ref{table:4} it is shown an example of a AS object from a whois query on AS1104.  
+An As is represented by an "aut-num" object and "route" objects representing the routes originated by the AS. The "aut-num" object stores administrative information as well as the routing policies of the AS. The origin attributes of the route objects define the set of routes originated by the AS, where each object has only one origin attribute. In table \ref{table:4} it is shown an example of a AS object.  
     
-\# Use this object already new or the old example from the RFC???
-
 \begin{table}[h!]
 \centering
 \begin{tabular}{  r  l  }
@@ -323,67 +303,98 @@ aut-num:    &      	AS1104\\
 as-name:    &      	Nikhef\\
 descr:   	&     	FOM-Nikhef\\
 descr:   	&    	Science Park 105\\
-descr:		&   	Amsterdam, 1098 XG\\
+descr:		&   		Amsterdam, 1098 XG\\
 descr:   	&	    The Netherlands\\
-import:  	&       from AS1103 accept AS1103\\
-import:  	&       from AS1139 accept AS1139\\
-import:  	&       from AS1888 accept AS1888\\
-import:  	&       from AS1126 accept AS1126\\
-import:  	&       from AS1124 accept AS1124\\
-export:  	&       to AS1103 announce AS1104\\
-export:  	&       to AS1139 announce AS1104\\
-export:  	&       to AS1888 announce AS1104\\
-export:  	&       to AS1126 announce AS1104\\
-export:  	&       to AS1124 announce AS1104\\
+as-in:  		&       from AS1103 accept AS1103\\
+as-in:  		&       from AS1139 accept AS1139\\
+as-in:  		&       from AS1888 accept AS1888\\
+as-in:  		&       from AS1126 accept AS1126\\
+as-in:  		&       from AS1124 accept AS1124\\
+as-out:  	&       to AS1103 announce AS1104\\
+as-out:  	&       to AS1139 announce AS1104\\
+as-out:  	&       to AS1888 announce AS1104\\
+as-out:  	&       to AS1126 announce AS1104\\
+as-out:  	&       to AS1124 announce AS1104\\
 admin-c: 	&       PK8221-RIPE\\
 tech-c:  	&       PK8221-RIPE\\
-remarks: 	&       For information on "status:" attribute read https://www.ripe.net/data-tools/db/faq/faq-status-values-legacy-resources\\
 status:  	&       LEGACY\\
 mnt-by:  	&       AS1104-MNT\\
 source:  	&       RIPE \# Filtered\\
 
 \end{tabular}
-\caption{Example of whois query response to retrive information about AS1104}
+\caption{Example of auto-num object}
 \label{table:4}
 \end{table} 
 
 This representation provides a set of routes and a description of administrative details and routing policies. 
         
         
+AS Macros          
           
+The as-macro object defines a way to group ASes, so that a new AS does not have to be added to the routing policy as described by the as-in and as-out attributes of the AS object.          
           
-          
-          
+\begin{table}[h!]
+\centering
+\begin{tabular}{  r  l  }
 
+as-macro:   	&      AS-EBONE\\
+descr:    	&      ASes routed by EBONE\\
+as-list:    	&      AS2121 AS1104 AS2600 AS2122\\
+as-list:    	&      AS1103 AS1755 AS2043\\
+guardian:   	&      guardian@ebone.net\\
 
-	See Appendix A for a complete syntax definition of the "aut-num"
-   object.
+\end{tabular}
+\caption{Example of as-macro object}
+\label{table:5}
+\end{table} 
 
+The RIPE-181 standard was accepted as an IETF informational document in March 1995 (RFC1786). After IETF revised and standardized this document, the result was the Routing Policy Specification Language (RPSL). It extended the functionality of the aut-num and route objects and the as-macro became as-set object. Also several other objects were added.
+Each of the object types contains mandatory and optional attributes. There are three attributes that all objects must have: "mnt-by", identifies the mntner object that controls the object; "change", which is lists email and time of change and "source", that identifies the registry name where the object is located.
+The two most relevant objects/classes are the "mntner" and "route" objects. The mntner object is an abbreviation of maintainer and identifies the accounts in the registry.
+In table \ref{table:5} it is shown an example of a "mntner" object. 
 
-   It should be noted that this representation provides two things:
+\begin{table}[h!]
+\centering
+\begin{tabular}{  r  l  }
 
-       + a set of routes.
+mntner:   	&      MAINT-AS23323\\
+descr:    	&      Diablo Valley College\\
+admin-c:    	&      Ben Seaberry\\
+tech-c:    	&      Ben Seaberry\\
+upd-to:   	&      bseaberry@DVC.EDU\\
+auth:   		&      CRYPT-PW HIDDENCRYPTPW\\
+notify:   	&      bseaberry@DVC.EDU\\
+mnt-by:   	&      MAINT-AS23323\\
+changed:   	&      rick@extrateam.com 20030311\\
+source:   	&      RADB\\
 
-       + a description of administrative details and routing policies.
+\end{tabular}
+\caption{Example of "mntner" object}
+\label{table:5}
+\end{table}
 
-   The set of routes can be used to generate network list based
-   configuration information as well as configuration information for
-   exterior routing protocols knowing about ASes. This means an AS can
-   be defined and is useful even if it does not use routing protocols
-   which know about the AS concept.
+The route object defines a CIDR prefix and the origin AS. This is the most common type of object in the routing registries. It is used by some ISP's to generate filters on their customer BGP sessions. In table \ref{table:6} it is shown an example of a "route" object. 	
 
-   Description of routing policies between ASs with multiple connections
-   - "interas-in/interas-out"
+\begin{table}[h!]
+\centering
+\begin{tabular}{  r  l  }
 
-   The following section is only relevant for ASes which use different
-   policies on multiple links to the same neighboring AS. Readers not
-   doing this may want to skip this section.
+route:   	&      198.108.0.0/14\\
+descr:    	&      MERIT Network Inc.\\
+			&		1000 Oakbrook Drive, Suite 200\\ 
+ 			&		Ann Arbor \\
+ 			&		MI 48104, US\\
+origin:    	&      AS237\\
+mnt-by:    	&      MAINT-AS237\\
+changed:   	&      ljb@merit.edu 20060919\\
+source:   	&      RADB\\
 
-   Description of multiple connections between ASs defines how two ASs
-   have chosen to set different policies for the use of each or some of
-   the connections between the ASs.  This description is necessary only
-   if the ASs are connected in more than one way and the routing policy
-   and differs at these two connections.
+\end{tabular}
+\caption{Example of "route" object}
+\label{table:6}
+\end{table}
+
+This IP address space management system has been working well, but currently we are facing the problem of IPv4 address exhaustion, which will be referred in the nex section.
 
 \section{IPv4 Address Exhaustion}
 
@@ -908,6 +919,18 @@ INTERNET AND OF MEASURES TO SUPPORT THE CONTINUED USE OF IPv4}.
 	IPv4 Address Transfer Markets and the Regional Internet Address Registries http://www.internetgovernance.org/wordpress/wp-content/uploads/IPAddress\_TransferMarkets.pdf
 	
 	An Empirical Analysis of the IPv4 Number Market http://www.internetgovernance.org/wordpress/wp-content/uploads/IPv4marketTPRC20122.pdf
+	
+	http://www.nanog.org/meetings/nanog51/presentations/Sunday/NANOG51.Talk34.NANOG51%20IRR%20Tutorial.pdf
+
+from http://www.nsfnet-legacy.org/about.php
+http://www.nsf.gov/about/history/nsf0050/internet/launch.htm
+http://www.hernandocadett.com/content/stability-and-consistency-internet-wide-network-routing
+https://www.nsf.gov/news/news\_summ.jsp?cntn\_id=103050
+http://www.merit.edu/research/nsfnet\_article.php
+http://www.merit.edu/services/meritradb/history.php
+
+from http://www.irr.net/docs/rfc1786.txt
+
 	
 \end{thebibliography}	
 \end{document}
