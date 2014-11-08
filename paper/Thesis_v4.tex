@@ -778,6 +778,69 @@ Regarding the metric not routed prefixes, the results are shown in Figure \ref{f
 
 We can see that ARIN has around 75\% of the entire routing address space that is fully routed. Then is APNIC with 12\%, RIPENCC with around 8\%, after LACNIC with around 3\% and last AFRINIC  with around 2\%.
 
+\begin{figure}[ht!]
+\centering
+\includegraphics[scale=0.1]{heatmapLegacy.pdf}
+\caption{heatmapLegacy}
+\label{fig:heatmapLegacy}
+\end{figure}
+
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[scale=0.1]{heatmapAllocated.pdf}
+\caption{heatmapAllocated}
+\label{fig:heatmapAllocated}
+\end{figure}
+
+
+Our next step was to identify prefixes that were being advertised by multiple ASes. We took all the prefixes that were allocated and considered to be advertised by multiple prefixes every prefix that would be advertised by more than one AS.
+The results are show in Figure \ref{fig:multipleAsesGlobal}. In the Total Number of Prefixes are considered all the prefixes allocated until a certain point in time and that were seen in the BGP routing data.
+ 
+\begin{figure}[ht!]
+\centering
+\includegraphics[scale=0.35]{multipleAsesGlobal.pdf}
+\caption{multipleAsesGlobal}
+\label{fig:multipleAsesGlobal}
+\end{figure}
+
+We can see that the total number of prefixes increases faster than the number of prefixes with multiple ASes. This shows that the majority of allocated prefixes are advertised by just one AS and the growth of allocations has not been reflected in the same proportion in prefixes with multiple ASes. Nevertheless the number of prefixes with multiple ASes has been increasing and taking into account that in recent times, since 2011, the blocks of addresses that were allocated were smaller and most probably are just advertised by just one AS, this can indicated that older blocks of prefixes are starting to be advertised by more than one AS. 
+In Figure \ref{fig:multipleAsesOldGlobal} is shown the same plot, but just considering prefixes that were allocated before 1997.
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[scale=0.35]{multipleAsesOldGlobal.pdf}
+\caption{multipleAsesOldGlobal}
+\label{fig:multipleAsesOldGlobal}
+\end{figure}
+
+We can see that, although there are less prefixes being advertised the number of prefixes with multiple ASes increases. Also we were not considering prefixes being allocated after 1997 and this growth on the number of prefixes with multiple ASes, althougth small, is significant and shows the address space is being shared by different ASes.
+In Figure \ref{fig:multipleAsesNewGlobal} it is shown the plot for prefixes allocated after 1997.
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[scale=0.35]{multipleAsesNewGlobal.pdf}
+\caption{multipleAsesNewGlobal}
+\label{fig:multipleAsesNewGlobal}
+\end{figure}
+
+We can see that the total number of prefixes allocated increased at a high rate, as expected, and the number of prefixes being advertised by multiple ASes also increased but with a much slower rate. Regarding that from 2011 some RIRs changed their allocation policy and considering that from this change the ASes that required prefixes were the only ones advertising them, this increase in the number of prefixes with multiple ASes is significant. 
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[scale=0.1]{heatmapLegacyMulti.pdf}
+\caption{heatmapLegacyMulti}
+\label{fig:heatmapLegacyMulti}
+\end{figure}
+
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[scale=0.1]{heatmapAllocatedMulti.pdf}
+\caption{heatmapAllocatedMulti}
+\label{fig:heatmapAllocatedMulti}
+\end{figure}
+
 \chapter{Conclusion}
 
 
