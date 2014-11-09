@@ -481,7 +481,10 @@ It is possible to see that a great number of peers provide less information than
 
 By doing this we reduced drastically the amount of data that would have to be analyzed and at the same time we would have a dataset capable of ensuring the best possible data quality. 
 
-\chapter{Analysis  Results}
+\chapter{Analysis \& Results}
+
+
+\subsection{BGP Origin Dynamics}
 
 Our first approach was to analyze the number of prefixes that changed origin during the time period. To do this we map for every month the advertised prefix to its origin AS. Next we check how many prexifes are being advertised, in the next month by a different AS. The results are shown in Figure \ref{fig:comparePrefixes}.
 
@@ -549,6 +552,8 @@ In Figure \ref{fig:compareAggregationCycles} the procedure was basically the sam
 
 Figure \ref{fig:compareAggregationCycles24} shows the results of applying this cycle removal to Figure \ref{fig:compareAggregation24}. We can again see that the graph progression became "smoother" and that the overall value of prefix changes got lower. 
 
+\subsection{Address Allocation}
+
 Our next analysis inferred on the number of days that passed sinced a prefix was allocated and started to be routed. Here we take the prefixes allocated from the allocation files and deaggregate them into /24 subnets. We then use these subnets to search in BGP raw data a first time that we see an occurrence of the subnet and when we encounter one we calculate the days that passed since it was allocated. We use a allocation filter so that when we search through the BGP raw data we only do a positive match if the encountered prefix has already been before the time instance of the BGP file.  
 
 \begin{figure}[ht!]
@@ -609,12 +614,15 @@ In Figure \ref{fig:densityYearly} is represented the average number of days that
 \label{fig:densityYearly}
 \end{figure}
 
+\subsection{BGP Routing Dynamics}
+
+\subsubsection{Routing Status}
 The next step in our work was to analyze the routing dynamics, in particular to see the amount of prefixes that are being advertised in BGP and its behaviour. 
 In Figure \ref{fig:routingStatusGlobal} it is shown the number of allocated prefixes and their routing status. We define routing status as: full routed prefixes; partially routed prefixes and not routed prefixes. Full routed prefixes are the considered to be prefixes that have their entire address space being advertised, partially routed prefixes are the ones that have at least a part of their address space being advertised, but not the entire one and not routed prefixes are the ones that don't have any part of their address space being advertised. The total number of prefixes is the number of prefixes that were allocated until that point in time.
 
 \begin{figure}[ht!]
 \centering
-\includegraphics[scale=0.35]{routingStatusGlobal.pdf}
+\includegraphics[scale=0.35]{routeStatusGlobal.pdf}
 \caption{routingStatusGlobal}
 \label{fig:routingStatusGlobal}
 \end{figure}
@@ -685,9 +693,9 @@ While the number of partially routed prefixes is very low, around 2000 e 2001 th
 \label{fig:routingStatusArin}
 \end{figure}
 
-In Figure \ref{fig:routingStatusArin8} are represented the count of prefixes in /8s. We can see a trend similar to the old allocations, as expect, due to the reasons explained above. We can also notice that the number of full routed prefixes has been increasing. The count of partially routed and not routed prefixes is very similar and we can notice again that although many more prefixes in number were not routed than partially routed, when we take into account the number of addresses the value is very similar. 
+In Figure \ref{fig:routingStatusArin8} are represented the count of prefixes in /8s. We can see a trend similar to the old allocations, as expected, due to the reasons explained above. We can also notice that the number of full routed prefixes has been increasing. The count of partially routed and not routed prefixes is very similar and we can notice again that although many more prefixes in number were not routed than partially routed, when we take into account the number of addresses the value is very similar. 
 
-The second RIR we studied was AFRINIC, represented in Figure \ref{fig:routingStatusAfrinic}.
+The second RIR we studied was AFRINIC, represented in Figure \ref{fig:routingStatusAfrinic}. We can notice that the number of allocated prefixes increased at a high rate and the number of full routed prefixes increased accordingly. As the number of not routed prefixes remaining constant along the time period and the number of partly routed prefixes also had this trend we can assume that the majority of new prefixes being allocated was also fully routed. Still the number of allocated prefixes was much smaller in AFRINIC, with 2500 prefixes in comparison to  around 130 000 globally. 
 
 \begin{figure}[ht!]
 \centering
@@ -696,12 +704,16 @@ The second RIR we studied was AFRINIC, represented in Figure \ref{fig:routingSta
 \label{fig:routingStatusAfrinic}
 \end{figure}
 
+When we analize the count of prefixes in /8s shown in Figure \ref{fig:routingStatusAfrinic8}, we can see that the amount of address space allocated to AFRINIC is very small, only four /8s. The only difference we can see here is that the amount of address space that is not being routed is smaller than the amount of address space that is partially routed, since 2012. 
+
 \begin{figure}[ht!]
 \centering
 \includegraphics[scale=0.35]{routeStatusAfrinic8.pdf}
 \caption{routingStatusAfrinic8}
 \label{fig:routingStatusAfrinic8}
 \end{figure}
+
+The analysis of APNIC is shown in Figure \ref{fig:routingStatusApnic}. We can again notice the increase of allocated prefixes, although at a small rate, and the number of full routed prefixes follows this trend. The total number of allocated prefixes is around 24 000. We can see that the number of partially routed prefixes remained approximately constant as well as the number of not routed ones. Exception in 2011 where we can see a peak of allocated prefixes that reflects itself in the number of not routed prefixes, indicating that the prefixes in this peak were not routed.  
 
 \begin{figure}[ht!]
 \centering
@@ -710,12 +722,16 @@ The second RIR we studied was AFRINIC, represented in Figure \ref{fig:routingSta
 \label{fig:routingStatusApnic}
 \end{figure}
 
+Looking at the count of prefixes in /8s, Figure \ref{fig:routingStatusApnic8}, we see that since 2011 the amount of address remained pratically constant although we see in the previous Figure that there were still prefixes being allocated. We can assume that this is due to the change of policy in allocations that APNIC implemented after reaching the last /8, where small blocks of addresses started being allocated. We can also see, since 2011, that while the amount of address space being partially routed or fully routed increased, the amount of not routed address space decreased.
+
 \begin{figure}[ht!]
 \centering
 \includegraphics[scale=0.35]{routeStatusApnic8.pdf}
 \caption{routingStatusApnic8}
 \label{fig:routingStatusApnic8}
 \end{figure}
+
+In Figure \ref{fig:routingStatusLacnic} it is shown the analisys for LACNIC. We can see an exponential growth in the total number of allocated prefixes and the number of full routed prefixes follows this trend, indicating that the majority of allocated prefixes was also fully routed. On the other hand the number of partially routed prefixes and not routed ones show a very slow rate of increase.
 
 \begin{figure}[ht!]
 \centering
@@ -724,6 +740,8 @@ The second RIR we studied was AFRINIC, represented in Figure \ref{fig:routingSta
 \label{fig:routingStatusLacnic}
 \end{figure}
 
+In Figure \ref{fig:routingStatusLacnic8} we have the count of prefixes in /8s. As expected, the amount of address space allocated and fully routed follows the same trend, an exponential increase. The total amount of address space is around eleven /8s. We can also see that the amount of address space that is not routed is almos zero, indicating a high usage of allocated prefixes in the LACNIC region.
+
 \begin{figure}[ht!]
 \centering
 \includegraphics[scale=0.35]{routeStatusLacnic8.pdf}
@@ -731,12 +749,16 @@ The second RIR we studied was AFRINIC, represented in Figure \ref{fig:routingSta
 \label{fig:routingStatusLacnic8}
 \end{figure}
 
+Our last RIR to be analyzed is RIPENCC, which is shown in Figure \ref{fig:routingStatusRipe}. We can see right away that the number of allocated prefixes is high, around 50 000 and it as been a high increasing trend. The number of fully routed prefixes also followed this trend. The number of partially routed prefixes and not routed ones remained constant along the time.
+
 \begin{figure}[ht!]
 \centering
 \includegraphics[scale=0.35]{routeStatusRipe.pdf}
 \caption{routingStatusRipe}
 \label{fig:routingStatusRipe}
 \end{figure}
+
+In Figure \ref{fig:routingStatusRipe8} we have the count of prefixes in /8s. We can notice an increasing trend in the amount of allocated address space and the amount of fully routed address space. We notice that since late 2012 this trend changed and remained in an almost constant value. This is due to the fact that RIPENCC reached its final /8 and changed its allocation policy. We notice again that prefixes were still being allocated, but the corresponding address space was low. The amount of partially routed and not routed address space has been somewhat constant, but in recent years we can notice a slight incresing trend in the number of partially routed and a slight decreasing trend in the number of not routed address space.
 
 \begin{figure}[ht!]
 \centering
@@ -792,6 +814,8 @@ We can see that ARIN has around 75\% of the entire routing address space that is
 \caption{heatmapAllocated}
 \label{fig:heatmapAllocated}
 \end{figure}
+
+\subsubsection{Prefixes and Multiple Origin ASes}
 
 
 Our next step was to identify prefixes that were being advertised by multiple ASes. We took all the prefixes that were allocated and considered to be advertised by multiple prefixes every prefix that would be advertised by more than one AS.
