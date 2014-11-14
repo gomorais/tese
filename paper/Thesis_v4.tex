@@ -880,7 +880,11 @@ In Figure \ref{fig:heatmapAllocatedMulti} we show the results for the "Allocated
 
 \chapter{Conclusion}
 
-In this thesis we
+In this thesis we started by analyzing the BGP origin dynamics. Here we observed the changes in origin-origin pairs, then we aggregated this origin-origin pairs to obtain just unique pairs and finished we removing origin-origin pairs that showed cycles in their behaviour. By cycles we mean are situations where a prefix is advertise by AS1, for example than is advertised by AS2 and then again by AS1. We observed that the number of origin-origin changes is quite small, 1500 when compared to the total of around 500 000 prefixes. We could notice an increasing tendency in the number of prefixes that changed its origin AS and although the number of prefixes that has been allocated has also been increasing, which could in turn increase the probability of having more changes, we noticed that from 2001 until 2005 the number of changes decreased while also more prefixes were being allocated. The fact that we are facing IPv4 address exhaustion and in recent years allocation policies by the RIRs have changed, this could indicate that an increase in the number of origin changes would happen mainly due to transfers, but there are several other reasons for prefix origin changes such as BGP misconfigurations, prefix hijacks or simply because the same organization holds several AS numbers. These other reasons we tried to tackle by aggregating origin-origin pairs and by removing pairs and we could still notice an increasing tendency in origin changes.
+
+
+
+
 
 \bibliographystyle{plain}
 \renewcommand\bibname{\chapter{References}}
