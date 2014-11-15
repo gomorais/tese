@@ -878,6 +878,42 @@ In Figure \ref{fig:heatmapAllocatedMulti} we show the results for the "Allocated
 \label{fig:heatmapAllocatedMulti}
 \end{figure}
 
+\subsubsection{Multiple Origin ASes and IRR}
+
+Our next step was to investigate what was happening with the old prefixes. Because the new ones were being allocated throughout the time it was expected to see them with an increasing number of ASes, but for old prefixes the behaviour could be different. 
+In Figure \ref{fig:oldNetworks} we can see the ten allocated prefixes, allocated before 1997, that are being advertised by the highest number of ASes.
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[scale=0.35]{oldNetworks.pdf}
+\caption{Observed number of ASes for the ten prefixes being advertised by more addresses, allocated before 1997}
+\label{fig:oldNetworks}
+\end{figure}
+
+From the Figure we decided to choose the prefixes 8.0.0.0, 12.0.0.0 and 38.0.0.0 for further observation. Using whois we found out that 8.0.0.0 is registered to Level 3 Communications, 12.0.0.0 is registered to AT\&T Services and 38.0.0.0 to PSINet, which was acquire by Cogent Communications.
+As these are ISPs it is explained why there are so many ASes advertising these prefixes, but we wanted to know if the prefixes that are being advertised are somehow registered and if it is possible to know some information about them.
+
+The first stept was to use whois and see if the advertised prefixes are being registered. For that we took the prefixes that are being advertised in BGP and for each of them we queried whois. If there would be an exact match the prefix would be "BGP equal to Whois", if the BGP prefix length would be smaller than the answer in Whois (e.g. BGP 8.1.0.0/16 Whois 8.1.1.0/24) it would count as "BGP smaller than Whois", if the BGP prefix length would be bigger than the corresponding answer in Whois (e.g. BGP8.1.0.0/16 Whois 8.0.0.0/8) it would count as "BGP bigger than Whois". In Figure \ref{fig:whois} are shown the results.
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[scale=0.35]{whois.pdf}
+\caption{Observed number of subnets in Whois for each of the prefixes}
+\label{fig:whois}
+\end{figure}
+
+We can see that while the prefix 12.0.0.0 has more than half of its advertised subnets with an exact match in the Whois, indicating they are registered, 8.0.0.0 has a bit less than half and 38.0.0.0 has pratically zero. For all of the subnets that don't fall on the "BGP equal to Whois" category they go into the category "BGP bigger than Whois", which would be expected given that if a subnet is not registered it would be match, for example 8.0.0.0 as longest prefic match.
+Our next step was to investigate if how well are the subnets documented in RADB. In Figure \ref{fig:radb} are shown the results.
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[scale=0.35]{radb.pdf}
+\caption{Observed number of subnets in RADB for each of the prefixes}
+\label{fig:radb}
+\end{figure}
+
+We can see that around one quarte of the subnets in 12.0.0.0 are an exact match in RADB and one third of subnets in 38.0.0.0 and 8.0.0.0 are in RADB. We notice that some prefixes have more exact matches in RADB that in Whois, althoug the number of exact matches in RADB is still low. 
+
 \chapter{Conclusion}
 
 In this thesis we started by analyzing the BGP origin dynamics. Here we observed the changes in origin-origin pairs, then we aggregated this origin-origin pairs to obtain just unique pairs and finished we removing origin-origin pairs that showed cycles in their behaviour. By cycles we mean are situations where a prefix is advertise by AS1, for example than is advertised by AS2 and then again by AS1. We observed that the number of origin-origin changes is quite small, 1500 when compared to the total of around 500 000 prefixes. We could notice an increasing tendency in the number of prefixes that changed its origin AS and although the number of prefixes that has been allocated has also been increasing, which could in turn increase the probability of having more changes, we noticed that from 2001 until 2005 the number of changes decreased while also more prefixes were being allocated. The fact that we are facing IPv4 address exhaustion and in recent years allocation policies by the RIRs have changed, this could indicate that an increase in the number of origin changes would happen mainly due to transfers, but there are several other reasons for prefix origin changes such as BGP misconfigurations, prefix hijacks or simply because the same organization holds several AS numbers. These other reasons we tried to tackle by aggregating origin-origin pairs and by removing pairs and we could still notice an increasing tendency in origin changes.
