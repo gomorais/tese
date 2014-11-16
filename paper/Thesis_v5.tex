@@ -80,7 +80,7 @@ AS numbers are assigned in a similar manner where from 1 to 64511 are public and
 
 When an AS introduces a destination prefix into the global routing system, by advertising the prefix to its neighboring ASes, it is called the originating AS. In Figure \ref{fig:bgpAdvertisement} we see AS 1 advertising a route for 10.0.0.0/8 with an AS path of "1". When AS 2 receives this advertisement, appends its own AS number to the front of the path and advertises the route with an AS path of "2,1" to the next AS. In the end of this process we see that AS 5 has two diferent paths to the route 10.0.0.0/8 related to its neighbouring ASes.
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[scale=0.5]{bgpAdvertisement.png}
 \caption{BGP Advertisement}
@@ -89,7 +89,7 @@ When an AS introduces a destination prefix into the global routing system, by ad
 
 One vulnerability is that BGP does not ensure that a BGP-speaking router making the advertisement for on AS uses the AS number that this AS holds, neither ensures that the AS holds the prefixes it is advertising. As long as the neighboring router accepts the routes, a router can be configured to advertise routes into BGP with any AS number or for any destination prefix, including very small blocks (/30) or address blocks it does not hold. It is possible for the neighboring router to reject such cases, but it needs to be configured for that, meaning that a prior knowledge of acceptable prefixes and prefix lengths is needed. This makes the routing system quite vulnerable to misconfiguration or malicious attacks. The action of an AS advertising an unassigned prefix or belonging to another AS is know as prefix hijacking. When neighboring ASes receive this advertisement they might select the route and direct traffic towards this AS, as well as advertise this BGP route to their own neighbors. In Figure \ref{fig:bgpMaliciousAdvertisement} that AS 1 is advertising route 10.0.0.0/8 and it is the holder of this prefix. If AS 5 starts advertising the route to 10.0.0.0/8 and its neighbours select the shortest path routes, AS 3 and AS 4 will start diverting its traffic with 10.0.0.0/8 destination towards AS 5.
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[scale=0.5]{bgpMaliciousAdvertisement.png}
 \caption{BGP Malicious Advertisement}
@@ -98,7 +98,7 @@ One vulnerability is that BGP does not ensure that a BGP-speaking router making 
 
 In the case that the offending AS just drops all packets destined to the hijacked addresses, the effect is known as a black hole, where the destinations seem unreachable to the parts of the Internet affected by this prefix advertisement. In the case that the AS decides to direct the traffic to hosts under its control the effect can be more severe, as the they can pretend to be the service provided by the hijacked destination. In this situation the traffic received by the AS can be analyzed and sensitive information, such as passwords or credit-card numbers, can fall in the wrong hands. It can also happen that the prefix hijacking is used to analyze the traffic before forwarding it to the correct destination, which would be a breach in the user's privacy. In order for an AS to do such an hijacking attack, it could advertise more specific prefixes then the ones in the original block (e.g., 10.1.128.0/17 and 10.1.0.0/16). This would work because of the longest prefix match rule used by IP routers, that forward packets to the more specific address range. In Figure \ref{fig:bgpDeaggregationAdvertisement} we can see an example. By advertising a more specific prefix (10.0.0.0/9), AS 5 will receive the traffic that had destination to AS 1.
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[scale=0.5]{bgpDeaggregationAdvertisement.png}
 \caption{BGP Deaggregation Advertisement}
@@ -134,7 +134,7 @@ To ensure that these addresses are unique there is the need of an organization r
 
 The Internet Assigned Numbers Authority, also known as IANA, is responsible for the global coordination of the Internet Protocol (IP) address system and also of the Autonomous Systems Numbers which are used for routing traffic on the internet.  
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[scale=0.5]{IR-structure-diagram.png}
 \caption{Global Structure of the Internet Registry System, source:\cite{FIG_GLOBAL_IRS}}
@@ -143,7 +143,7 @@ The Internet Assigned Numbers Authority, also known as IANA, is responsible for 
 
 IP addresses are assigned in hierarchical manner as shown in Figure \ref{fig:ir_structure_diagram}. Internet Service Providers obtain allocations of addresses from a Local Internet Registry (LIR), a National Internet Registry (NIR) or from the corresponding Regional Internet Registry (RIR) and in turn they assign IP addresses to end users. IANA's main purpose is to allocate IP addresses from pools of unallocated addresses to the Regional Internet Registries according to their needs. IANA does not make allocation of IP addresses directly to ISPs or users except for allocations of multicast addresses or protocol specific needs. If a RIR requires further IP addresses for allocation, IANA makes an additional allocation to the RIR. There are five RIRs, each one responsible for a specific region: AFRINIC for Africa Region, APNIC for Asia Pacific Region, ARIN for North America Region, LACNIC for Latin America and the Caribbean Regions, RIPE NCC for Europe, Middle East and Central Asia Regions. The five RIRs are represented in Figure \ref{fig:rirs_image}.
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[scale=0.5]{RIR.jpeg}
 \caption{Regional Internet Registries Service Regions, source:\cite{FIG_GLOBAL_IRS}}
@@ -164,7 +164,7 @@ After the allocations are made, the allocated prefixes need to be advertised on 
 
 The National Science Foundation inherited the responsability for developing the U.S. Internet from the Advanced Research Projects Agency (ARPA) and the Internet Routing Registry concept goes back to the 1980's and to the National Science Foundation Network (NSFNet).  NSFNET refers to the program sponsored by the National Science Foundation, initiated in 1985, with the purpose of support and promote advanced networking among U.S. research and education institutions. Among its participants were Merit Network, Inc., IBM, MCI, Advanced Network \& Services, Inc., the State of Michigan and many institutions in research and education. As a way to configure the MSFNET's backbone routers, the Policy Routing Database (PRDB) was used since 1989. Merit planned the retirement of PRDB for December 1994, which would be replace by the Routing Arbiter Database (RADB). RADB would then become part of the Internet Routing Registry (IRR) along with RIPE NCC, MCI and other registries. The IRR objective was to be a global public repository of announced routes and routing policy in a common format so that ISPs could use this information to configure their backbone routers and analyze routing policy.
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[scale=0.5]{nsfnet_topology.png}
 \caption{NSFNET Topology, source: \cite{NSFNET_Topology}}
@@ -191,7 +191,7 @@ One of the activities of routing registries is to maintan a databse of IP networ
 The allocation registry contains data about address space allocated to enterprises or delegated to local registries as well as data about the domain name space. 
 In the Regional routing registries database the information is stored in form of objects. The types of objects are summarized in table \ref{table:1}.   
    
-\begin{table}[h!]
+\begin{table}[!ht]
 \centering
 \begin{tabular}{ | c | c | l | }
 \hline
@@ -216,7 +216,7 @@ The Objects are represented by attributes value pairs.
 An example of an whois query to retrieve information about network 192.87.45.0 is shown in table \ref{table:2}. Here we can see one inetnum object and two person objects.
 
 
-\begin{table}[h!]
+\begin{table}[!ht]
 \centering
 \begin{tabular}{  r  l  }
  
@@ -229,7 +229,6 @@ An example of an whois query to retrieve information about network 192.87.45.0 i
  tech-c:   & 	WK1844-RIPE \\
  tech-c:   & 	KDB18-RIPE \\
  status:   & 	LEGACY \\
- remarks:  & 	For information on "status:" attribute read https://www.ripe.net/data-tools/db/faq/faq-status-values-legacy-resources \\
  mnt-by:   & 	SN-LIR-MNT \\
  mnt-irt:  & 	irt-SURFcert \\
  source:   & 	RIPE \# Filtered \\
@@ -268,7 +267,7 @@ The most important objects regarding the routing registry are the "aut-num" and 
 The "route" object describes a single route that is being injected and references the AS that is originating it. In table \ref{table:3} it is shown a "route" object returned from a whois query on network 192.87.45.0. 
 The value of the route attribute is a classless address and represents the route being injected into the routing system. The value of the origin attribute is an AS referring to an "aut-num" object, which is the AS injecting this route.
   
-\begin{table}[h!]
+\begin{table}[!ht]
 \centering
 \begin{tabular}{  r  l  }
 
@@ -296,7 +295,7 @@ There are some recommendations that the creation and allocation of an AS should 
    
 An As is represented by an "aut-num" object and "route" objects representing the routes originated by the AS. The "aut-num" object stores administrative information as well as the routing policies of the AS. The origin attributes of the route objects define the set of routes originated by the AS, where each object has only one origin attribute. In table \ref{table:4} it is shown an example of a AS object.  
     
-\begin{table}[h!]
+\begin{table}[!ht]
 \centering
 \begin{tabular}{  r  l  }
 
@@ -334,7 +333,7 @@ AS Macros
           
 The as-macro object defines a way to group ASes, so that a new AS does not have to be added to the routing policy as described by the as-in and as-out attributes of the AS object.          
           
-\begin{table}[h!]
+\begin{table}[!ht]
 \centering
 \begin{tabular}{  r  l  }
 
@@ -354,7 +353,7 @@ Each of the object types contains mandatory and optional attributes. There are t
 The two most relevant objects/classes are the "mntner" and "route" objects. The mntner object is an abbreviation of maintainer and identifies the accounts in the registry.
 In table \ref{table:5} it is shown an example of a "mntner" object. 
 
-\begin{table}[h!]
+\begin{table}[!ht]
 \centering
 \begin{tabular}{  r  l  }
 
@@ -376,7 +375,7 @@ source:   	&      RADB\\
 
 The route object defines a CIDR prefix and the origin AS. This is the most common type of object in the routing registries. It is used by some ISP's to generate filters on their customer BGP sessions. In table \ref{table:6} it is shown an example of a "route" object. 	
 
-\begin{table}[h!]
+\begin{table}[!ht]
 \centering
 \begin{tabular}{  r  l  }
 
@@ -407,7 +406,7 @@ One reason of the reasons for the delay in deploying IPv6 lies in the supply cha
 
 The current statistics on address distribution are shown in \ref{fig:rirs_available_ipv4}.
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[scale=0.3]{ipv4inRir.png}
 \caption{AVAILABLE IPv4 /8s IN EACH RIR, source:\cite{IPv4_EACH_RIR}}
@@ -464,18 +463,18 @@ We used Merit RADB \cite{RADB} which is a public registry of network routing inf
 \section{Data cleaning}
 The RouteViews collectors contains the bgp information provided by the peer ASes. For our case study, most of the information is redundant. As we intend to analyze the prefixes that are being advertised and who is advertising them (origin), this information will be provided by most of the peer Ases. The first step to arrange our data and remove redundant information was to identify the most relevant peers. These would be the ones that would provide us the most complete view of the entire internet reagarding the number of prefixes that are advertising and how reliable they were throughout the entire time period of our analises. In Figure \ref{fig:peers1} it is shown all the information gathered from 2001 until 2014. 
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \centering
-\includegraphics[scale=0.4]{peers1.pdf}
+\includegraphics[scale=0.35]{peers1.pdf}
 \caption{Peers 1}
 \label{fig:peers1}
 \end{figure}
 
 It is possible to see that a great number of peers provide less information than others and also that a high number of peers don't provide information whitout breaks throughout the time period. We then procceeded to remove all the peers that delivered a lower number of advertised prefixes or that didn't deliver information at a determined point in time. The result is shown in Figure \ref{fig:peers2}.  
 
-\begin{figure}[ht!]
+\begin{figure}[!ht]
 \centering
-\includegraphics[scale=0.4]{peers2.pdf}
+\includegraphics[scale=0.35]{peers2.pdf}
 \caption{Peers 2}
 \label{fig:peers2}
 \end{figure}
@@ -485,11 +484,11 @@ By doing this we reduced drastically the amount of data that would have to be an
 \chapter{Analysis \& Results}
 
 
-\subsection{BGP Origin Dynamics}
+\section{BGP Origin Dynamics}
 
 Our first approach was to analyze the number of prefixes that changed origin during the time period. To do this we map for every month the advertised prefix to its origin AS. Next we check how many prexifes are being advertised, in the next month by a different AS. The results are shown in Figure \ref{fig:comparePrefixes}.
 
-\begin{figure}[ht!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[scale=0.35]{comparePrefixes.pdf}
 \caption{Observed number of monthly
@@ -501,7 +500,7 @@ We can notice an increasing tendency in the number os prefixes that changed its 
 
 In Figure \ref{fig:comparePrefixes_24} are shown the results of dividing the prefixes into subnets of size /24. By doing this we can get an idea of the size of the prefixes that change origins.  
 
-\begin{figure}[ht!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[scale=0.35]{comparePrefixes_24.pdf}
 \caption{Observed number of monthly
@@ -513,7 +512,7 @@ By looking at the moving average we see that the amount of subnets of size /24 t
 
 The next step was to aggregate the origin changes. The procedure was to group the origin changes and given two ASes, if they appeared in several changes, it would be count as one occurrence. Considering the case where two prefixes 1.1.2.0/24 and 1.1.3.0/24 where both advertised by AS1 and in the next iteration they started being advertised by AS2, it would lead to the pair (AS1, AS2) for each of the prefixes. The result would be one for the grouped origins that we are considering. In Figure \ref{fig:compareAggregation} are shown the results when applying this metric.       
 
-\begin{figure}[ht!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[scale=0.35]{compareAggregation.pdf}
 \caption{Observed number of monthly
@@ -525,7 +524,7 @@ We can see that some of the peaks dissapeared and that the graph progression tur
 In Figure \ref{fig:compareAggregation24} we applied the same principle, but now after decomposing the advertised prefixes into /24 subnets. 
 
 
-\begin{figure}[ht!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[scale=0.35]{compareAggregation_24.pdf}
 \caption{Observed number of monthly
@@ -539,7 +538,7 @@ Comparing this result with Figure \ref{fig:comparePrefixes_24} we can see huge d
 
 
 
-\begin{figure}[ht!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[scale=0.35]{compareAggregationCycles.pdf}
 \caption{Observed number of monthly
@@ -549,7 +548,7 @@ unique origin-origin pair changes, after origin-origin pair aggregation and orig
 
 In Figure \ref{fig:compareAggregationCycles} the procedure was basically the same, but here we also took into consideration the situation where the prefix origin changes to a different one and then at a certain point in time returns to the previous one, making somewhat of a cycle in its evolution. Considering the prefix 1.1.0.0/16 being advertised by AS1 in a certain point in time. In the next time period it changes its origin AS to AS2 and starts to be counted as an origin change. If at a later point in time this prefix starts to be advertised again by AS1 we remove it from the counting as a change. Here we remove situations where institutions that have more than one AS number, use them for traffic engineering, for example.  In comparison with Figure \ref{fig:compareAggregation} we can see that the graph progression became "smoother" and that the overall value of prefix changes got lower.
 
-\begin{figure}[ht!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[scale=0.35]{compareAggregationCycles_24.pdf}
 \caption{Observed number of monthly
@@ -559,11 +558,11 @@ unique origin-origin pair changes, after origin-origin pair aggregation and orig
 
 Figure \ref{fig:compareAggregationCycles24} shows the results of applying this cycle removal to Figure \ref{fig:compareAggregation24}. We can again see that the graph progression became "smoother" and that the overall value of prefix changes got lower. 
 
-\subsection{Address Allocation}
+\section{Address Allocation}
 
 Our next analysis inferred on the number of days that passed sinced a prefix was allocated and started to be routed. Here we take the prefixes allocated from the allocation files and deaggregate them into /24 subnets. We then use these subnets to search in BGP raw data a first time that we see an occurrence of the subnet and when we encounter one we calculate the days that passed since it was allocated. We use a allocation filter so that when we search through the BGP raw data we only do a positive match if the encountered prefix has already been before the time instance of the BGP file.  
 
-\begin{figure}[ht!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[scale=0.35]{densityGlobal.pdf}
 \caption{Density plot of days that passed since prefixes are allocated until they are advertised in BGP}
@@ -574,7 +573,7 @@ In Figure \ref{fig:densityGlobal} it is shown a density plot regarding the numbe
 Has we can see in Figure \ref{fig:densityGlobal2001}, the density values that were shown between 2500
 and 5000 days  are not present anymore and the density values are now between 0 and 1000, being the majority between 0 and 250. If we compare the previous statistical values with the current ones,maximum = 4338, mean = 155.1632, median = 56 and standard deviation = 246.6986, we can notice a huge difference. The maximum value is almost three times less, the mean eight times less,the median around five times and the standard deviation also much lower. This was due to be considering allocated prefixes before 2001 and the sample was being biased.
 
-\begin{figure}[ht!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[scale=0.35]{densityGlobal2001.pdf}
 \caption{Density plot of days that passed since prefixes are allocated, after 2001, until they are advertised in BGP}
@@ -585,7 +584,7 @@ An important day for our analysis is February 3 2011, when the Internet Assigned
 The results for before February 3, 2011 are shown in Figure \ref{fig:densityBefore2001}. Once again we have to limit our study to prefixes allocated after 2001.  
 
 
-\begin{figure}[ht!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[scale=0.35]{densityBefore2011.pdf}
 \caption{Density plot of days that passed since prefixes are allocated, between 2001 and 2011, until they are advertised in BGP}
@@ -595,7 +594,7 @@ The results for before February 3, 2011 are shown in Figure \ref{fig:densityBefo
 The statistical values for this distribution are: maximum = 4338; mean = 162.2353; median = 58 and standard deviation = 255.6121. We can already see that the maximum value for this distribution is the same as the value for the global distribution and the mean was higher then the global one. This is already an indication that this distribution has some of the biggest values in term of days passed. When we consider the median and the standard deviation, we can assume that this distribution will have higher values then a distribution just considering the period after 2011, which is shown in Figure \ref{fig:densityAfter2001}.
 
 
-\begin{figure}[ht!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[scale=0.35]{densityAfter2011.pdf}
 \caption{Density plot of days that passed since prefixes are allocated, after 2011, until they are advertised in BGP}
@@ -604,30 +603,30 @@ The statistical values for this distribution are: maximum = 4338; mean = 162.235
 
 The statistical values for this distribution are: maximum = 1154, mean = 119.257, median = 40 and standard deviation = 191.2714. We can notice a higher density between 100 and 500 days in Figure \ref{fig:densityBefore2001} than in Figure \ref{fig:densityAfter2001}, but to reach a conclusion we need to compare the statistical values. By comparing them we can see that the distribution from before 2011 has a higher maximum value, higher mean, higher median and a higher standard deviation. We can conclude that the prefixes allocated after 2011 take in average less time to be seen in the BGP raw data than the ones allocated before. We need to make a reamark and refer that the time span between 2001 and 2011 is bigger than from 2011 and 2014. This means that we can have prefixes that were allocated between 2011 and 2014 and they were still not seen in the BGP data, being possible to seem them at a later point in time, changing the values that were see now.
 
-\begin{figure}[ht!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[scale=0.35]{densityYearly.pdf}
 \caption{Observed average number of days that passed since prefixes are allocated until they are advertised in BGP along the years}
 \label{fig:densityYearly}
 \end{figure}
 
-In Figure \ref{fig:densityYearly} is represented the average number of days that passed for the prefixe to be seen in routing for each year of allocation. We can see that since 1982 until 2001 the values are decreasing linearly, due to the issue stated before. In  Figure \ref{fig:densityYearlyShor} is represented the relevant time period from 2001 until 2014. It is possible to see that the values were relatively constant until 2011 and since then they started to decrease. Again it can mean that since then prefix holders are using the prefixes quickly, but to be absolutely sure we needed a higher time span.
+In Figure \ref{fig:densityYearly} is represented the average number of days that passed for the prefixe to be seen in routing for each year of allocation. We can see that since 1982 until 2001 the values are decreasing linearly, due to the issue stated before. In  Figure \ref{fig:densityYearlyShort} is represented the relevant time period from 2001 until 2014. It is possible to see that the values were relatively constant until 2011 and since then they started to decrease. Again it can mean that since then prefix holders are using the prefixes quickly, but to be absolutely sure we needed a higher time span.
 
 
-\begin{figure}[ht!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[scale=0.35]{densityYearlyShort.pdf}
 \caption{Observed average number of days that passed since prefixes are allocated until they are advertised in BGP, after 2001}
-\label{fig:densityYearly}
+\label{fig:densityYearlyShort}
 \end{figure}
 
-\subsection{BGP Routing Dynamics}
+\section{BGP Routing Dynamics}
 
-\subsubsection{Routing Status}
+\subsection{Routing Status}
 The next step in our work was to analyze the routing dynamics, in particular to see the amount of prefixes that are being advertised in BGP and its behaviour. 
 In Figure \ref{fig:routingStatusGlobal} it is shown the number of allocated prefixes and their routing status. We define routing status as: full routed prefixes; partially routed prefixes and not routed prefixes. Full routed prefixes are the considered to be prefixes that have their entire address space being advertised, partially routed prefixes are the ones that have at least a part of their address space being advertised, but not the entire one and not routed prefixes are the ones that don't have any part of their address space being advertised. The total number of prefixes is the number of prefixes that were allocated until that point in time.
 
-\begin{figure}[ht!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[scale=0.35]{routeStatusGlobal.pdf}
 \caption{Number of allocated prefixes that are being advertised in BGP and their routing status}
@@ -636,7 +635,7 @@ In Figure \ref{fig:routingStatusGlobal} it is shown the number of allocated pref
 
 As expected we can see that the number of allocated prefixes has been increasing quite fast and the number of full routed prefixes has followed the same trend. The number of not routed prefixes and partially routed prefixes also increase but at a very slow rate when compared to the full routed prefixes. It was expected to see this type of trend, because as the number of allocated prefixes increase it is expected that all the other routing status increase and as expected the full routed increase at a much higher rate. What was a surprise was the fact that since the start of our time period there where so many not routed prefixes, which could be due to old allocations.
 
-\begin{figure}[ht!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[scale=0.35]{routeStatusGlobal8.pdf}
 \caption{Amount of address space of allocated prefixes that is being advertised in BGP in /8s, according to prefixes routing status}
@@ -645,7 +644,7 @@ As expected we can see that the number of allocated prefixes has been increasing
 
 In Figure \ref{fig:routingStatusGlobal8} we can see the same distribution, but these time showing the number of prefixes count in /8s, so that we are able to quantify the address space that we are dealing with. We can see that the number of total prefixes and full routed ones follow the same trend, increasing at a fast pace. For a value of around 212 /8s of allocated prefixes there are around 140 /8s being fully routed. Regarding the number of partially routed prefixes and not routed prefixes we can see a change in comparison with the previous Figure, where the number of not routed prefixes was three times higher that the number of partially routed ones. Even more in Figure \ref{fig:routingStatusGlobal8} the number of partilly routed prefixes /8s overcome the number of /8s that are not routed. The reason for this is that in the partially routed prefixes there are huge address blocks that are not completely routed where for the not routed routed there are many smaller blocks of addresses.  
 
-\begin{figure}[ht!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[scale=0.35]{routeStatusOld.pdf}
 \caption{Number of allocated prefixes, allocated before 1997, that are being advertised in BGP and their routing status}
@@ -655,16 +654,16 @@ In Figure \ref{fig:routingStatusGlobal8} we can see the same distribution, but t
 In order to understand the behaviour of the not routed prefixes and why since 2001 this number was already high, we divided our sample into prefixes allocated before 1997 and prefixes allocated after. This date was chosen, because it was the date when Arin was established and prefixes before this date are often considered as "legacy".
 In Figure \ref{fig:routingStatusOld} we can see that for these old prefixes the value of the not routed prefixes is incredible high. With a value of 25 000 in 2001 it makes it is almost as same as the value for the global view which has a value of 26 000. By the beggining of 2014 we see that the value is 28 000 and the global view as a value of 36 000. This indicates that the majority of the not routed prefixes seen today are still from allocated blocks of addresses before 1997. We even see that the values for not routed prefixes increased slighty and the values for the full routed prefixes decreased in around the same proportion. The value for the partially routed prefixes remained pratically constant.
 
-\begin{figure}[ht!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[scale=0.35]{routeStatusOld8.pdf}
 \caption{Amount of address space of allocated prefixes, allocated before 1997, that is being advertised in BGP in /8s, according to prefixes routing status}
 \label{fig:routingStatusOld8}
 \end{figure}
 
-To infer about the quantity of addresses that we are speaking about we use Figure \ref{fig:routeStatusOld8}. We can see that, although in the previous graphic the amount of not routed prefixes is higher than the full routed ones, the number of blocks of addresses being full routed is the double as the amount of addresses not routed. Also the number of partially routed addresses is almost as much as the not routed ones. Still with a value of around 25 /8s the number of not routed addresses is surprisingly high. To understand the difference between the old allocations and new allocations we can observe Figure \ref{fig:routingStatusNew}.
+To infer about the quantity of addresses that we are speaking about we use Figure \ref{fig:routingStatusOld8}. We can see that, although in the previous graphic the amount of not routed prefixes is higher than the full routed ones, the number of blocks of addresses being full routed is the double as the amount of addresses not routed. Also the number of partially routed addresses is almost as much as the not routed ones. Still with a value of around 25 /8s the number of not routed addresses is surprisingly high. To understand the difference between the old allocations and new allocations we can observe Figure \ref{fig:routingStatusNew}.
 
-\begin{figure}[ht!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[scale=0.35]{routeStatusNew.pdf}
 \caption{Number of allocated prefixes, allocated after 1997, that are being advertised in BGP and their routing status}
@@ -674,7 +673,7 @@ To infer about the quantity of addresses that we are speaking about we use Figur
 We can immediately notice huge differences between Figure \ref{fig:routingStatusNew} and Figure \ref{fig:routingStatusOld}. Here the number of full routed prefixes rise in accordance to the total of allocated prefixes and is clearly higher than the number of not routed prefixes. The number of partially routed prefixes and not routed prefixes grow together and with a smalll pace, just reaching less than 12000 in 2014 while the number of full routed prefixes is around 70 000. We can say that the number of not routed prefixes in the global view is mostly from allocated prefixes before 1997.
 
 
-\begin{figure}[ht!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[scale=0.35]{routeStatusNew8.pdf}
 \caption{Amount of address space of allocated prefixes, allocated after 1997, that is being advertised in BGP in /8s, according to prefixes routing status}
@@ -683,7 +682,7 @@ We can immediately notice huge differences between Figure \ref{fig:routingStatus
 
 In Figure \ref{fig:routingStatusNew8} we see the amount of addresses in terms of /8s. We continue to see that the amount of full routed is following the number of total allocated ones and is increasing rapidly, alghouth slowing down in the last years as a result of IPv4 adress exaushtion. The number of partially routed addresses is higher than the not routed ones and here the number of not routed is quite small, around 5 /8s. We can say that the contribution to not routed prefixes in the global view is being made by prefixes allocated before 1997. Although we cannot assure that the IPv4 addresses in these blocks are not being used, it is certainly an indicating that most probably there are plenty of IPv4 addresses in the old allocated prefixes can be be used for future use and to further allow the use of IPv4.
 
-\begin{figure}[ht!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[scale=0.35]{routeStatusArin.pdf}
 \caption{Number of allocated prefixes, in ARIN, that are being advertised in BGP and their routing status}
@@ -693,7 +692,7 @@ In Figure \ref{fig:routingStatusNew8} we see the amount of addresses in terms of
 Having studied the allocated prefixes before and after 1997, we decided to infer on how is the behaviour for each of the RIRs. In Figure \ref{fig:routingStatusArin} are represented the results for ARIN.  
 While the number of partially routed prefixes is very low, around 2000 e 2001 the number of not routed prefixes and full routed prefixes is much higher and almost the same, around 18000 for the not routed prefixes and 17000 for full routed prefixes. In 2014 the number of full routed prefixes increased in the same way as the number of total allocated prefixes increased while the number of not routed prefixes remained constant. Beggining of 2014 we could observe 21000 prefixes that were not routed and 27000 full routed. Partially routed prefixes remained low with around 4000. The distribution in ARIN was expected to be similar to the old allocations as most of these old allocations belong exactly to ARIN. 
 
-\begin{figure}[ht!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[scale=0.35]{routeStatusArin8.pdf}
 \caption{Amount of address space of allocated prefixes, in ARIN, that is being advertised in BGP in /8s, according to prefixes routing status}
@@ -704,7 +703,7 @@ In Figure \ref{fig:routingStatusArin8} are represented the count of prefixes in 
 
 The second RIR we studied was AFRINIC, represented in Figure \ref{fig:routingStatusAfrinic}. We can notice that the number of allocated prefixes increased at a high rate and the number of full routed prefixes increased accordingly. As the number of not routed prefixes remaining constant along the time period and the number of partly routed prefixes also had this trend we can assume that the majority of new prefixes being allocated was also fully routed. Still the number of allocated prefixes was much smaller in AFRINIC, with 2500 prefixes in comparison to  around 130 000 globally. 
 
-\begin{figure}[ht!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[scale=0.35]{routeStatusAfrinic.pdf}
 \caption{Number of allocated prefixes, in AFRINIC, that are being advertised in BGP and their routing status}
@@ -713,7 +712,7 @@ The second RIR we studied was AFRINIC, represented in Figure \ref{fig:routingSta
 
 When we analize the count of prefixes in /8s shown in Figure \ref{fig:routingStatusAfrinic8}, we can see that the amount of address space allocated to AFRINIC is very small, only four /8s. The only difference we can see here is that the amount of address space that is not being routed is smaller than the amount of address space that is partially routed, since 2012. 
 
-\begin{figure}[ht!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[scale=0.35]{routeStatusAfrinic8.pdf}
 \caption{Amount of address space of allocated prefixes, in AFRINIC, that is being advertised in BGP in /8s, according to prefixes routing status}
@@ -722,7 +721,7 @@ When we analize the count of prefixes in /8s shown in Figure \ref{fig:routingSta
 
 The analysis of APNIC is shown in Figure \ref{fig:routingStatusApnic}. We can again notice the increase of allocated prefixes, although at a small rate, and the number of full routed prefixes follows this trend. The total number of allocated prefixes is around 24 000. We can see that the number of partially routed prefixes remained approximately constant as well as the number of not routed ones. Exception in 2011 where we can see a peak of allocated prefixes that reflects itself in the number of not routed prefixes, indicating that the prefixes in this peak were not routed.  
 
-\begin{figure}[ht!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[scale=0.35]{routeStatusApnic.pdf}
 \caption{Number of allocated prefixes, in APNIC, that are being advertised in BGP and their routing status}
@@ -731,7 +730,7 @@ The analysis of APNIC is shown in Figure \ref{fig:routingStatusApnic}. We can ag
 
 Looking at the count of prefixes in /8s, Figure \ref{fig:routingStatusApnic8}, we see that since 2011 the amount of address remained pratically constant although we see in the previous Figure that there were still prefixes being allocated. We can assume that this is due to the change of policy in allocations that APNIC implemented after reaching the last /8, where small blocks of addresses started being allocated. We can also see, since 2011, that while the amount of address space being partially routed or fully routed increased, the amount of not routed address space decreased.
 
-\begin{figure}[ht!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[scale=0.35]{routeStatusApnic8.pdf}
 \caption{Amount of address space of allocated prefixes, in APNIC, that is being advertised in BGP in /8s, according to prefixes routing status}
@@ -740,7 +739,7 @@ Looking at the count of prefixes in /8s, Figure \ref{fig:routingStatusApnic8}, w
 
 In Figure \ref{fig:routingStatusLacnic} it is shown the analisys for LACNIC. We can see an exponential growth in the total number of allocated prefixes and the number of full routed prefixes follows this trend, indicating that the majority of allocated prefixes was also fully routed. On the other hand the number of partially routed prefixes and not routed ones show a very slow rate of increase.
 
-\begin{figure}[ht!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[scale=0.35]{routeStatusLacnic.pdf}
 \caption{Number of allocated prefixes, in LACNIC, that are being advertised in BGP and their routing status}
@@ -749,7 +748,7 @@ In Figure \ref{fig:routingStatusLacnic} it is shown the analisys for LACNIC. We 
 
 In Figure \ref{fig:routingStatusLacnic8} we have the count of prefixes in /8s. As expected, the amount of address space allocated and fully routed follows the same trend, an exponential increase. The total amount of address space is around eleven /8s. We can also see that the amount of address space that is not routed is almos zero, indicating a high usage of allocated prefixes in the LACNIC region.
 
-\begin{figure}[ht!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[scale=0.35]{routeStatusLacnic8.pdf}
 \caption{Amount of address space of allocated prefixes, in LACNIC, that is being advertised in BGP in /8s, according to prefixes routing status}
@@ -758,7 +757,7 @@ In Figure \ref{fig:routingStatusLacnic8} we have the count of prefixes in /8s. A
 
 Our last RIR to be analyzed is RIPENCC, which is shown in Figure \ref{fig:routingStatusRipe}. We can see right away that the number of allocated prefixes is high, around 50 000 and it as been a high increasing trend. The number of fully routed prefixes also followed this trend. The number of partially routed prefixes and not routed ones remained constant along the time.
 
-\begin{figure}
+\begin{figure}[!ht]
 \centering
 \begin{subfigure}{.5\textwidth}
   \centering
@@ -795,7 +794,7 @@ In Figure \ref{fig:routingStatusRipe8} we have the count of prefixes in /8s. We 
 
 Important is also to compare the routing status between the different RIRs. For that we normalize each one of the RIR values using the total number of prefixes count (/8s). The metric full routed prefixes is shown in Figure \ref{fig:routingStatusRelativeFull}.  
 
-\begin{figure}[ht!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[scale=0.35]{routeStatusRelativeFull.pdf}
 \caption{RIRs comparison of prefixes that are being fully routed}
@@ -805,7 +804,7 @@ Important is also to compare the routing status between the different RIRs. For 
 We can see that ARIN has around 40\% of the entire routing address space that is fully routed. Then is RIPENCC and APNIC with around 25\% each, after LACNIC with around 7\% and last AFRINIC  with around 3\%.  
 The next comparison was regarding the partially routed prefixes. It can be seen in Figure \ref{fig:routingStatusRelativePart}. 
 
-\begin{figure}[ht!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[scale=0.35]{routeStatusRelativePart.pdf}
 \caption{RIRs comparison of prefixes that are being partially routed}
@@ -817,7 +816,7 @@ We can see that ARIN has around 50\% of the entire routing address space that is
 
 Regarding the metric not routed prefixes, the results are shown in Figure \ref{fig:routingStatusRelativeNot}. 
 
-\begin{figure}[ht!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[scale=0.35]{routeStatusRelativeNot.pdf}
 \caption{RIRs comparison of prefixes that are not being routed}
@@ -829,7 +828,7 @@ We can see that ARIN has around 75\% of the entire routing address space that is
 
 In Figure \ref{fig:heatmapLegacy} we can see a heatmap showing the mumber of /24s that are being advertised for each /8. In the y-axis it is shown the date and in the x-axis are shown /8 prefixes, such as 3.0.0.0, 4.0.0.0 and so on. We divided the prefixes into two categories "Legacy" and "Allocated" and created one Figure for each one. The division of the prefixes was done according to \cite{IANA_Address_Space}. Each date and prefix intersection shows the number of /24s being advertised in a log scale. We can see that more than half of these prefixes were already being routed in 2002 and maintained this trend accross the time period and show an increase in the number of /24s being advertised. On the other hand there are a significant number of prefixes that show no /24 being advertised during the whole time period. This prefixes are interesting, because when facing IPv4 address exhaustion, we notice quite a significant address space not being advertised. To be noted that although these prefixes are not advertised doesn't mean their are not used, but could be helpful to understand their situation.  
 
-\begin{figure}[ht!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[scale=0.1]{heatmapLegacy.pdf}
 \caption{Heatmap showing number of /24s being advertised by each /8 "Legacy" prefix}
@@ -838,7 +837,7 @@ In Figure \ref{fig:heatmapLegacy} we can see a heatmap showing the mumber of /24
 
 In Figure \ref{fig:heatmapAllocated} we show the results for the "Allocated" prefixes. Here we can see that most of the prefixes were not being advertised in 2002 and we can notice that as time progresses the prefixes start to be more and more advertised due to the allocations that are happening. We see that along the time more and more /24s are being advertised and when we have a closer look at 2011, IPv4 depletion date, we see that there are almost no prefixes available. Since 2011 we can notice the IPv4 exhaustion and that more and more addresses are being advertised.
 
-\begin{figure}[ht!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[scale=0.1]{heatmapAllocated.pdf}
 \caption{Heatmap showing number of /24s being advertised by each /8 "Allocated" prefix}
@@ -846,21 +845,21 @@ In Figure \ref{fig:heatmapAllocated} we show the results for the "Allocated" pre
 \end{figure}
 
 
-\begin{sidewaysfigure}[ht!]
+\begin{sidewaysfigure}[!ht]
 
 \includegraphics[scale=0.15]{heatmapAllocated.pdf}
 \caption{Heatmap showing number of /24s being advertised by each /8 "Allocated" prefix}
-\label{fig:heatmapAllocated}
+\label{fig:heatmapAllocatedSideWays}
 \end{sidewaysfigure}
 
 
-\subsubsection{Prefixes and Multiple Origin ASes}
+\subsection{Prefixes and Multiple Origin ASes}
 
 
 Our next step was to identify prefixes that were being advertised by multiple ASes. We took all the prefixes that were allocated and considered to be advertised by multiple prefixes every prefix that would be advertised by more than one AS.
 The results are show in Figure \ref{fig:multipleAsesGlobal}. In the Total Number of Prefixes are considered all the prefixes allocated until a certain point in time and that were seen in the BGP routing data.
  
-\begin{figure}[ht!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[scale=0.35]{multipleAsesGlobal.pdf}
 \caption{Observed number of allocated prefixes being advertised by more than one AS}
@@ -870,7 +869,7 @@ The results are show in Figure \ref{fig:multipleAsesGlobal}. In the Total Number
 We can see that the total number of prefixes increases faster than the number of prefixes with multiple ASes. This shows that the majority of allocated prefixes are advertised by just one AS and the growth of allocations has not been reflected in the same proportion in prefixes with multiple ASes. Nevertheless the number of prefixes with multiple ASes has been increasing and taking into account that in recent times, since 2011, the blocks of addresses that were allocated were smaller and most probably are just advertised by just one AS, this can indicated that older blocks of prefixes are starting to be advertised by more than one AS. 
 In Figure \ref{fig:multipleAsesOldGlobal} is shown the same plot, but just considering prefixes that were allocated before 1997.
 
-\begin{figure}[ht!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[scale=0.35]{multipleAsesOldGlobal.pdf}
 \caption{Observed number of allocated prefixes, allocated before 1997, being advertised by more than one AS}
@@ -880,7 +879,7 @@ In Figure \ref{fig:multipleAsesOldGlobal} is shown the same plot, but just consi
 We can see that, although there are less prefixes being advertised the number of prefixes with multiple ASes increases. Also we were not considering prefixes being allocated after 1997 and this growth on the number of prefixes with multiple ASes, althougth small, is significant and shows the address space is being shared by different ASes.
 In Figure \ref{fig:multipleAsesNewGlobal} it is shown the plot for prefixes allocated after 1997.
 
-\begin{figure}[ht!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[scale=0.35]{multipleAsesNewGlobal.pdf}
 \caption{Observed number of allocated prefixes, allocated after 1997, being advertised by more than one AS}
@@ -891,7 +890,7 @@ We can see that the total number of prefixes allocated increased at a high rate,
 
 In Figure \ref{fig:heatmapLegacyMulti} we can see a heatmap showing the mumber of ASes that are advertising for each /8. In the y-axis it is shown the date and in the x-axis are shown /8 prefixes, such as 3.0.0.0, 4.0.0.0 and so on. We divided the prefixes into two categories "Legacy" and "Allocated" and created one Figure for each one. The division of the prefixes was done, once again, according to \cite{IANA_Address_Space}. Each date and prefix intersection shows the number of Ases that are advertising in a log scale. We can see that the majority of prefixes that were being advertised since the beggining of the time period, showed an increase in the number of ASes that are advertising subnet within the prefix.   
 
-\begin{figure}[ht!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[scale=0.1]{heatmapLegacyMulti.pdf}
 \caption{Heatmap showing number of ASes advertising prefixes for each /8 "Legacy" prefix}
@@ -900,19 +899,19 @@ In Figure \ref{fig:heatmapLegacyMulti} we can see a heatmap showing the mumber o
 
 In Figure \ref{fig:heatmapAllocatedMulti} we show the results for the "Allocated" prefixes. We can see, as expected, that the majority of the prefixes were not being advertised by any AS in 2002. As time progresses we notice that ASes start advertising for each of the prefixes and in 2011 most prefixes have already ASes advertising their subnets. Since then we notice and increase in the number of ASes advertising for each prefix.
 
-\begin{figure}[ht!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[scale=0.1]{heatmapAllocatedMulti.pdf}
 \caption{Heatmap showing number of ASes advertising prefixes for each /8 "Allocated" prefix}
 \label{fig:heatmapAllocatedMulti}
 \end{figure}
 
-\subsubsection{Multiple Origin ASes and IRR}
+\subsection{Multiple Origin ASes and IRR}
 
 Our next step was to investigate what was happening with the old prefixes. Because the new ones were being allocated throughout the time it was expected to see them with an increasing number of ASes, but for old prefixes the behaviour could be different. 
 In Figure \ref{fig:oldNetworks} we can see the ten allocated prefixes, allocated before 1997, that are being advertised by the highest number of ASes.
 
-\begin{figure}[ht!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[scale=0.35]{oldNetworks.pdf}
 \caption{Observed number of ASes for the ten prefixes being advertised by more addresses, allocated before 1997}
@@ -924,7 +923,7 @@ As these are ISPs it is explained why there are so many ASes advertising these p
 
 The first stept was to use whois and see if the advertised prefixes are being registered. For that we took the prefixes that are being advertised in BGP and for each of them we queried whois. If there would be an exact match the prefix would be "BGP equal to Whois", if the BGP prefix length would be smaller than the answer in Whois (e.g. BGP 8.1.0.0/16 Whois 8.1.1.0/24) it would count as "BGP smaller than Whois", if the BGP prefix length would be bigger than the corresponding answer in Whois (e.g. BGP8.1.0.0/16 Whois 8.0.0.0/8) it would count as "BGP bigger than Whois". In Figure \ref{fig:whois} are shown the results.
 
-\begin{figure}[ht!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[scale=0.35]{whois.pdf}
 \caption{Observed number of subnets in Whois for each of the prefixes}
@@ -934,7 +933,7 @@ The first stept was to use whois and see if the advertised prefixes are being re
 We can see that while the prefix 12.0.0.0 has more than half of its advertised subnets with an exact match in the Whois, indicating they are registered, 8.0.0.0 has a bit less than half and 38.0.0.0 has pratically zero. For all of the subnets that don't fall on the "BGP equal to Whois" category they go into the category "BGP bigger than Whois", which would be expected given that if a subnet is not registered it would be match, for example 8.0.0.0 as longest prefic match.
 Our next step was to investigate if how well are the subnets documented in RADB. In Figure \ref{fig:radb} are shown the results.
 
-\begin{figure}[ht!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[scale=0.35]{radb.pdf}
 \caption{Observed number of subnets in RADB for each of the prefixes}
@@ -1095,30 +1094,8 @@ IPv4 Grey Market}.
 \bibitem{Nanog}
 	North American Network Operator' Group,
 	\emph{Routing Registry Tutorial}.
-	[Online]. Available: http://www.nanog.org/meetings/nanog51/presentations/Sunday/NANOG51.Talk34.NANOG51%20IRR%20Tutorial.pdf
+	[Online]. Available:http://www.nanog.org/meetings/nanog51/presentations/
+	Sunday/NANOG51.Talk34.NANOG51%20IRR%20Tutorial.pdf
 
-
-  
-
-	from book computer networking
-	
-	http://www.internetsociety.org/internet/what-internet/history-internet/brief-history-internet
-	
-	IPv4 Address Transfer Markets and the Regional Internet Address Registries http://www.internetgovernance.org/wordpress/wp-content/uploads/IPAddress\_TransferMarkets.pdf
-	
-	An Empirical Analysis of the IPv4 Number Market http://www.internetgovernance.org/wordpress/wp-content/uploads/IPv4marketTPRC20122.pdf
-	
-	http://www.nanog.org/meetings/nanog51/presentations/Sunday/NANOG51.Talk34.NANOG51%20IRR%20Tutorial.pdf
-
-from http://www.nsfnet-legacy.org/about.php
-http://www.nsf.gov/about/history/nsf0050/internet/launch.htm
-http://www.hernandocadett.com/content/stability-and-consistency-internet-wide-network-routing
-https://www.nsf.gov/news/news\_summ.jsp?cntn\_id=103050
-http://www.merit.edu/research/nsfnet\_article.php
-http://www.merit.edu/services/meritradb/history.php
-
-from http://www.irr.net/docs/rfc1786.txt
-
-	
 \end{thebibliography}	
 \end{document}
