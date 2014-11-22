@@ -2,6 +2,8 @@
 \usepackage{graphicx}
 \usepackage{rotating}
 \usepackage{subcaption}
+\usepackage{amsmath}
+\usepackage{mathtools}
 
 \graphicspath{ {/home/morais/Documents/tese/tese/paper/img/} }
 
@@ -51,7 +53,7 @@ We will also study whether prefixes are being advertised by one AS or by multipl
 \chapter{Background}
 
 As defined by the Federal Networking Council (FNC) in October 1995, the term internet "refers to the global information system that -- (i) is logically linked together by a globally unique address space based on the Internet Protocol (IP) or its subsequent extensions/follow-ons; (ii) is able to support communications using the Transmission Control Protocol/Internet Protocol (TCP/IP) suite or its subsequent extensions/follow-ons, and/or other IP-compatible protocols; and (iii) provides, uses or makes accessible, either publicly or privately, high level services layered on the communications and related infrastructure described herein". To Internet Protocol (IP) being used was version 4 or IPv4 allowing a use of around 4 billion addresses to ensure a globally unique address space. 
-But as early as the 90s concerns have been raised in the technical community reagarding the scalability of the number of addresses in IPv4 when facing a world wide deployment with a high density of communicating devices. To tackle this issue IPv6 was created which allows 2\^128, that is more than 7.9×10\^28 times as many as IPv4 addresses. 
+But as early as the 90s concerns have been raised in the technical community reagarding the scalability of the number of addresses in IPv4 when facing a world wide deployment with a high density of communicating devices. To tackle this issue IPv6 was created which allows $2^{128}$, that is more than $7.9 \times 10^{28}$ times as many as IPv4 addresses. 
 The Internet Assigned Numbers Authority (IANA) allocated the last /8 blocks of addresses to the Regional Internet Registries in February 2011 and APNIC and RIPE already started allocating addresses from their last /8 blocks, which led to stricter allocation policies. Althought this event and the fact that the technical specification of IPv6 was mostly completed by 1996, the transition from IPv4 to IPv6 is happening, but in a slow manner \cite{GOOGLE_IPV6}. It has been possible to extend the life of IPv4 address space and the question that arises is how are allocations and routing dynamics affected by this?
 The holders of blocks of IPv4 addresses need an Autonomous System (AS) number that will be matched to the prefix they are advertising. In order to forward packets from one source AS to a destination AS, routing is needed and therefore we will have a look at how routing works at this level. 
 
@@ -162,225 +164,15 @@ The National Science Foundation inherited the responsability for developing the 
 
 PRDB goal was to maintain information regarding legitimate destination announcements from the various regional networks. This information was very important in order to prevent routing loops. Only after BGP replaced EGP as the inter-domain routing protocol, it became no longer necessary to controll the avoidance of routing loops in such a administratively way. With this change, the information in PRDB turned to be mainly used to gather routing policies, such as path preferences and to generate configuration files for backbone routers.
 
-With the transition of NSFNET to the commercial Internet, the National Science Foundation selected Merit Network and a partner organization to act as Routing Arbiters. The goal of the PRDB would be now to record global routing policy information based on each Autonomous System's policy and RADB comes into the scene. RIPE had pioneered work to record global routing policy information in Europe and the data exchange format described in RIPE-181 (RFC 1786) was adopted as the standard for Internet Routing Registries. This model was also taken by RADB. 
+With the transition of NSFNET to the commercial Internet, the National Science Foundation selected Merit Network and a partner organization to act as Routing Arbiters. The goal of the PRDB would be now to record global routing policy information based on each Autonomous System's policy and RADB comes into the scene. RIPE had pioneered work to record global routing policy information in Europe and the data exchange format described in RIPE-181 \cite{RFC_1786} was adopted as the standard for Internet Routing Registries. This model was also taken by RADB. 
 
-The transition from PRDB presented several problems as the tools used to configure the NSFNET/ANSnet routers were based on PRDB attributes and not RIPE-181. But by December 1994, all the data in PRDB had been converted to RIPE-181-style expressions and on February next year, the RADB had been populated with RIPE-181-style Maintainer and AS Objects. 
+The transition from PRDB presented several problems as the tools used to configure the NSFNET/ANSnet routers were based on PRDB attributes and not RIPE-181. But by December 1994, all the data in PRDB had been converted to RIPE-181-style expressions and on February next year, the RADB had been populated with RIPE-181-style Maintainer and AS Objects. Later this format shifted to the Routing Policy Specification Language (RPSL), which is currently used. In Appendix A can be found more information on the most relevant objects and the changes from RIPE-181 to RPSL.
 
-\subsubsection{RIPE-181}
+Nowadays the Internet routing Registry (IRR) is a globally-distributed routing information database. This set of databases consists of around 34 different databases, each one individually operated by organizations such as RIRs (ARIN, RIPE, etc), ISPs (NTT, Savvis, Level3, etc) and non-affiliated public registries (RADB and ALTDB). RADB is just one component of the IRR, but its goal is to mirror all component databases and provide an overview of the entire IRR. 
 
-The RFC-1786, which was originally published as a RIPE document (RIPE-181), describes the original database formats that were used by RIPE NCC to store routing policy in its database. As mentioned before RIPE also serves as an allocation registry, which means that its database also contains non-routing oriented objects. 
-This documents was also referred as ripe-81++ as it was an update to the original 'ripe-81' proposal for representing and storing routing polices in the RIPE database. Several extensions proposed by Merit Inc. were incorporated into this document and it provided a generalized IP routing policy representation to be used by the Internet routing registries. As it's purpose is to be a general document for Internet routing registries, one can replace the RIPE routing registries by "Regional routing registry".
+The purpose of the IRR is tho provide a tool where network operators publish their routing policies and routing announcements so that other network operators can use this information. It allows them to debug routing problems, configure backbone routers automatically and do network planning. 
 
-This document is an important source of information to understand today's Internet registries. 
-The Regional routing registries database contains both routing registry and address space allocation registry information. In the begining both informations were combined, but with later it became clear that a separation
-of routing information and allocation is desirable. Mainly because in some parts of the world there are different registries for each kind of information and also because often the maintainer of the routing information is not the same as the one of the allocation information.
-
-One of the activities of routing registries is to maintan a databse of IP networks, DNS domains, with information of contact persons and other network management information. The content of this database can be queried using the whois protocol or retrieved as a whole.
-The allocation registry contains data about address space allocated to enterprises or delegated to local registries as well as data about the domain name space. 
-In the Regional routing registries database the information is stored in form of objects. The types of objects are summarized in table \ref{table:1}.   
-   
-\begin{table}[!h]
-\centering
-\begin{tabular}{ | c | c | l | }
-\hline
- Registry & Object & Describes \\ \hline
- B & person & contact persons \\
- A & inetnum & IP address space \\
- A & domain & DNS domain \\
- R & auto-num & autonomous system \\
- R & as-macro & a group of autonomous systems \\
- R & community & community \\
- R & route & a route being announced \\
- R & clns & CLNS address space and routing \\
- \hline
-\end{tabular}
-\caption{Summary of database objects in routing registries}
-\label{table:1}
-\end{table}
-
-The Registry column gives information to which registry the object belongs to, "A" for allocation registry, "R" for routing registry and "B" for both.
-
-The Objects are represented by attributes value pairs. 
-An example of an whois query to retrieve information about network 192.87.45.0 is shown in table \ref{table:2}. Here we can see one inetnum object and two person objects.
-
-
-\begin{table}[!h]
-\centering
-\begin{tabular}{  r  l  }
- 
- inetnum:  & 	192.87.45.0 - 192.87.45.255 \\
- netname:  & 	OCLC-NET \\
- descr:    &	OCLC \\
- country:  & 	NL \\
- admin-c:  & 	WK1844-RIPE \\
- admin-c:  & 	KDB18-RIPE \\
- tech-c:   & 	WK1844-RIPE \\
- tech-c:   & 	KDB18-RIPE \\
- status:   & 	LEGACY \\
- mnt-by:   & 	SN-LIR-MNT \\
- mnt-irt:  & 	irt-SURFcert \\
- source:   & 	RIPE \# Filtered \\
- \\
- person:   & 	Kees van Dobben de Bruyn \\
- address:  & 	Pica Centrum voor Bibliotheekautomatisering \\
- address:  & 	P.O. Box 876 \\
- address:  & 	NL - 2300 AW Leiden \\
- address:  & 	The Netherlands \\
- phone:    & 	+31 71 257174 \\
- fax-no:   & 	+31 71 223119 \\
- nic-hdl:  & 	KDB18-RIPE \\
- mnt-by:   &  	SN-LIR-MNT   \\
- source:   & 	RIPE \# Filtered \\
- \\
- person:   &    Wim Kooreman\\
- address:  &    Pica Centrum voor Bibliotheekautomatisering\\
- address:  &    P.O. Box 876\\
- address:  &    NL - 2300 AW Leiden\\
- address:  &    The Netherlands\\
- phone:    &    +31 71 257257\\
- fax-no:   &    +31 71 223119\\
- nic-hdl:  &    WK1844-RIPE\\
- mnt-by:   &    SN-LIR-MNT\\
- source:   &    RIPE \# Filtered\\
- 
-\end{tabular}
-\caption{Example of whois query response to retrive information about network 192.87.45.0}
-\label{table:2}
-\end{table}     
-        
- 
-Routing Registry Objects
-
-The most important objects regarding the routing registry are the "aut-num" and the "route" objects. The "aut-num" object describes an autonomous system and the "route" object the route. The "auto-num" object provides contact information for the referred AS and describes its routing policy by identifying the neighboring ASes with which routing information is exchanged. The routing policy is described by identifying what is being announced and what is allowed. The "auto-num" objects provide information how routing information is propagated.
-The "route" object describes a single route that is being injected and references the AS that is originating it. In table \ref{table:3} it is shown a "route" object returned from a whois query on network 192.87.45.0. 
-The value of the route attribute is a classless address and represents the route being injected into the routing system. The value of the origin attribute is an AS referring to an "aut-num" object, which is the AS injecting this route.
-  
-\begin{table}[!h]
-\centering
-\begin{tabular}{  r  l  }
-
-route:    &      192.87.0.0/16\\
-descr:    &      SURFnet CIDR Block IV\\
-origin:   &      AS1103\\
-mnt-by:   &      AS1103-MNT\\
-mnt-lower:&      SN-LIR-MNT\\
-source:   &      RIPE \# Filtered\\
-
-\end{tabular}
-\caption{Example of whois query response to retrive information about network 192.87.45.0 "route" object}
-\label{table:3}
-\end{table} 
-
-
-The Autonomous System Object
-
-An Autonomous System (AS) is defined by a group of IP networks which has a single defined external routing policy. An AS has an unique number associated with it. This number is used to identify the AS and to exchange routing information. Routing protocols such as BGP and EGP are used to exchange routing information between ASes.
-There are some recommendations that the creation and allocation of an AS should follow such as:
-	- It is only needed to create an AS when exchanging routing information 	with other Ases.
-	- In a case of customer networks connect to one service provider, the 		IP network should normally be a member of the service providers AS.
-    - In the case that a network operator connects to more than one AS with 	different routing policies, it is required for them to have their own 		AS number. 
-    - The AS should always try to be populated with as many routes as 		  possible, as long as all routes have the same routing policy
-   
-An As is represented by an "aut-num" object and "route" objects representing the routes originated by the AS. The "aut-num" object stores administrative information as well as the routing policies of the AS. The origin attributes of the route objects define the set of routes originated by the AS, where each object has only one origin attribute. In table \ref{table:4} it is shown an example of a AS object.  
-    
-\begin{table}[!h]
-\centering
-\begin{tabular}{  r  l  }
-
-aut-num:    &      	AS1104\\
-as-name:    &      	Nikhef\\
-descr:   	&     	FOM-Nikhef\\
-descr:   	&    	Science Park 105\\
-descr:		&   		Amsterdam, 1098 XG\\
-descr:   	&	    The Netherlands\\
-as-in:  		&       from AS1103 accept AS1103\\
-as-in:  		&       from AS1139 accept AS1139\\
-as-in:  		&       from AS1888 accept AS1888\\
-as-in:  		&       from AS1126 accept AS1126\\
-as-in:  		&       from AS1124 accept AS1124\\
-as-out:  	&       to AS1103 announce AS1104\\
-as-out:  	&       to AS1139 announce AS1104\\
-as-out:  	&       to AS1888 announce AS1104\\
-as-out:  	&       to AS1126 announce AS1104\\
-as-out:  	&       to AS1124 announce AS1104\\
-admin-c: 	&       PK8221-RIPE\\
-tech-c:  	&       PK8221-RIPE\\
-status:  	&       LEGACY\\
-mnt-by:  	&       AS1104-MNT\\
-source:  	&       RIPE \# Filtered\\
-
-\end{tabular}
-\caption{Example of auto-num object}
-\label{table:4}
-\end{table} 
-
-This representation provides a set of routes and a description of administrative details and routing policies. 
-        
-        
-AS Macros          
-          
-The as-macro object defines a way to group ASes, so that a new AS does not have to be added to the routing policy as described by the as-in and as-out attributes of the AS object.          
-          
-\begin{table}[!h]
-\centering
-\begin{tabular}{  r  l  }
-
-as-macro:   	&      AS-EBONE\\
-descr:    	&      ASes routed by EBONE\\
-as-list:    	&      AS2121 AS1104 AS2600 AS2122\\
-as-list:    	&      AS1103 AS1755 AS2043\\
-guardian:   	&      guardian@ebone.net\\
-
-\end{tabular}
-\caption{Example of as-macro object}
-\label{table:5}
-\end{table} 
-
-The RIPE-181 standard was accepted as an IETF informational document in March 1995 (RFC1786). After IETF revised and standardized this document, the result was the Routing Policy Specification Language (RPSL). It extended the functionality of the aut-num and route objects and the as-macro became as-set object. Also several other objects were added.
-Each of the object types contains mandatory and optional attributes. There are three attributes that all objects must have: "mnt-by", identifies the mntner object that controls the object; "change", which is lists email and time of change and "source", that identifies the registry name where the object is located.
-The two most relevant objects/classes are the "mntner" and "route" objects. The mntner object is an abbreviation of maintainer and identifies the accounts in the registry.
-In table \ref{table:5} it is shown an example of a "mntner" object. 
-
-\begin{table}[!h]
-\centering
-\begin{tabular}{  r  l  }
-
-mntner:   	&      MAINT-AS23323\\
-descr:    	&      Diablo Valley College\\
-admin-c:    	&      Ben Seaberry\\
-tech-c:    	&      Ben Seaberry\\
-upd-to:   	&      bseaberry@DVC.EDU\\
-auth:   		&      CRYPT-PW HIDDENCRYPTPW\\
-notify:   	&      bseaberry@DVC.EDU\\
-mnt-by:   	&      MAINT-AS23323\\
-changed:   	&      rick@extrateam.com 20030311\\
-source:   	&      RADB\\
-
-\end{tabular}
-\caption{Example of "mntner" object}
-\label{table:5}
-\end{table}
-
-The route object defines a CIDR prefix and the origin AS. This is the most common type of object in the routing registries. It is used by some ISP's to generate filters on their customer BGP sessions. In table \ref{table:6} it is shown an example of a "route" object. 	
-
-\begin{table}[!h]
-\centering
-\begin{tabular}{  r  l  }
-
-route:   	&      198.108.0.0/14\\
-descr:    	&      MERIT Network Inc.\\
-			&		1000 Oakbrook Drive, Suite 200\\ 
- 			&		Ann Arbor \\
- 			&		MI 48104, US\\
-origin:    	&      AS237\\
-mnt-by:    	&      MAINT-AS237\\
-changed:   	&      ljb@merit.edu 20060919\\
-source:   	&      RADB\\
-
-\end{tabular}
-\caption{Example of "route" object}
-\label{table:6}
-\end{table}
+Using the IRR provides several advantages to networks. The fact that IRR hods announced routes and routing policies in a common format, allows network operators to use this to configure their backbone routers. This helps network management in route filtering, where traffic can be filtered based on registered routes, thus avoiding network problems caused by malicious or accidental routing announcements. It can also be used for network troubleshooting by making easier to identify routing problems outside of ones network and allowing to use the contacts for the AS number associated with the problematic route in order to solve traffic problems. IRR also makes easier to create router configurations by using tools such as IRRToolset. In case that all networks would register their routes in the IRR, a global view of routing policy could be mapped, thus improving the integrity of global Internet routing. 
 
 This IP address space management system has been working well, but currently we are facing the problem of IPv4 address exhaustion, which will be referred in the nex section.
 
@@ -442,14 +234,20 @@ Here we can see statistics regarding IPv4 address space allocation. There is inf
 In order to study the advertised IPv4 address space we used BGP table dumps from RouteViews \cite{RouteViews}. This provided us the required raw BGP data for our analysis. As our requirements were just to have a global overview of the prefixes that are being advertised and its origin, to use only this data source would be enough. In case we had to infer about the BGP paths and try to build an internet map, we would certainly have to use more sources (e.g. BGP table dumps from RIPE), but for our analysis this was not necessary as we could obtain a comprehensive view of the global routing system.
 We used four collectors, after some previous tests, which would give us the best possible overview of the global system for the entire study period. Some other related work \cite{Address_Space_Deaggregation} used just one collector and still obtained significant results, but we wanted to be on the sure side and decided to use four collectors. 
 
-To be able to study the IPv4 address space allocation history, we used the allocation files \cite{Potaroo} provide by the RIRs. These files 
+To be able to study the IPv4 address space allocation history, we used the allocation files \cite{Potaroo} provide by the RIRs. These files contain information about address allocation and are publiched in the RIR Statistics Exchange Format.
+How Allocation Data is Published \cite{ALLOC_FILES}. Each RIR publishes a file containing its allocations. The files are CSV formatted using a pipe "\textbar" as field separator and have the following format:
+\vspace{5mm}
 
+\hspace{1cm}	 registry\textbar cc\textbar type\textbar start\textbar value\textbar date\textbar status [\textbar extensions...]
+	
+\vspace{5mm}
 
-https://www.arin.net/knowledge/statistics/nro\_extended\_stats\_format.pdf
-http://www-public.it-sudparis.eu/~maigron/RIR\_Stats/
-http://www.kuriositaet.de/ip/ip\_service.html
+"registry" contains the name of the registry to which this IP is assigned to, "cc" is a two letter country code in the ISO 3166 format. "Type" can be "asn", "ipv4" and "ipv6" where asn is for Autonomous System Numbers and the other fields are for IP version 4 and version 6 respectively. "Start" is the starting IP address for the block and "value" is the number of hosts in this block. "Date" provides information to when this block was first assigned by the RIR. "Status" provides information to whether the block was assigned or allocated. "Assigned" are blocks that are allocated to the final instance using it and "allocated" are delegated to LIRs that in turn allocate the block in parts. An example would be:
+\vspace{5mm}
 
+\hspace{1cm}	 ripencc\textbar DE\textbar ipv4\textbar 193.168.128.0\textbar 32768\textbar 19960308\textbar assigned
 
+\vspace{5mm}
 
 We used the Whois \cite{Whois} query and response protocol used for querying databases to obtain information about a domain name, an IP address block and an autonomous system. 
 
@@ -1089,8 +887,8 @@ IPv4 Grey Market}.
 \bibitem{Nanog}
 	North American Network Operator' Group,
 	\emph{Routing Registry Tutorial}.
-	[Online]. Available:http://www.nanog.org/meetings/nanog51/presentations/
-	Sunday/NANOG51.Talk34.NANOG51%20IRR%20Tutorial.pdf
+	[Online]. Available: https://www.nanog.org/meetings/nanog51/presentations/Sunday
+	/NANOG51.Talk34.NANOG51%20IRR%20Tutorial.pdf
 	
 \bibitem{GOOGLE_IPV6}
 	Google,
@@ -1107,6 +905,17 @@ IPv4 Grey Market}.
 	\emph{The Internet Numbers Registry System}.
 	[Online]. Available: https://tools.ietf.org/html/rfc7020
 	
+\bibitem{RFC_1786}
+	RFC 1786,
+	\emph{Representation of IP Routing Policies in a Routing Registry (ripe-81++)}.
+	[Online]. Available: http://tools.ietf.org/html/rfc1786
+	
+\bibitem{RFC_2622}
+	RFC 2622,
+	\emph{Routing Policy Specification Language (RPSL)}.
+	[Online]. Available: http://tools.ietf.org/html/rfc2622
+	
+	
 \bibitem{PRE_1997}
 	Computer World,
 	\emph{Opinion: Protect your pre-1997 IP address}.
@@ -1117,12 +926,237 @@ IPv4 Grey Market}.
 	\emph{Property Rights in IPv4 Numbers: Recognizing a New Form of Intellectual Property}.
 	[Online]. Available: http://apps.americanbar.org/buslaw/blt/content/2012/11/article-04-rubi.shtml
 	
+\bibitem{ALLOC_FILES}
+	Allocation Files,
+	\emph{RIR Statistics Exchange Format}.
+	[Online]. Available: ftp://ftp.ripe.net/pub/stats/arin/README
+	
+
+https://www.arin.net/knowledge/statistics/nro\_extended\_stats\_format.pdf
+http://www-public.it-sudparis.eu/~maigron/RIR\_Stats/
+http://www.kuriositaet.de/ip/ip\_service.html
 
 	
 	https://www.arin.net/resources/transfers/transfer\_market.html
 	
 \end{thebibliography}	
 
-\chapter{Appendix}
+\chapter{Appendix A}
+
+\subsubsection{RIPE-181}
+
+The \cite{RFC_1786}, which was originally published as a RIPE document (RIPE-181), describes the original database formats that were used by RIPE NCC to store routing policy in its database. As mentioned before RIPE also serves as an allocation registry, which means that its database also contains non-routing oriented objects. 
+This documents was also referred as ripe-81++ as it was an update to the original 'ripe-81' proposal for representing and storing routing polices in the RIPE database. Several extensions proposed by Merit Inc. were incorporated into this document and it provided a generalized IP routing policy representation to be used by the Internet routing registries. As it's purpose is to be a general document for Internet routing registries, one can replace the RIPE routing registries by "Regional routing registry".
+
+This document is an important source of information to understand today's Internet registries. 
+The Regional routing registries database contains both routing registry and address space allocation registry information. In the begining both informations were combined, but with later it became clear that a separation
+of routing information and allocation is desirable. Mainly because in some parts of the world there are different registries for each kind of information and also because often the maintainer of the routing information is not the same as the one of the allocation information.
+
+One of the activities of routing registries is to maintan a databse of IP networks, DNS domains, with information of contact persons and other network management information. The content of this database can be queried using the whois protocol or retrieved as a whole.
+The allocation registry contains data about address space allocated to enterprises or delegated to local registries as well as data about the domain name space. 
+In the Regional routing registries database the information is stored in form of objects. The types of objects are summarized in table \ref{table:1}.   
+   
+\begin{table}[!h]
+\centering
+\begin{tabular}{ | c | c | l | }
+\hline
+ Registry & Object & Describes \\ \hline
+ B & person & contact persons \\
+ A & inetnum & IP address space \\
+ A & domain & DNS domain \\
+ R & auto-num & autonomous system \\
+ R & as-macro & a group of autonomous systems \\
+ R & community & community \\
+ R & route & a route being announced \\
+ R & clns & CLNS address space and routing \\
+ \hline
+\end{tabular}
+\caption{Summary of database objects in routing registries}
+\label{table:1}
+\end{table}
+
+The Registry column gives information to which registry the object belongs to, "A" for allocation registry, "R" for routing registry and "B" for both.
+
+The Objects are represented by attributes value pairs. 
+An example of an whois query to retrieve information about network 192.87.45.0 is shown in table \ref{table:2}. Here we can see one inetnum object and two person objects.
+
+
+\begin{table}[!h]
+\centering
+\begin{tabular}{  r  l  }
+ 
+ inetnum:  & 	192.87.45.0 - 192.87.45.255 \\
+ netname:  & 	OCLC-NET \\
+ descr:    &	OCLC \\
+ country:  & 	NL \\
+ admin-c:  & 	WK1844-RIPE \\
+ admin-c:  & 	KDB18-RIPE \\
+ tech-c:   & 	WK1844-RIPE \\
+ tech-c:   & 	KDB18-RIPE \\
+ status:   & 	LEGACY \\
+ mnt-by:   & 	SN-LIR-MNT \\
+ mnt-irt:  & 	irt-SURFcert \\
+ source:   & 	RIPE \# Filtered \\
+ \\
+ person:   & 	Kees van Dobben de Bruyn \\
+ address:  & 	Pica Centrum voor Bibliotheekautomatisering \\
+ address:  & 	P.O. Box 876 \\
+ address:  & 	NL - 2300 AW Leiden \\
+ address:  & 	The Netherlands \\
+ phone:    & 	+31 71 257174 \\
+ fax-no:   & 	+31 71 223119 \\
+ nic-hdl:  & 	KDB18-RIPE \\
+ mnt-by:   &  	SN-LIR-MNT   \\
+ source:   & 	RIPE \# Filtered \\
+ \\
+ person:   &    Wim Kooreman\\
+ address:  &    Pica Centrum voor Bibliotheekautomatisering\\
+ address:  &    P.O. Box 876\\
+ address:  &    NL - 2300 AW Leiden\\
+ address:  &    The Netherlands\\
+ phone:    &    +31 71 257257\\
+ fax-no:   &    +31 71 223119\\
+ nic-hdl:  &    WK1844-RIPE\\
+ mnt-by:   &    SN-LIR-MNT\\
+ source:   &    RIPE \# Filtered\\
+ 
+\end{tabular}
+\caption{Example of whois query response to retrive information about network 192.87.45.0}
+\label{table:2}
+\end{table}     
+        
+ 
+Routing Registry Objects
+
+The most important objects regarding the routing registry are the "aut-num" and the "route" objects. The "aut-num" object describes an autonomous system and the "route" object the route. The "auto-num" object provides contact information for the referred AS and describes its routing policy by identifying the neighboring ASes with which routing information is exchanged. The routing policy is described by identifying what is being announced and what is allowed. The "auto-num" objects provide information how routing information is propagated.
+The "route" object describes a single route that is being injected and references the AS that is originating it. In table \ref{table:3} it is shown a "route" object returned from a whois query on network 192.87.45.0. 
+The value of the route attribute is a classless address and represents the route being injected into the routing system. The value of the origin attribute is an AS referring to an "aut-num" object, which is the AS injecting this route.
+  
+\begin{table}[!h]
+\centering
+\begin{tabular}{  r  l  }
+
+route:    &      192.87.0.0/16\\
+descr:    &      SURFnet CIDR Block IV\\
+origin:   &      AS1103\\
+mnt-by:   &      AS1103-MNT\\
+mnt-lower:&      SN-LIR-MNT\\
+source:   &      RIPE \# Filtered\\
+
+\end{tabular}
+\caption{Example of whois query response to retrive information about network 192.87.45.0 "route" object}
+\label{table:3}
+\end{table} 
+
+
+The Autonomous System Object
+
+An Autonomous System (AS) is defined by a group of IP networks which has a single defined external routing policy. An AS has an unique number associated with it. This number is used to identify the AS and to exchange routing information. Routing protocols such as BGP and EGP are used to exchange routing information between ASes.
+There are some recommendations that the creation and allocation of an AS should follow such as:
+	- It is only needed to create an AS when exchanging routing information 	with other Ases.
+	- In a case of customer networks connect to one service provider, the 		IP network should normally be a member of the service providers AS.
+    - In the case that a network operator connects to more than one AS with 	different routing policies, it is required for them to have their own 		AS number. 
+    - The AS should always try to be populated with as many routes as 		  possible, as long as all routes have the same routing policy
+   
+An As is represented by an "aut-num" object and "route" objects representing the routes originated by the AS. The "aut-num" object stores administrative information as well as the routing policies of the AS. The origin attributes of the route objects define the set of routes originated by the AS, where each object has only one origin attribute. In table \ref{table:4} it is shown an example of a AS object.  
+    
+\begin{table}[!h]
+\centering
+\begin{tabular}{  r  l  }
+
+aut-num:    &      	AS1104\\
+as-name:    &      	Nikhef\\
+descr:   	&     	FOM-Nikhef\\
+descr:   	&    	Science Park 105\\
+descr:		&   		Amsterdam, 1098 XG\\
+descr:   	&	    The Netherlands\\
+as-in:  		&       from AS1103 accept AS1103\\
+as-in:  		&       from AS1139 accept AS1139\\
+as-in:  		&       from AS1888 accept AS1888\\
+as-in:  		&       from AS1126 accept AS1126\\
+as-in:  		&       from AS1124 accept AS1124\\
+as-out:  	&       to AS1103 announce AS1104\\
+as-out:  	&       to AS1139 announce AS1104\\
+as-out:  	&       to AS1888 announce AS1104\\
+as-out:  	&       to AS1126 announce AS1104\\
+as-out:  	&       to AS1124 announce AS1104\\
+admin-c: 	&       PK8221-RIPE\\
+tech-c:  	&       PK8221-RIPE\\
+status:  	&       LEGACY\\
+mnt-by:  	&       AS1104-MNT\\
+source:  	&       RIPE \# Filtered\\
+
+\end{tabular}
+\caption{Example of auto-num object}
+\label{table:4}
+\end{table} 
+
+This representation provides a set of routes and a description of administrative details and routing policies. 
+        
+        
+AS Macros          
+          
+The as-macro object defines a way to group ASes, so that a new AS does not have to be added to the routing policy as described by the as-in and as-out attributes of the AS object.          
+          
+\begin{table}[!h]
+\centering
+\begin{tabular}{  r  l  }
+
+as-macro:   	&      AS-EBONE\\
+descr:    	&      ASes routed by EBONE\\
+as-list:    	&      AS2121 AS1104 AS2600 AS2122\\
+as-list:    	&      AS1103 AS1755 AS2043\\
+guardian:   	&      guardian@ebone.net\\
+
+\end{tabular}
+\caption{Example of as-macro object}
+\label{table:5}
+\end{table} 
+
+The RIPE-181 standard was accepted as an IETF informational document in March 1995 \cite{RFC_1786}. After IETF revised and standardized this document, the result was the Routing Policy Specification Language (RPSL) \cite{RFC_2622}. It extended the functionality of the aut-num and route objects and the as-macro became as-set object. Also several other objects were added.
+Each of the object types contains mandatory and optional attributes. There are three attributes that all objects must have: "mnt-by", identifies the mntner object that controls the object; "change", which is lists email and time of change and "source", that identifies the registry name where the object is located.
+The two most relevant objects/classes are the "mntner" and "route" objects. The mntner object is an abbreviation of maintainer and identifies the accounts in the registry.
+In table \ref{table:5} it is shown an example of a "mntner" object. 
+
+\begin{table}[!h]
+\centering
+\begin{tabular}{  r  l  }
+
+mntner:   	&      MAINT-AS23323\\
+descr:    	&      Diablo Valley College\\
+admin-c:    	&      Ben Seaberry\\
+tech-c:    	&      Ben Seaberry\\
+upd-to:   	&      bseaberry@DVC.EDU\\
+auth:   		&      CRYPT-PW HIDDENCRYPTPW\\
+notify:   	&      bseaberry@DVC.EDU\\
+mnt-by:   	&      MAINT-AS23323\\
+changed:   	&      rick@extrateam.com 20030311\\
+source:   	&      RADB\\
+
+\end{tabular}
+\caption{Example of "mntner" object}
+\label{table:5}
+\end{table}
+
+The route object defines a CIDR prefix and the origin AS. This is the most common type of object in the routing registries. It is used by some ISP's to generate filters on their customer BGP sessions. In table \ref{table:6} it is shown an example of a "route" object. 	
+
+\begin{table}[!h]
+\centering
+\begin{tabular}{  r  l  }
+
+route:   	&      198.108.0.0/14\\
+descr:    	&      MERIT Network Inc.\\
+			&		1000 Oakbrook Drive, Suite 200\\ 
+ 			&		Ann Arbor \\
+ 			&		MI 48104, US\\
+origin:    	&      AS237\\
+mnt-by:    	&      MAINT-AS237\\
+changed:   	&      ljb@merit.edu 20060919\\
+source:   	&      RADB\\
+
+\end{tabular}
+\caption{Example of "route" object}
+\label{table:6}
+\end{table}
 
 \end{document}
