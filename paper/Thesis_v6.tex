@@ -1,4 +1,5 @@
 \documentclass[11pt,a4paper]{scrreprt}
+\linespread{1}
 \usepackage{graphicx}
 \usepackage{rotating}
 \usepackage{subcaption}
@@ -279,7 +280,7 @@ By doing this we reduced drastically the amount of data that would have to be an
 
 \section{BGP Origin Dynamics}
 
-Our first approach was to analyze the number of prefixes that changed origin during the time period. To do this we map for every month the advertised prefix to its origin AS. Next we check how many prexifes are being advertised, in the next month by a different AS. The results are shown in Figure \ref{fig:comparePrefixes}.
+Our first approach was to analyze the number of prefixes that changed origin during the studied time period. We started by mapping, for every month, the advertised prefix in BGP data to its origin AS so that we would have a prefix-origin pair. Having this mapping we compared subsequent months and checked for each prefix if the origin changed. This gave us an origin-origin pair and everytime this pair had different values we counted it as one occurrence of origin-origin pair change. The results are shown in Figure \ref{fig:comparePrefixes}.
 
 \begin{figure}[!h]
 \centering
@@ -289,21 +290,33 @@ origin-origin pair changes}
 \label{fig:comparePrefixes}
 \end{figure}
 
-We can notice an increasing tendency in the number os prefixes that changed its origin AS. One might say that this increase is due to the higher amount of prefixes that are being advertised. But we noticed that from 2001 until 2005 this number decreased, which was a period where less prefixes were being advertised and started to increase from this period on. When we compare the moving average with the number of prefixes that are being advertised \cite{Potaroo}, we notice that for the current year this was a very low number of around 1500 occurrences for a total of around 500 000 prefixes. There are several reasons for a change of origin in a prefix \cite{IPv4_Transfer_Markets}, such as transfers, BGP misconfigurations or prefix hijacks and because the prefix moved between two ASes belonging to the same organization.     
+The first thing that we notice is that the data is very noisy and therefore we use the moving average to help us in our observation. We see that since 2002 until 2005 the number of origin-origin pairs, or prefixes that changed their origins, was decreasing and since then started an increasing tendency, showing a higher increasing rate since 2011. The fact that the number of prefixes being allocated by the RIRs has also been increasing along the time period could help to explain this increasing tendency, but we noticed that during the period between 2002 and 2005, and while the number of allocations was also increasing, the number of prefix origin changes decreased. Therefore there is not a positive relation between the number of allocations and the number of prefix origin changes. There are several reasons for a change of origin in a prefix \cite{IPv4_Transfer_Markets}, such as transfers, BGP misconfigurations or prefix hijacks and because the prefix moved between two ASes belonging to the same organization and to point out the direct cause for a prefix origin change is very difficult.      
 
-In Figure \ref{fig:comparePrefixes_24} are shown the results of dividing the prefixes into subnets of size /24. By doing this we can get an idea of the size of the prefixes that change origins.  
+By looking at the moving average we can see that in 2014 there were around 1500 prefix changes and when comparing to the number of prefixes in the BGP RIB table \cite{Potaroo}, which are around 500 000, we see that 1500 are just a small number of occurrences.
+
+Our next step was to deaggregate every prefix found in BGP data into subnets of size /24 and map it to the origin AS. The end result was a prefix-origin mapping where each  prefix was a /24 subnet mapped to the AS advertising it. When deaggregating the prefixes and mapping them we considered always the most specific /24 subnet, this means that, for example, if AS1 advertises the prefix 10.0.0.0/8 and AS2 advertises the subnet 10.1.0.0/16 all the /24 subnets in 10.1.0.0/16 will be mapped to AS2 and the others subnets beyond this will be mapped to AS1. We then used this /24-origin mapping to compare subsequent months and check for each /24 if the origin changed. Everytime the /24 changed origin we counted as one occurrence. The results are shown in Figure \ref{fig:comparePrefixes_24}. 
+
+By deaggreting the advertised prefixes into /24s we can get an idea of the size of the prefixes that change origins.  
 
 \begin{figure}[!h]
 \centering
 \includegraphics[scale=0.35]{comparePrefixes_24.pdf}
 \caption{Observed number of monthly
-origin-origin pair changes [/24 blocks]}
+/24s that change their origin}
 \label{fig:comparePrefixes_24}
 \end{figure}
 
-By looking at the moving average we see that the amount of subnets of size /24 that change origin along the time period didn't oscillate much. There are are several peaks that point to changes of large blocks of addresses, such as /16s or /8s.
+We can see that when reasoning about /24 address blocks we cannot have a clear idea about the number of prefixes that changed origins, especially due to heavy-hitters such as /8 and /16 blocks of addresses. The best example is the peak around 2009 that indicates that one of those blocks changed origin. There are also smaller peaks, in 2003, 2004 as well as between 2010 and 2012 that indicate the same. 
 
-The next step was to aggregate the origin changes. The procedure was to group the origin changes and given two ASes, if they appeared in several changes, it would be count as one occurrence. Considering the case where two prefixes 1.1.2.0/24 and 1.1.3.0/24 where both advertised by AS1 and in the next iteration they started being advertised by AS2, it would lead to the pair (AS1, AS2) for each of the prefixes. The result would be one for the grouped origins that we are considering. In Figure \ref{fig:compareAggregation} are shown the results when applying this metric.       
+By just looking at the moving average we see that the amount of subnets of size /24 that change origin along the time period didn't oscillate much, but we see that the Figure \ref{fig:comparePrefixes_24} is extremely noisy and it is difficult to infer on what it is really happening.
+
+
+
+
+
+
+The next step was to aggregate the origin changes. For that we went back to our first mapping, where we mapped for every month, the advertised prefix in BGP data to its origin AS and obtain a prefix-origin pair. We then started comparing subsequent months and checked for each prefix if the origin changed. This gave us an origin-origin pair 
+which we then grouped with the other pairs with the same origin-origin. Each of these groups would count as one occurrence. Considering the case where two prefixes 1.1.2.0/24 and 1.1.3.0/24 where both advertised by AS1 and in the next iteration they started being advertised by AS2, it would lead to the pair (AS1, AS2) for each of the prefixes. The result would be one occurrence for the grouped origins that we are considering. In Figure \ref{fig:compareAggregation} are shown the results when applying this metric.       
 
 \begin{figure}[!h]
 \centering
@@ -312,6 +325,12 @@ The next step was to aggregate the origin changes. The procedure was to group th
 unique origin-origin pair changes, after aggregating equal origin-origin pairs}
 \label{fig:compareAggregation}
 \end{figure}
+
+
+
+
+
+
 
 We can see that some of the peaks dissapeared and that the graph progression turned a bit "smoother" in comparison with Figure \ref{fig:comparePrefixes}. This means that many of the origins changes that occurred were between the same pair of ASes. We also continue to notice along the time period a growing trend in the number of origin changes.
 In Figure \ref{fig:compareAggregation24} we applied the same principle, but now after decomposing the advertised prefixes into /24 subnets. 
