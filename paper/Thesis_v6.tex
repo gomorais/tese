@@ -311,10 +311,6 @@ We can see that when reasoning about /24 address blocks we cannot have a clear i
 By just looking at the moving average we see that the amount of subnets of size /24 that change origin along the time period didn't oscillate much, but we see that the Figure \ref{fig:comparePrefixes_24} is extremely noisy and it is difficult to infer on what it is really happening.
 
 
-
-
-
-
 The next step was to aggregate the origin changes. For that we went back to our first mapping, where we mapped for every month, the advertised prefix in BGP data to its origin AS and obtain a prefix-origin pair. We then started comparing subsequent months and checked for each prefix if the origin changed. This gave us an origin-origin pair 
 which we then grouped with the other pairs with the same origin-origin. Each of these groups would count as one occurrence. Considering the case where two prefixes 1.1.2.0/24 and 1.1.3.0/24 where both advertised by AS1 and in the next iteration they started being advertised by AS2, it would lead to the pair (AS1, AS2) for each of the prefixes. The result would be one occurrence for the grouped origins that we are considering. In Figure \ref{fig:compareAggregation} are shown the results when applying this metric.       
 
@@ -327,26 +323,29 @@ unique origin-origin pair changes, after aggregating equal origin-origin pairs}
 \end{figure}
 
 
+Comparing with Figure \ref{fig:comparePrefixes} we can notice that the absolut values in the y axis decreased significantly and are now approximately 3 times less. It is also possible to see that many of the peaks present in Figure \ref{fig:comparePrefixes} are not present anymore. This means that many of the prefix origin changes that occurred were between the same pair of ASes and after the aggregation it was greatly reduced. Besides the fact that the peaks are not present, we can also see that the overall trajectory became smoother without showing so much noise. When we look at the moving average we can observe a more clear increasing tendency in the number of prefix origins since 2008 and it is even possible to notice that since 2011 the change rate increased. 
 
-
-
-
-
-We can see that some of the peaks dissapeared and that the graph progression turned a bit "smoother" in comparison with Figure \ref{fig:comparePrefixes}. This means that many of the origins changes that occurred were between the same pair of ASes. We also continue to notice along the time period a growing trend in the number of origin changes.
-In Figure \ref{fig:compareAggregation24} we applied the same principle, but now after decomposing the advertised prefixes into /24 subnets. 
-
+The next step was to deaggregate again every prefix found in the BGP data into subnets of size /24 and map in to the origin AS. We repeated the procedure of comparing subsequent months for prefix origin changes and applied the aggregation metric. The results are shown in Figure \ref{fig:compareAggregation24}.
 
 \begin{figure}[!h]
 \centering
 \includegraphics[scale=0.35]{compareAggregation_24.pdf}
 \caption{Observed number of monthly
-unique origin-origin pair changes, after aggregating equal origin-origin pairs [/24 blocks]}
+/24s that change their origin, after aggregating equal origin-origin pairs}
 \label{fig:compareAggregation24}
 \end{figure}
 
+By comparing Figure \ref{fig:compareAggregation24} with Figure \ref{fig:comparePrefixes_24} we notice right away a completely different result. While in Figure \ref{fig:comparePrefixes_24} we could not infer on the number of prefixes that changed and could just have a feeling of the amount of address space that changed origins, in Figure \ref{fig:compareAggregation24} we can have a different perspective. 
+The difference between both Figures is due to the fact that we grouped the same origin-origin and return 1 for each of them. All the origin prefix changes of a /8 that were being considered are now considered as just one. 
+We would expect this Figure to be similar to \ref{fig:compareAggregation}, but the fact is that by deaggregating prefixes into /24s we can catch some origin prefixes changes that we could not without doing it. 
+For example, considering the prefixe 1.1.0.0/16 being advertised by AS1 in a certain month. Next month 1.1.0.0/16 is not being advertised anymore, but prefixes 1.1.1.0/24 and prefix 1.1.2.0/24 are now being advertised by AS2 and AS3 respectively. When we consider a pure prefix match, the prefix 1.1.0.0/16 will not be considered as prefix change because it is not being advertised in the next month and prefixes 1.1.1.0/24 and 1.1.2.0/24 are simply considered as two new prefixes being advertised. When we instead deaggregate 1.1.0.0/16 into /24s subnets the prefixes 1.1.1.0/24 and 1.1.2.0/24 will be included and when we compared the months we will notice a change from AS1 to AS2 for prefix 1.1.1.0/24 and AS1 to AS3 for prefix 1.1.2.0/24. 
+Although the increasing trend is not so clear it is still possible to see that since 2011 the number of prefix origin changes increased and the increasing rate since then has been growing.
 
 
-Comparing this result with Figure \ref{fig:comparePrefixes_24} we can see huge differences. We can also notice that the graph progression became "smoother". By decomposing the advertised prefixes into /24s subnets we will get some extra information. In the previous Figure \ref{fig:compareAggregation} we were just considering exact matches between advertised prefixes from one iteration to the next. For example, if the two prefixes 1.1.0.0/16 and 1.1.1.0/24 are being advertised by AS1 and AS2 respectively and 1.1.0.0/16 is being advertised at a certain point in time while 1.1.1.0/24 is being advertised at the next point in time, when we test them for an exact match, they will not match, but if instead we decompose them into /24s, they will match for the 1.1.1.0/24 subnet resulting in an origin change for this subnet. For this reason there are higher values in this Figure then in the previous one. Here we can have a better perception of how many origin changes in /24s are happening and also to notice some deaggregation happening.  
+
+
+
+
 
 
 
