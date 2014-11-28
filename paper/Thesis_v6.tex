@@ -1,5 +1,5 @@
 \documentclass[11pt,a4paper]{scrreprt}
-\linespread{1}
+\linespread{1.3}
 \usepackage{graphicx}
 \usepackage{rotating}
 \usepackage{subcaption}
@@ -311,8 +311,7 @@ We can see that when reasoning about /24 address blocks we cannot have a clear i
 By just looking at the moving average we see that the amount of subnets of size /24 that change origin along the time period didn't oscillate much, but we see that the Figure \ref{fig:comparePrefixes_24} is extremely noisy and it is difficult to infer on what it is really happening.
 
 
-The next step was to aggregate the origin changes. For that we went back to our first mapping, where we mapped for every month, the advertised prefix in BGP data to its origin AS and obtain a prefix-origin pair. We then started comparing subsequent months and checked for each prefix if the origin changed. This gave us an origin-origin pair 
-which we then grouped with the other pairs with the same origin-origin. Each of these groups would count as one occurrence. Considering the case where two prefixes 1.1.2.0/24 and 1.1.3.0/24 where both advertised by AS1 and in the next iteration they started being advertised by AS2, it would lead to the pair (AS1, AS2) for each of the prefixes. The result would be one occurrence for the grouped origins that we are considering. In Figure \ref{fig:compareAggregation} are shown the results when applying this metric.       
+The next step was to aggregate the origin changes. For that we went back to our first mapping, where we mapped for every month, the advertised prefix in BGP data to its origin AS and obtain a prefix-origin pair. We then started comparing subsequent months and checked for each prefix if the origin changed. This gave us an origin-origin pair which we then grouped with the other pairs with the same origin-origin. Each of these groups would count as one occurrence. Considering the case where two prefixes 1.1.2.0/24 and 1.1.3.0/24 where both advertised by AS1 and in the next iteration they started being advertised by AS2, it would lead to the pair (AS1, AS2) for each of the prefixes. The result would be one occurrence for the grouped origins that we are considering. In Figure \ref{fig:compareAggregation} are shown the results when applying this metric.       
 
 \begin{figure}[!h]
 \centering
@@ -341,37 +340,15 @@ We would expect this Figure to be similar to \ref{fig:compareAggregation}, but t
 For example, considering the prefixe 1.1.0.0/16 being advertised by AS1 in a certain month. Next month 1.1.0.0/16 is not being advertised anymore, but prefixes 1.1.1.0/24 and prefix 1.1.2.0/24 are now being advertised by AS2 and AS3 respectively. When we consider a pure prefix match, the prefix 1.1.0.0/16 will not be considered as prefix change because it is not being advertised in the next month and prefixes 1.1.1.0/24 and 1.1.2.0/24 are simply considered as two new prefixes being advertised. When we instead deaggregate 1.1.0.0/16 into /24s subnets the prefixes 1.1.1.0/24 and 1.1.2.0/24 will be included and when we compared the months we will notice a change from AS1 to AS2 for prefix 1.1.1.0/24 and AS1 to AS3 for prefix 1.1.2.0/24. 
 Although the increasing trend is not so clear it is still possible to see that since 2011 the number of prefix origin changes increased and the increasing rate since then has been growing.
 
+To account also for the situations where prefix holders have more than one AS number and change the origin of a certain prefix for traffic engineering, for example, we procceded to removing these cycles. Considering the prefix 1.1.0.0/16 being advertised by AS1 in a certain month and some months after it starts being advertised by AS2. We mark as a cycle if the prefix 1.1.0.0/16 starts being advertised by AS1 at a later point in time.  
+First we applied this metric to our prefix-origin pair taken from the BGP data. In Appendix B Figure \ref{fig:compareAggregationCycles} we can see the results.
+We see that the graphic progression is very similar and it follows the same trend as in Figure \ref{fig:compareAggregation} but the average value of prefix changes decreased. The progression also became smoother shwoing peaks with less amplitude. 
+Our next step was to apply the same metric to our prefix-origin pair when deaggreagting prefixes seen in BGP data. The results are shown in Figure \ref{fig:compareAggregationCycles24}. We can again see that the overall graphic progression is very similar to Figure \ref{fig:compareAggregation24} and the average value of prefix origin changes decreased, by almost one third. We can also clearly notice that the average amplitude value of the progression decreased, resulting in a much more smoother graphic.
 
-
-
-
-
-
-
-
-\begin{figure}[!h]
-\centering
-\includegraphics[scale=0.35]{compareAggregationCycles.pdf}
-\caption{Observed number of monthly
-unique origin-origin pair changes, after origin-origin pair aggregation and origin-origin cycles}
-\label{fig:compareAggregationCycles}
-\end{figure}
-
-In Figure \ref{fig:compareAggregationCycles} the procedure was basically the same, but here we also took into consideration the situation where the prefix origin changes to a different one and then at a certain point in time returns to the previous one, making somewhat of a cycle in its evolution. Considering the prefix 1.1.0.0/16 being advertised by AS1 in a certain point in time. In the next time period it changes its origin AS to AS2 and starts to be counted as an origin change. If at a later point in time this prefix starts to be advertised again by AS1 we remove it from the counting as a change. Here we remove situations where institutions that have more than one AS number, use them for traffic engineering, for example.  In comparison with Figure \ref{fig:compareAggregation} we can see that the graph progression became "smoother" and that the overall value of prefix changes got lower.
-
-\begin{figure}[!h]
-\centering
-\includegraphics[scale=0.35]{compareAggregationCycles_24.pdf}
-\caption{Observed number of monthly
-unique origin-origin pair changes, after origin-origin pair aggregation and origin-origin cycles [/24 blocks]}
-\label{fig:compareAggregationCycles24}
-\end{figure}
-
-Figure \ref{fig:compareAggregationCycles24} shows the results of applying this cycle removal to Figure \ref{fig:compareAggregation24}. We can again see that the graph progression became "smoother" and that the overall value of prefix changes got lower. 
 
 \section{Address Allocation}
 
-Our next analysis inferred on the number of days that passed sinced a prefix was allocated and started to be routed. Here we take the prefixes allocated from the allocation files and deaggregate them into /24 subnets. We then use these subnets to search in BGP raw data a first time that we see an occurrence of the subnet and when we encounter one we calculate the days that passed since it was allocated. We use a allocation filter so that when we search through the BGP raw data we only do a positive match if the encountered prefix has already been before the time instance of the BGP file.  
+Our next analysis inferred on the number of days that passed sinced a prefix was allocated and started to be routed. We use the allocation files from the RIRs to know the prefixes that have been allocated. We procceed to deaggregate them into /24 subnets so that we are able to find situations where a big prefix is allocated, but only a small part of it is being routed. Next we compare the obtained /24s with BGP routing files, where we also deaggregate the advertised prefixes into /24s. Every we find a prefix match we calculate the days that passed since this prefix was allocated until it was seen being routed. To be sure that we did not get false positives in a way that a prefix that was not yet allocated would be seen in routing, we used an allocation filter so that when we search through the BGP routing files we would only consider a positive match if the encountered prefix had already been allocated before the time instance of the BGP file. It is also relevant to mention that we are considering one sample per month, the first day of each month, for BGP routing data files. This means that if a prefix was allocated on the first of the month and routed on the second, we were just able to notice it on the first of the next month changing the time period from 1 day to 30 days for the prefix to be seen.  
 
 \begin{figure}[!h]
 \centering
@@ -380,16 +357,20 @@ Our next analysis inferred on the number of days that passed sinced a prefix was
 \label{fig:densityGlobal}
 \end{figure}
 
-In Figure \ref{fig:densityGlobal} it is shown a density plot regarding the number of days that passed. We can see that the higher density is until 1250 days that passed. We can then see that the density increased again between 2500 and 5000 days. This is due to the fact that the allocation files contain allocations since 1982 while there are only BGP data files since 2001. For this reason we decided to just process allocations made after the year 2001, or our results would be biased. Just by analyzing the plot it is hard to get to a conclusion and some statistical values are important, such as maximum = 11315, mean = 1327.47, median = 256 and standard deviation = 1763.316. 
-Has we can see in Figure \ref{fig:densityGlobal2001}, the density values that were shown between 2500
-and 5000 days  are not present anymore and the density values are now between 0 and 1000, being the majority between 0 and 250. If we compare the previous statistical values with the current ones,maximum = 4338, mean = 155.1632, median = 56 and standard deviation = 246.6986, we can notice a huge difference. The maximum value is almost three times less, the mean eight times less,the median around five times and the standard deviation also much lower. This was due to be considering allocated prefixes before 2001 and the sample was being biased.
+In Figure \ref{fig:densityGlobal} we can see a density plot regarding the number of days that passed since a prefix was allocated until it was seen in BGP routing data. 
+We see that the higher density value is between 0 and 1250 days and after decreasing, it increases again between 2500 and 5000 days. This increase happens because the allocation files contain information about allocations since 1982 while the BGP routing files are only available since 2001. Therefore the values for allocations before 2001 are biased, because even if they would have been routing one day after being allocated, the minimum amount of time that we would count would be since their allocation until 2001. For this reason we decided to just process allocations made after 2001. The median for this density distribution is 256 days as the mean would be biased for such a distribution we just focussed our attention on the median.
+When plotting the same density distribution, but now considering just allocations after 2001 we obtain Figure \ref{fig:densityGlobal2001} shown in Appendix B. We can notice that the values between 2500 and 5000 days are not present anymore, which supports what was mentioned before. The density distribution is now pratically betwenn 0 and 1000 days, being the majority between 0 and 250 days. The median value for this distribution is 56 days. This means that when prefixes are allocated it does not take so much time to see them in routing as demonstrated by the middle value of 56 days. 
 
-\begin{figure}[!h]
-\centering
-\includegraphics[scale=0.35]{densityGlobal2001.pdf}
-\caption{Density plot of days that passed since prefixes are allocated, after 2001, until they are advertised in BGP}
-\label{fig:densityGlobal2001}
-\end{figure}
+
+
+
+
+
+
+
+
+
+
 
 An important day for our analysis is February 3 2011, when the Internet Assigned Numbers Authority allocated the remaining /8 blocks to the Regional Internet Registries. Therefore we decided to analyze what happen before and after this date with regards to the number of days that took for a allocated prefix to be seen in routing. Our assumption was that after 2011 and after the RIRs changed their allocation polices, companies needing IPv4 addresses would also use them faster then before. 
 The results for before February 3, 2011 are shown in Figure \ref{fig:densityBefore2001}. Once again we have to limit our study to prefixes allocated after 2001.  
@@ -414,15 +395,17 @@ The statistical values for this distribution are: maximum = 4338; mean = 162.235
 
 The statistical values for this distribution are: maximum = 1154, mean = 119.257, median = 40 and standard deviation = 191.2714. We can notice a higher density between 100 and 500 days in Figure \ref{fig:densityBefore2001} than in Figure \ref{fig:densityAfter2001}, but to reach a conclusion we need to compare the statistical values. By comparing them we can see that the distribution from before 2011 has a higher maximum value, higher mean, higher median and a higher standard deviation. We can conclude that the prefixes allocated after 2011 take in average less time to be seen in the BGP raw data than the ones allocated before. We need to make a reamark and refer that the time span between 2001 and 2011 is bigger than from 2011 and 2014. This means that we can have prefixes that were allocated between 2011 and 2014 and they were still not seen in the BGP data, being possible to seem them at a later point in time, changing the values that were see now.
 
-\begin{figure}[!h]
-\centering
-\includegraphics[scale=0.35]{densityYearly.pdf}
-\caption{Observed average number of days that passed since prefixes are allocated until they are advertised in BGP along the years}
-\label{fig:densityYearly}
-\end{figure}
 
-In Figure \ref{fig:densityYearly} is represented the average number of days that passed for the prefixe to be seen in routing for each year of allocation. We can see that since 1982 until 2001 the values are decreasing linearly, due to the issue stated before. In  Figure \ref{fig:densityYearlyShort} is represented the relevant time period from 2001 until 2014. It is possible to see that the values were relatively constant until 2011 and since then they started to decrease. Again it can mean that since then prefix holders are using the prefixes quickly, but to be absolutely sure we needed a higher time span.
 
+
+
+
+
+
+
+
+We then calculate for each year allocations the number of days that passed until they were seen in routing. For example, the prefix 1.1.0.0/16 is allocated in 2002 and seen 160 days after in routing, this will be represented in the year 2002 in as number of days. We procceed to do this for every prefix allocated in 2002 and calculate the average, which will then be the represented value. 
+In  Figure \ref{fig:densityYearlyShort} is represented the relevant time period from 2001 until 2014. In the y axis are represented the average number of days for all prefixes allocated in a certain year and in the x axis we have the time reprensentation. For each point in time it is also represented the standard deviation.
 
 \begin{figure}[!h]
 \centering
@@ -431,11 +414,14 @@ In Figure \ref{fig:densityYearly} is represented the average number of days that
 \label{fig:densityYearlyShort}
 \end{figure}
 
+It is possible to see that the values were relatively constant until 2011, taking betwee 150 to 200 days for an allocated prefix to be seen in routing and since then they started to decrease. In 2012 we have an average value of 71 days, in 2013 of 54 and 2014 of 23 days. This indicates that since 2011, probably due to IPv4 address exauhstion, institutions that receive prefixes tend to start using them faster. The values for 2014 should be carefully analized, because the analisys was done in the middle of 2014, thus limiting the number of days that could have passed for a prefix to be seen in routing. Regarding the values for 2012 and 2013 they indicate exactly that allocated prefixes are taking less time to be advertised, but for a more concluding analysis a higher time span would be needed.  
+
 \section{BGP Routing Dynamics}
 
 \subsection{Routing Status}
-The next step in our work was to analyze the routing dynamics, in particular to see the amount of prefixes that are being advertised in BGP and its behaviour. 
-In Figure \ref{fig:routingStatusGlobal} it is shown the number of allocated prefixes and their routing status. We define routing status as: full routed prefixes; partially routed prefixes and not routed prefixes. Full routed prefixes are the considered to be prefixes that have their entire address space being advertised, partially routed prefixes are the ones that have at least a part of their address space being advertised, but not the entire one and not routed prefixes are the ones that don't have any part of their address space being advertised. The total number of prefixes is the number of prefixes that were allocated until that point in time.
+
+The next step in our work was to analyze the routing dynamics, in particular to see the amount of prefixes that are being advertised in BGP and its behaviour.
+To categorize the routing behaviour of allocated prefixes we defined routing status as: full routed prefixes; partially routed prefixes and not routed prefixes. Full routed prefixes are considered to be prefixes that have their entire address space being advertised, partially routed prefixes are the ones that have at least a part of their address space being advertised, but not the whole address space. Not routed prefixes are the ones that don't have any part of their address space being advertised. For our first analisys we considered for each year the prefixes that were allocated until that time and their routing status. In Figure \ref{fig:routingStatusGlobal} are shown the number of allocated prefixes and their routing status. 
 
 \begin{figure}[!h]
 \centering
@@ -444,7 +430,8 @@ In Figure \ref{fig:routingStatusGlobal} it is shown the number of allocated pref
 \label{fig:routingStatusGlobal}
 \end{figure}
 
-As expected we can see that the number of allocated prefixes has been increasing quite fast and the number of full routed prefixes has followed the same trend. The number of not routed prefixes and partially routed prefixes also increase but at a very slow rate when compared to the full routed prefixes. It was expected to see this type of trend, because as the number of allocated prefixes increase it is expected that all the other routing status increase and as expected the full routed increase at a much higher rate. What was a surprise was the fact that since the start of our time period there where so many not routed prefixes, which could be due to old allocations.
+In the legend, "total number of prefixes" refers to the number of prefixes that were allocated until that point in time. We used the allocation files from the RIRs to extract the allocated prefixes and each prefix comprises the whole address space that was allocated to an institution. 
+We can see that the number of allocated prefixes has been increasing quite fast and the number of full routed prefixes has followed the same trend. The number of not routed prefixes and partially routed prefixes also increase but at a very slow rate when compared to the full routed prefixes. This indicates that the majority of prefixes being allocated are also being fully routed. It was expected to see this trend where the number of full routed prefixes increases proportionally to the number of allocated prefixes, especially after the prefix exaushtion in 2011 and the allocation policy change by the RIRs after that. With smaller prefixes being allocated in terms of address space by the RIRs we were also expecting that they would be fully routed. What was not expected was to see such a high number of not routed prefixes already since the start of our study period, indicating that most of them could belong to "legacy" allocations. 
 
 \begin{figure}[!h]
 \centering
@@ -453,7 +440,9 @@ As expected we can see that the number of allocated prefixes has been increasing
 \label{fig:routingStatusGlobal8}
 \end{figure}
 
-In Figure \ref{fig:routingStatusGlobal8} we can see the same distribution, but these time showing the number of prefixes count in /8s, so that we are able to quantify the address space that we are dealing with. We can see that the number of total prefixes and full routed ones follow the same trend, increasing at a fast pace. For a value of around 212 /8s of allocated prefixes there are around 140 /8s being fully routed. Regarding the number of partially routed prefixes and not routed prefixes we can see a change in comparison with the previous Figure, where the number of not routed prefixes was three times higher that the number of partially routed ones. Even more in Figure \ref{fig:routingStatusGlobal8} the number of partilly routed prefixes /8s overcome the number of /8s that are not routed. The reason for this is that in the partially routed prefixes there are huge address blocks that are not completely routed where for the not routed routed there are many smaller blocks of addresses.  
+To account also for the quantity of address space contained in the routing status we transformed the allocated prefixes into their respective address space and in \ref{fig:routingStatusGlobal8} we can see its representation in /8s count.
+We can see that the number of total prefixes and full routed ones follow the same trend, increasing at a fast pace. For a value of around 212 /8s of allocated prefixes there are around 140 /8s being fully routed. 
+Regarding the number of partially routed prefixes and not routed prefixes we can see a change in comparison with the previous Figure, where the number of not routed prefixes was three times higher than the number of partially routed ones. Here we that the number of /8s being not routed remained almost constant along the years, while the number of partially routed prefixes has been slowly increasing, starting with a lower value than not routed prefixes in 2002 and ending our study time period with a higher value than not routed prefixes. The reason for this difference towards Figure \ref{fig:routingStatusGlobal} is that the partially routed prefixes are bigger address blocks that do not have all their address space being routed, while many of the prefixes not being routed are small blocks of addresses. 
 
 \begin{figure}[!h]
 \centering
@@ -462,17 +451,12 @@ In Figure \ref{fig:routingStatusGlobal8} we can see the same distribution, but t
 \label{fig:routingStatusOld}
 \end{figure}
 
-In order to understand the behaviour of the not routed prefixes and why since 2001 this number was already high, we divided our sample into prefixes allocated before 1997 and prefixes allocated after. This date was chosen, because it was the date when Arin was established and prefixes before this date are often considered as "legacy".
-In Figure \ref{fig:routingStatusOld} we can see that for these old prefixes the value of the not routed prefixes is incredible high. With a value of 25 000 in 2001 it makes it is almost as same as the value for the global view which has a value of 26 000. By the beggining of 2014 we see that the value is 28 000 and the global view as a value of 36 000. This indicates that the majority of the not routed prefixes seen today are still from allocated blocks of addresses before 1997. We even see that the values for not routed prefixes increased slighty and the values for the full routed prefixes decreased in around the same proportion. The value for the partially routed prefixes remained pratically constant.
+We have seen that not routed prefixes already had a high value in 2002, in the beggining of our study time period. Because we found this particularly interesting we decided to devide our sample into two time periods, one for prefixes allocated before 1997 and the other for prefixes allocated after. This date was chosen, because it was the date when Arin was established and prefixes before this date are considered as "legacy" blocks. 
+We applied the same metric as before and the results are shown in Figure \ref{fig:routingStatusOld}. We can see that for these "legacy" blocks the value of the not routed prefixes is incredible high, being higher than the value of full routed prefixes. We can also notice that with a value of 25 000 of not routed prefixes in 2001 it is almost as same as the value of not routed prefixes for the global view which had a value of 26 000. By the beggining of 2014 we see that the value is 28 000 prefixes and the global view as a value of 36 000 prefixes. This indicates that the majority of the not routed prefixes seen today are still from blocks of addresses allocated before 1997. The value for not routed prefixes increased slighty along the time period while the value for full routed prefixes decreased in around the same proportion. The value for partially routed prefixes remained pratically constant. 
+To infer about the quantity of addresses that we are speaking about we use Figure \ref{fig:routingStatusOld8} in Appendix B. We can see that, although in Figure \ref{fig:routingStatusOld} the number of not routed prefixes is higher than the number full routed ones, the amount of blocks of addresses being fully routed is the double as the amount of addresses not being routed. This indicates that many of the not routed prefixes are small blocks of addresses. 
+The number of partially routed addresses is almost as much as the not routed ones. Still with a value of around 25 /8s the number of not routed addresses is surprisingly high. This shows that many of the "legacy" blocks of addresses are being underutilized and not being effectively used. Therefore further in depth study over these prefixes should be done in order to find out if many of the addresses contained in them can be reutilized. This can lead to freeing a scarce resource as IPv4, which can be of crucial importance for the IPv4 address management.
 
-\begin{figure}[!h]
-\centering
-\includegraphics[scale=0.35]{routeStatusOld8.pdf}
-\caption{Amount of address space of allocated prefixes, allocated before 1997, that is being advertised in BGP in /8s, according to prefixes routing status}
-\label{fig:routingStatusOld8}
-\end{figure}
-
-To infer about the quantity of addresses that we are speaking about we use Figure \ref{fig:routingStatusOld8}. We can see that, although in the previous graphic the amount of not routed prefixes is higher than the full routed ones, the number of blocks of addresses being full routed is the double as the amount of addresses not routed. Also the number of partially routed addresses is almost as much as the not routed ones. Still with a value of around 25 /8s the number of not routed addresses is surprisingly high. To understand the difference between the old allocations and new allocations we can observe Figure \ref{fig:routingStatusNew}.
+After analysing the "legacy" address blocks we move to the new address blocks or allocations after 1997. To understand visualize better the difference between the old allocations and new allocations we can observe Figure \ref{fig:routingStatusNew}.
 
 \begin{figure}[!h]
 \centering
@@ -481,17 +465,39 @@ To infer about the quantity of addresses that we are speaking about we use Figur
 \label{fig:routingStatusNew}
 \end{figure}
 
-We can immediately notice huge differences between Figure \ref{fig:routingStatusNew} and Figure \ref{fig:routingStatusOld}. Here the number of full routed prefixes rise in accordance to the total of allocated prefixes and is clearly higher than the number of not routed prefixes. The number of partially routed prefixes and not routed prefixes grow together and with a smalll pace, just reaching less than 12000 in 2014 while the number of full routed prefixes is around 70 000. We can say that the number of not routed prefixes in the global view is mostly from allocated prefixes before 1997.
+When comparing Figure \ref{fig:routingStatusNew} with Figure \ref{fig:routingStatusOld} we can immediately see differences.
 
 
-\begin{figure}[!h]
-\centering
-\includegraphics[scale=0.35]{routeStatusNew8.pdf}
-\caption{Amount of address space of allocated prefixes, allocated after 1997, that is being advertised in BGP in /8s, according to prefixes routing status}
-\label{fig:routingStatusNew8}
-\end{figure}
+
+
+
+
+
+Here the number of full routed prefixes rise in accordance to the total of allocated prefixes and is clearly higher than the number of not routed prefixes. The number of partially routed prefixes and not routed prefixes grow together and with a smalll pace, just reaching less than 12000 in 2014 while the number of full routed prefixes is around 70 000. We can say that the number of not routed prefixes in the global view is mostly from allocated prefixes before 1997.
+
+
+
 
 In Figure \ref{fig:routingStatusNew8} we see the amount of addresses in terms of /8s. We continue to see that the amount of full routed is following the number of total allocated ones and is increasing rapidly, alghouth slowing down in the last years as a result of IPv4 adress exaushtion. The number of partially routed addresses is higher than the not routed ones and here the number of not routed is quite small, around 5 /8s. We can say that the contribution to not routed prefixes in the global view is being made by prefixes allocated before 1997. Although we cannot assure that the IPv4 addresses in these blocks are not being used, it is certainly an indicating that most probably there are plenty of IPv4 addresses in the old allocated prefixes can be be used for future use and to further allow the use of IPv4.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \begin{figure}[!h]
 \centering
@@ -1176,5 +1182,61 @@ source:   	&      RADB\\
 \caption{Example of "route" object}
 \label{table:6}
 \end{table}
+
+\chapter{Appendix B}
+
+\section{BGP Origin Dynamics}
+
+\begin{figure}[!h]
+\centering
+\includegraphics[scale=0.35]{compareAggregationCycles.pdf}
+\caption{Observed number of monthly
+unique origin-origin pair changes, after origin-origin pair aggregation and origin-origin cycles}
+\label{fig:compareAggregationCycles}
+\end{figure}
+
+
+\begin{figure}[!h]
+\centering
+\includegraphics[scale=0.35]{compareAggregationCycles_24.pdf}
+\caption{Observed number of monthly
+unique origin-origin pair changes, after origin-origin pair aggregation and origin-origin cycles [/24 blocks]}
+\label{fig:compareAggregationCycles24}
+\end{figure}
+
+\section{Address Allocation}
+
+\begin{figure}[!h]
+\centering
+\includegraphics[scale=0.35]{densityGlobal2001.pdf}
+\caption{Density plot of days that passed since prefixes are allocated, after 2001, until they are advertised in BGP}
+\label{fig:densityGlobal2001}
+\end{figure}
+
+\begin{figure}[!h]
+\centering
+\includegraphics[scale=0.35]{densityYearly.pdf}
+\caption{Observed average number of days that passed since prefixes are allocated until they are advertised in BGP along the years}
+\label{fig:densityYearly}
+\end{figure}
+
+
+\section{BGP Routing Dynamics}
+
+\subsection{Routing Status}
+
+\begin{figure}[!h]
+\centering
+\includegraphics[scale=0.35]{routeStatusOld8.pdf}
+\caption{Amount of address space of allocated prefixes, allocated before 1997, that is being advertised in BGP in /8s, according to prefixes routing status}
+\label{fig:routingStatusOld8}
+\end{figure}
+
+\begin{figure}[!h]
+\centering
+\includegraphics[scale=0.35]{routeStatusNew8.pdf}
+\caption{Amount of address space of allocated prefixes, allocated after 1997, that is being advertised in BGP in /8s, according to prefixes routing status}
+\label{fig:routingStatusNew8}
+\end{figure}
 
 \end{document}
