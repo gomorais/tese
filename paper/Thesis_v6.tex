@@ -525,12 +525,6 @@ We can see that more than half of these prefixes were already being routed in 20
 
 
 
-
-
-
-
-
-
 \begin{figure}[!h]
 \centering
 \includegraphics[scale=0.1]{heatmapAllocated.pdf}
@@ -538,19 +532,14 @@ We can see that more than half of these prefixes were already being routed in 20
 \label{fig:heatmapAllocated}
 \end{figure}
 
-In Figure \ref{fig:heatmapAllocated} we show the results for the "Allocated" prefixes. Here we can see that most of the prefixes were not being advertised in 2002 and we can notice that as time progresses the prefixes start to be more and more advertised due to the allocations that are happening. We see that along the time more and more /24s are being advertised and when we have a closer look at 2011, IPv4 depletion date, we see that there are almost no prefixes available. Since 2011 we can notice the IPv4 exhaustion and that more and more addresses are being advertised.
-
-
-
-
+In Figure \ref{fig:heatmapAllocated} we show the results for the "Allocated" prefixes. We see that most of the prefixes were not being advertised in 2002 in comparison with Figure \ref{fig:heatmapLegacy} where the majority was, this is due to the fact that most of these prefixes in this Figure were allocated after 1997 and a lot of them throught the years until 2014. It can be seen precisely this, as time progresses each block of /8s starts to be with more and more advertised /24s as a consequence of allocations being made. We also notice that from 2011, IPv4 depletion date in IANA, there are almost no more blocks of /8s available and the one already allocated become more and more advertised indicating that they are reaching their limits. 
 
 
 \subsection{Allocations and Multiple Origin ASes}
 
+Our next step was to identify prefixes that were being advertised by multiple ASes, and by how many. By identifying such prefixes we are also obtaining information on how much the address space is deaggregated. 
+We used the allocation files to obtain all the prefixes that were allocated, deaggregate them into /24s compared on a monthly bases with the BGP routing data, also deaggregated into /24s. For each allocation we counted the number of ASes that were advertising it. We considered for an allocation to be advertised by multiple ASes if more than one AS was advertising address space related to it. The results are shown in Figure \ref{fig:multipleAsesGlobal}.
 
-Our next step was to identify prefixes that were being advertised by multiple ASes. We took all the prefixes that were allocated and considered to be advertised by multiple prefixes every prefix that would be advertised by more than one AS.
-The results are show in Figure \ref{fig:multipleAsesGlobal}. In the Total Number of Prefixes are considered all the prefixes allocated until a certain point in time and that were seen in the BGP routing data.
- 
 \begin{figure}[!h]
 \centering
 \includegraphics[scale=0.35]{multipleAsesGlobal.pdf}
@@ -558,8 +547,10 @@ The results are show in Figure \ref{fig:multipleAsesGlobal}. In the Total Number
 \label{fig:multipleAsesGlobal}
 \end{figure}
 
+In the legend "Total Number of Prefixes" are considered all the prefixes allocated until the considered point in time and that were seen in the BGP routing data.
 We can see that the total number of prefixes increases faster than the number of prefixes with multiple ASes. This shows that the majority of allocated prefixes are advertised by just one AS and the growth of allocations has not been reflected in the same proportion in prefixes with multiple ASes. Nevertheless the number of prefixes with multiple ASes has been increasing and taking into account that in recent times, since 2011, the blocks of addresses that were allocated were smaller and most probably are just advertised by just one AS, this can indicated that older blocks of prefixes are starting to be advertised by more than one AS. 
-In Figure \ref{fig:multipleAsesOldGlobal} is shown the same plot, but just considering prefixes that were allocated before 1997.
+
+To have an idea about the behaviour of old prefixes we decided to divide, as before, our sample into two time periods, one for prefixes allocated before 1997 and the other for prefixes allocated after. In Figure \ref{fig:multipleAsesOldGlobal} are shown the results for allocations before 1997.
 
 \begin{figure}[!h]
 \centering
@@ -568,8 +559,10 @@ In Figure \ref{fig:multipleAsesOldGlobal} is shown the same plot, but just consi
 \label{fig:multipleAsesOldGlobal}
 \end{figure}
 
-We can see that, although there are less prefixes being advertised the number of prefixes with multiple ASes increases. Also we were not considering prefixes being allocated after 1997 and this growth on the number of prefixes with multiple ASes, althougth small, is significant and shows the address space is being shared by different ASes.
-In Figure \ref{fig:multipleAsesNewGlobal} it is shown the plot for prefixes allocated after 1997.
+The "Total Number of Prefixes" reflects the number of allocations that were seen in routing and not just the number of allocations. As we are considering allocations before 1997 we were expecting this value to remain constant throughout the time period, but as we are taking into account if the prefixes are advertised, the value changes. This is in accordance with Figure \ref{fig:routingStatusOld}, where we saw that the number of full routed prefixes decreased. 
+The number of allocations with multiple ASes is still small when compared to the total number as there are around 6 000 against 24 000 total. Nevertheless we can see that, although there are less prefixes being advertised the number of prefixes with multiple ASes increases, which means that the address space of some of these prefixes started being shared by different ASes. 
+
+In Figure \ref{fig:multipleAsesNewGlobal} are shown the results for allocations after 1997.
 
 \begin{figure}[!h]
 \centering
@@ -578,9 +571,15 @@ In Figure \ref{fig:multipleAsesNewGlobal} it is shown the plot for prefixes allo
 \label{fig:multipleAsesNewGlobal}
 \end{figure}
 
-We can see that the total number of prefixes allocated increased at a high rate, as expected, and the number of prefixes being advertised by multiple ASes also increased but with a much slower rate. Regarding that from 2011 some RIRs changed their allocation policy and considering that from this change the ASes that required prefixes were the only ones advertising them, this increase in the number of prefixes with multiple ASes is significant.
+The number of prefixes allocated after 1997 is around 75 000, which is three times more than allocated before 1997. Just for this reason the number of prefixes with multiples ASes was expected to be bigger, which it is, around three times more than for prefixes before 1997. The number of allocations has been grown at a high rate while the number of prefixes has also been growing but at a slower and constant rate. 
+Considering that from 2011 some RIRs changed their allocation policy and considering that from this change the ASes that required prefixes were the only ones advertising them, this increase in the number of prefixes with multiple ASes is higher than expected and significant. It can happen that previous, before 2011, allocations are also contributing to this value. 
+We see that with a value of around 17 000 prefixes with multiple ASes, the allocations made after 1997 contribute the most for the global number of prefixes with multiple ASes.  
+We see that both for allocations before 1997 as well as for allocations after 1997 the number of prefixes being advertised by multiple ASes increases increased, this is a clear indication that the overall IPv4 address space is getting more and more deaggregate and shared, and institutions continue to need and want IPv4 addresses. 
 
-In Figure \ref{fig:heatmapLegacyMulti} we can see a heatmap showing the mumber of ASes that are advertising for each /8. In the y-axis it is shown the date and in the x-axis are shown /8 prefixes, such as 3.0.0.0, 4.0.0.0 and so on. We divided the prefixes into two categories "Legacy" and "Allocated" and created one Figure for each one. The division of the prefixes was done, once again, according to \cite{IANA_Address_Space}. Each date and prefix intersection shows the number of Ases that are advertising in a log scale. We can see that the majority of prefixes that were being advertised since the beggining of the time period, showed an increase in the number of ASes that are advertising subnet within the prefix.   
+To have a better overview of the entire address space and its behaviour we grouped the address space into /8 blocks and checked how many ASes were advertising prefixes for each of them. We divided the blocks into two categories "Legacy" and "Allocated" and created one Figure for each one. The division of the blocks was done accordingly to \cite{IANA_Address_Space}.
+
+In Figure \ref{fig:heatmapLegacyMulti} we can see a heatmap showing the mumber of ASes that are advertising for each /8 "Legacy" blocks. On the y axis is represented the date and on the x axis are represented the /8 blocks. Each date and /8 block intersection shows the number of Ases that are advertising in a log scale. 
+We can see that the majority of blocks that were being advertised since the beggining of the time period, showed an increase in the number of ASes advertising them. There are many blocks that have 0 ASes advertising them and these are exactly the same blocks that in Figure \ref{fig:heatmapLegacy} were not being routed. It is possible to observe that most of the blocks with multiple ASes follow more a less the same trend of increasing the number of ASes advertising them and in particular we can see that a couple show a more intense number of multiple ASes. These blocks are 8.0.0.0/8, 12.0.0.0/8, 38.0.0.0/8, 192.0.0.0/8 and 198.0.0.0/8. Both 192.0.0.0/8 and 198.0.0.0/8 are administered by Arin according to \cite{IANA_Address_Space} and therefore was expected that they were split into smaller subnets and distributed to ASes in need of prefixes. the other three referred blocks will be object of study later on this thesis, but all of them belong to ISPs and also for that reason present so many ASes.
 
 \begin{figure}[!h]
 \centering
@@ -589,7 +588,16 @@ In Figure \ref{fig:heatmapLegacyMulti} we can see a heatmap showing the mumber o
 \label{fig:heatmapLegacyMulti}
 \end{figure}
 
-In Figure \ref{fig:heatmapAllocatedMulti} we show the results for the "Allocated" prefixes. We can see, as expected, that the majority of the prefixes were not being advertised by any AS in 2002. As time progresses we notice that ASes start advertising for each of the prefixes and in 2011 most prefixes have already ASes advertising their subnets. Since then we notice and increase in the number of ASes advertising for each prefix.
+Figure \ref{fig:heatmapAllocatedMulti} shows the results for the "Allocated" blocks. 
+We see that the majority of the prefixes were not being advertised by any AS in 2002. 
+
+
+
+
+
+
+
+We can see, as expected, that the majority of the prefixes were not being advertised by any AS in 2002. As time progresses we notice that ASes start advertising for each of the prefixes and in 2011 most prefixes have already ASes advertising their subnets. Since then we notice and increase in the number of ASes advertising for each prefix.
 
 \begin{figure}[!h]
 \centering
@@ -598,6 +606,7 @@ In Figure \ref{fig:heatmapAllocatedMulti} we show the results for the "Allocated
 \label{fig:heatmapAllocatedMulti}
 \end{figure}
 
+\clearpage
 \subsection{Multiple Origin ASes and IRR}
 
 Our next step was to investigate what was happening with the old prefixes. Because the new ones were being allocated throughout the time it was expected to see them with an increasing number of ASes, but for old prefixes the behaviour could be different. 
@@ -634,6 +643,7 @@ Our next step was to investigate if how well are the subnets documented in RADB.
 
 We can see that around one quarte of the subnets in 12.0.0.0 are an exact match in RADB and one third of subnets in 38.0.0.0 and 8.0.0.0 are in RADB. We notice that some prefixes have more exact matches in RADB that in Whois, althoug the number of exact matches in RADB is still low. 
 
+\clearpage
 \chapter{Conclusion}
 
 In this thesis we started by analyzing the BGP origin dynamics. Here we observed the changes in origin-origin pairs, then we aggregated this origin-origin pairs to obtain just unique pairs and finished we removing origin-origin pairs that showed cycles in their behaviour. By cycles we mean are situations where a prefix is advertise by AS1, for example than is advertised by AS2 and then again by AS1. We observed that the number of origin-origin changes is quite small, 1500 when compared to the total of around 500 000 prefixes. We could notice an increasing tendency in the number of prefixes that changed its origin AS and although the number of prefixes that has been allocated has also been increasing, which could in turn increase the probability of having more changes, we noticed that from 2001 until 2005 the number of changes decreased while also more prefixes were being allocated. The fact that we are facing IPv4 address exhaustion and in recent years allocation policies by the RIRs have changed, this could indicate that an increase in the number of origin changes would happen mainly due to transfers, but there are several other reasons for prefix origin changes such as BGP misconfigurations, prefix hijacks or simply because the same organization holds several AS numbers. These other reasons we tried to tackle by aggregating origin-origin pairs and by removing pairs and we could still notice an increasing tendency in origin changes.
