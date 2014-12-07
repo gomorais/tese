@@ -26,6 +26,11 @@
 
 \setcounter{chapter}{0}
 
+Hiermit erkläre ich, dass ich die vorliegende Arbeit selbständig und eigenhändig sowie ohne unerlaubte fremde Hilfe und ausschließlich unter Verwendung der aufgeführten Quellen und Hilfsmittel angefertig habe.
+
+Berlin, den
+....
+Unterschrift
 
 \chapter*{Abstract}
 
@@ -366,51 +371,23 @@ In Figure \ref{fig:densityGlobal} we can see a density plot regarding the number
 We see that the higher density value is between 0 and 1250 days and after decreasing, it increases again between 2500 and 5000 days. This increase happens because the allocation files contain information about allocations since 1982 while the BGP routing files are only available since 2001. Therefore the values for allocations before 2001 are biased, because even if they would have been routing one day after being allocated, the minimum amount of time that we would count would be since their allocation until 2001. For this reason we decided to just process allocations made after 2001. The median for this density distribution is 256 days as the mean would be biased for such a distribution we just focussed our attention on the median.
 When plotting the same density distribution, but now considering just allocations after 2001 we obtain Figure \ref{fig:densityGlobal2001} shown in Appendix B. We can notice that the values between 2500 and 5000 days are not present anymore, which supports what was mentioned before. The density distribution is now pratically betwenn 0 and 1000 days, being the majority between 0 and 250 days. The median value for this distribution is 56 days. This means that when prefixes are allocated it does not take so much time to see them in routing as demonstrated by the middle value of 56 days. 
 
+A very important date for our analysis is February 3 2011, when the Internet Assigned Numbers Authority allocated the remaining /8 blocks to the Regional Internet Registries. From this date on the IPv4 address exhaustion became a reality and we intended to see if there was a change in the behaviour instituions having IPv4 address allocated, in particular if after an allocation the prefixes would be routed more rapidly. Therefore we divided our time frame into before 2011, which comprehends the allocations between 2001 and 2011, and after 2011, which comprehends the allocations after 2011 until May 2014. We then checked for each of these periods the time that took for an allocation to be seen in the BGP routing files.Our assumption was that after 2011 and after the RIRs changed their allocation polices, companies needing IPv4 addresses would also use them faster then before. 
 
-
-
-
-
-
-
-
-
-
-
-An important day for our analysis is February 3 2011, when the Internet Assigned Numbers Authority allocated the remaining /8 blocks to the Regional Internet Registries. Therefore we decided to analyze what happen before and after this date with regards to the number of days that took for a allocated prefix to be seen in routing. Our assumption was that after 2011 and after the RIRs changed their allocation polices, companies needing IPv4 addresses would also use them faster then before. 
-The results for before February 3, 2011 are shown in Figure \ref{fig:densityBefore2001}. Once again we have to limit our study to prefixes allocated after 2001.  
-
+The density results for both these time periods are shown in Figure \ref{fig:densityAfterBefore2001}.
 
 \begin{figure}[!h]
 \centering
-\includegraphics[scale=0.35]{densityBefore2011.pdf}
-\caption{Density plot of days that passed since prefixes are allocated, between 2001 and 2011, until they are advertised in BGP}
-\label{fig:densityBefore2001}
+\includegraphics[width=0.8\linewidth]{densityAfterBefore.pdf}
+\caption{Density plot of days that passed since prefixes are allocated, for before and after 2011, until they are advertised in BGP}
+\label{fig:densityAfterBefore2001}
 \end{figure}
 
-The statistical values for this distribution are: maximum = 4338; mean = 162.2353; median = 58 and standard deviation = 255.6121. We can already see that the maximum value for this distribution is the same as the value for the global distribution and the mean was higher then the global one. This is already an indication that this distribution has some of the biggest values in term of days passed. When we consider the median and the standard deviation, we can assume that this distribution will have higher values then a distribution just considering the period after 2011, which is shown in Figure \ref{fig:densityAfter2001}.
+In red are shown the density values for the time period after 2011 and in blue are shown the density values for the time period between 2001 and 2011. It is possible to see that the density for after 2011 shows a higher between 0 and 100 days that for before 2011, showing that more values are within this frame. It also shows that the density curve is lower between 100 and 400 days for the density after 2011 than before 2011 with the exception of a peak in around 100 days. After around 500 days both distributions have almost the value 0 with the exception of a few outliers. Therefore we can say that the distribution after 2011 shows a higher density for values lower than the distribution before 2011. This is also confirmed by the median for both distributions. After 2011 has a median of 40 days and before 2011 has a median of 58 days. 
+We can conclude that the prefixes allocated after 2011 take in average less time to be seen in the BGP raw data than the ones allocated before. We need to make a reamark and refer that the time span between 2001 and 2011 is bigger than from 2011 and 2014. This means that we can have prefixes that were allocated between 2011 and 2014 and they were still not seen in the BGP data, being possible to seem them at a later point in time, changing the values that were seen now.
 
+Our next step was to calculate for each year allocations the number of days that passed until they were seen in routing. As an example, if the prefix 1.1.0.0/16 is allocated in 2002 and seen 160 days after in routing, this will be represented in the year 2002 in as number of days. We do the same for every allocation within one year and after calculate the average per year, which will then be the value to be represented.
 
-\begin{figure}[!h]
-\centering
-\includegraphics[scale=0.35]{densityAfter2011.pdf}
-\caption{Density plot of days that passed since prefixes are allocated, after 2011, until they are advertised in BGP}
-\label{fig:densityAfter2001}
-\end{figure}
-
-The statistical values for this distribution are: maximum = 1154, mean = 119.257, median = 40 and standard deviation = 191.2714. We can notice a higher density between 100 and 500 days in Figure \ref{fig:densityBefore2001} than in Figure \ref{fig:densityAfter2001}, but to reach a conclusion we need to compare the statistical values. By comparing them we can see that the distribution from before 2011 has a higher maximum value, higher mean, higher median and a higher standard deviation. We can conclude that the prefixes allocated after 2011 take in average less time to be seen in the BGP raw data than the ones allocated before. We need to make a reamark and refer that the time span between 2001 and 2011 is bigger than from 2011 and 2014. This means that we can have prefixes that were allocated between 2011 and 2014 and they were still not seen in the BGP data, being possible to seem them at a later point in time, changing the values that were see now.
-
-
-
-
-
-
-
-
-
-
-We then calculate for each year allocations the number of days that passed until they were seen in routing. For example, the prefix 1.1.0.0/16 is allocated in 2002 and seen 160 days after in routing, this will be represented in the year 2002 in as number of days. We procceed to do this for every prefix allocated in 2002 and calculate the average, which will then be the represented value. 
-In  Figure \ref{fig:densityYearlyShort} is represented the relevant time period from 2001 until 2014. In the y axis are represented the average number of days for all prefixes allocated in a certain year and in the x axis we have the time reprensentation. For each point in time it is also represented the standard deviation.
+In  Figure \ref{fig:densityYearlyShort} are shown the results for the time period from 2001 until 2014, which as discussed before it is the most relevant one. In the y axis are represented the average number of days for all prefixes allocated in a certain year and in the x axis we have the time reprensentation. For each point in time it is also represented the standard deviation.
 
 \begin{figure}[!h]
 \centering
@@ -419,7 +396,7 @@ In  Figure \ref{fig:densityYearlyShort} is represented the relevant time period 
 \label{fig:densityYearlyShort}
 \end{figure}
 
-It is possible to see that the values were relatively constant until 2011, taking betwee 150 to 200 days for an allocated prefix to be seen in routing and since then they started to decrease. In 2012 we have an average value of 71 days, in 2013 of 54 and 2014 of 23 days. This indicates that since 2011, probably due to IPv4 address exauhstion, institutions that receive prefixes tend to start using them faster. The values for 2014 should be carefully analized, because the analisys was done in the middle of 2014, thus limiting the number of days that could have passed for a prefix to be seen in routing. Regarding the values for 2012 and 2013 they indicate exactly that allocated prefixes are taking less time to be advertised, but for a more concluding analysis a higher time span would be needed.  
+It is possible to see that the values were relatively constant until 2011, taking between 150 to 200 days for an allocated prefix to be seen in routing. Since then, this value started to decrease. In 2012 we have an average value of 71 days, in 2013 of 54 and 2014 of 23 days. This indicates that since 2011, probably due to IPv4 address exauhstion, institutions that receive prefixes tend to start using them faster. The values for 2014 should be carefully analized, because the analisys was done in the middle of 2014, thus limiting the number of days that could have passed for a prefix to be seen in routing. Regarding the values for 2012 and 2013 they indicate exactly that allocated prefixes are taking less time to be advertised, but for a more concluding analysis a higher time span would be needed.  
 
 \section{BGP Routing Dynamics}
 
@@ -430,7 +407,7 @@ To categorize the routing behaviour of allocated prefixes we defined routing sta
 
 \begin{figure}[!h]
 \centering
-\includegraphics[scale=0.35]{routeStatusGlobal.pdf}
+\includegraphics[width=0.8\linewidth]{routeStatusGlobal.pdf}
 \caption{Number of allocated prefixes that are being advertised in BGP and their routing status}
 \label{fig:routingStatusGlobal}
 \end{figure}
@@ -440,7 +417,7 @@ We can see that the number of allocated prefixes has been increasing quite fast 
 
 \begin{figure}[!h]
 \centering
-\includegraphics[scale=0.35]{routeStatusGlobal8.pdf}
+\includegraphics[width=0.8\linewidth]{routeStatusGlobal8.pdf}
 \caption{Amount of address space of allocated prefixes that is being advertised in BGP in /8s, according to prefixes routing status}
 \label{fig:routingStatusGlobal8}
 \end{figure}
@@ -522,9 +499,6 @@ In Figure \ref{fig:heatmapLegacy} we can see a heatmap showing the mumber of /24
 
 We can see that more than half of these prefixes were already being routed in 2002 and maintained this trend accross the time period and show an increase in the number of /24s being advertised. On the other hand there are a significant number of prefixes that show no /24 being advertised during the whole time period. These prefixes were contributing to the not routed status from above and it is now possible to identify them. The blocks 7.0.0.0/8, 19.0.0.0/8, 21.0.0.0/8, 22.0.0.0/8, 26.0.0.0/8, 28.0.0.0/8, 29.0.0.0/8, 30.0.0.0/8, 48.0.0.0/8 and 51.0.0.0/8 were never advertised during the entire time period, while 9.0.0.0/8, 11.0.0.0/8 and 25.0.0.0/8 were just advertised for part of the time period, but recently not anymore. In \cite{IANA_Address_Space} we can have information to whom these prefixes were allocated. For example 19.0.0.0/8 was allocated to Ford Motor Company and 22.0.0.0/8 to Defense Information Systems Agency. We should refer once againd that the fact that these prefixes are not being advertised does not mean that they are not being used.  
 
-
-
-
 \begin{figure}[!h]
 \centering
 \includegraphics[scale=0.1]{heatmapAllocated.pdf}
@@ -589,15 +563,7 @@ We can see that the majority of blocks that were being advertised since the begg
 \end{figure}
 
 Figure \ref{fig:heatmapAllocatedMulti} shows the results for the "Allocated" blocks. 
-We see that the majority of the prefixes were not being advertised by any AS in 2002. 
-
-
-
-
-
-
-
-We can see, as expected, that the majority of the prefixes were not being advertised by any AS in 2002. As time progresses we notice that ASes start advertising for each of the prefixes and in 2011 most prefixes have already ASes advertising their subnets. Since then we notice and increase in the number of ASes advertising for each prefix.
+We see that the majority of the prefixes were not being advertised by any AS in 2002, while in the previous Figure the majority was already being advertised. This was expected as these blocks were allocated after and are being allocated along the time period, which we can see. As time progresses we notice that ASes start advertising for each of the prefixes and in 2011 most prefixes have already ASes advertising their subnets. This is in accordance with Figure \ref{fig:heatmapAllocated}. At the same time we started seeing prefixes being routed for the respective /8 block in Figure \ref{fig:heatmapAllocated} we also see ASes advertising part of that block in Figure \ref{fig:heatmapAllocatedMulti}. Since 2011 most /8 blocks show an increase in the number of ASes advertising them, reflecting what was seen before, that the IPv4 address space is getting more and more crowded.
 
 \begin{figure}[!h]
 \centering
@@ -609,8 +575,9 @@ We can see, as expected, that the majority of the prefixes were not being advert
 \clearpage
 \subsection{Multiple Origin ASes and IRR}
 
-Our next step was to investigate what was happening with the old prefixes. Because the new ones were being allocated throughout the time it was expected to see them with an increasing number of ASes, but for old prefixes the behaviour could be different. 
-In Figure \ref{fig:oldNetworks} we can see the ten allocated prefixes, allocated before 1997, that are being advertised by the highest number of ASes.
+Our next step was to take a closer look at the "legacy" blocks. As shown before, even though these blocks were allocated before 1997 we notice movement within them, such as an increase in the number of subnets being routed and an increase in the number of ASes advertising in the block. For new allocations this behaviour would be normal as the blocks are subdivided into subnets and then allocated, but for "legacy" blocks that were once allocated and show such a behaviour, it is worth of further invesigation. 
+
+To start our observation in the "legacy" blocks we invetigated how many ASes were advertising subnets of each block. For that we take the prefixes allocated before 1997 from the RIRs allocation files and check on the BGP routing files how many ASes are advertising for each of the prefixes. Because the number of allocations was high we chose the ten allocations that showed more ASes advertising their subnets. In Figure \ref{fig:oldNetworks} are shown the results.
 
 \begin{figure}[!h]
 \centering
@@ -619,10 +586,13 @@ In Figure \ref{fig:oldNetworks} we can see the ten allocated prefixes, allocated
 \label{fig:oldNetworks}
 \end{figure}
 
-From the Figure we decided to choose the prefixes 8.0.0.0, 12.0.0.0 and 38.0.0.0 for further observation. Using whois we found out that 8.0.0.0 is registered to Level 3 Communications, 12.0.0.0 is registered to AT\&T Services and 38.0.0.0 to PSINet, which was acquire by Cogent Communications.
-As these are ISPs it is explained why there are so many ASes advertising these prefixes, but we wanted to know if the prefixes that are being advertised are somehow registered and if it is possible to know some information about them.
+We can see that three allocations show a clear more number of ASes advertising them then the others. We see that the majority of the allocations show an almost constant number of ASes advertising them with the exception of 8.0.0.0, 12.0.0.0 and 38.0.0.0 that show a highly accentuated increase rate. The allocation 12.0.0.0 was already in 2002 being advertised by around 400 ASes and increased to 992 in 2014. 8.0.0.0 and 38.0.0.0 are even more interesting cases, where 38.0.0.0 started from around 10 ASes into 2002 and ended with 788 in 2014 and 8.0.0.0 started with 4 in 2004 and ended with 508 in 2014. 
+Although some of the other allocations are smaller and show a quite number of ASes advertising them in proportion to their size we decided to choose the allocations 8.0.0.0, 12.0.0.0 and 38.0.0.0 exactly because of the behaviour they showed in a very high rate of increased, instead of the other allocation behaviour of almost stagnation.
 
-The first stept was to use whois and see if the advertised prefixes are being registered. For that we took the prefixes that are being advertised in BGP and for each of them we queried whois. If there would be an exact match the prefix would be "BGP equal to Whois", if the BGP prefix length would be smaller than the answer in Whois (e.g. BGP 8.1.0.0/16 Whois 8.1.1.0/24) it would count as "BGP smaller than Whois", if the BGP prefix length would be bigger than the corresponding answer in Whois (e.g. BGP8.1.0.0/16 Whois 8.0.0.0/8) it would count as "BGP bigger than Whois". In Figure \ref{fig:whois} are shown the results.
+We first used whois to find out information about these three allocations and found out that 8.0.0.0 is registered to Level 3 Communications, 12.0.0.0 is registered to AT\&T Services and 38.0.0.0 to PSINet, which was acquire by Cogent Communications.
+As these are ISPs it is explained why there are so many ASes advertising these prefixes, but we wanted to know if the prefixes that are being advertised are somehow registered and if it is possible to know some information about them.
+To have information about allocations and assignments of IP address space, through the IP address registry, we used again the whois protocol on the advertised prefixes to see if they were registered. We used the prefixes that are being advertised in BGP, for each of the IP /8 blocks, and for each of them we queried whois.
+If there was an exact match the prefix was considered to be "BGP equal to Whois", if the BGP prefix length was smaller than the answer in Whois (e.g. BGP 8.1.0.0/16 Whois 8.1.1.0/24) it was considered as "BGP smaller than Whois", if the BGP prefix length was bigger than the corresponding answer in Whois (e.g. BGP8.1.0.0/16 Whois 8.0.0.0/8) it was consideredas "BGP bigger than Whois". In Figure \ref{fig:whois} are shown the results.
 
 \begin{figure}[!h]
 \centering
@@ -632,7 +602,9 @@ The first stept was to use whois and see if the advertised prefixes are being re
 \end{figure}
 
 We can see that while the prefix 12.0.0.0 has more than half of its advertised subnets with an exact match in the Whois, indicating they are registered, 8.0.0.0 has a bit less than half and 38.0.0.0 has pratically zero. For all of the subnets that don't fall on the "BGP equal to Whois" category they go into the category "BGP bigger than Whois", which would be expected given that if a subnet is not registered it would be match, for example 8.0.0.0 as longest prefic match.
-Our next step was to investigate if how well are the subnets documented in RADB. In Figure \ref{fig:radb} are shown the results.
+We notice that the information that we are able to retrieve depends on the institution that holds that prefix, which is not the best practice in such a complex system as the Internet. It would be expected that when querying an allocation and assignments of IP addresses database the results would be much higher. The probable reason for such a low number is that the /8 blocks were assigned to IPs and they in turn allocate subnets to their clients without registering it. Although this practice seems to prevail it would be of most importance to have a updated and complete registry to whom prefixes are allocated.
+
+Our next step was to investigate if how well are the subnets documented in the IRR,  more specifically RADB. We used the same approach as for whois, for an exact match the prefix was considered to be "BGP equal to RADB", if the BGP prefix length was smaller than the answer in RADB (e.g. BGP 8.1.0.0/16 RADB 8.1.1.0/24) it was considered as "BGP smaller than RADB", if the BGP prefix length was bigger than the corresponding answer in RADB (e.g. BGP 8.1.0.0/16 RADB 8.0.0.0/8) it was consideredas "BGP bigger than RADB". The results are shown in Figure \ref{fig:radb}.
 
 \begin{figure}[!h]
 \centering
@@ -641,7 +613,10 @@ Our next step was to investigate if how well are the subnets documented in RADB.
 \label{fig:radb}
 \end{figure}
 
-We can see that around one quarte of the subnets in 12.0.0.0 are an exact match in RADB and one third of subnets in 38.0.0.0 and 8.0.0.0 are in RADB. We notice that some prefixes have more exact matches in RADB that in Whois, althoug the number of exact matches in RADB is still low. 
+We can see that around one quarter of the subnets in 12.0.0.0 are an exact match in RADB and one third of subnets in 38.0.0.0 and 8.0.0.0 are in RADB. 12.0.0.0 as much less entries in RADB has it had in Whois, 8.0.0.0 has around the same entries in both registries and 38.0.0.0 has without a doubt many more entries in RADB. Being RADB a very important routing registry, with the relevance that can have for solving routing issues, it would be expected to have more entries. We should also mention that there are many more independent IRR databases that can complement this information and making the global view much more complete. Because the IRR works with independent databases, one must search each of them to have a global view, which is not such a pratical way when the purpose is to have a global system.
+Nevertheless it is possible to see that institutions, such as 8.0.0.0 have a more complete information in RADB than in Whois. 
+
+Having a complete and update information about prefix holders is of extreme importance when solving routing issues or for a better control over the Internet. Therefore it would be of great importance that institutions realize this and start registring their prefixes adequately.
 
 \clearpage
 \chapter{Conclusion}
@@ -1097,6 +1072,13 @@ unique origin-origin pair changes, after origin-origin pair aggregation and orig
 \caption{Density plot of days that passed since prefixes are allocated, after 2001, until they are advertised in BGP}
 \label{fig:densityGlobal2001}
 \end{figure}
+
+%\begin{figure}[!h]
+%\centering
+%\includegraphics[scale=0.35]{densityAfter2011.pdf}
+%\caption{Density plot of days that passed since prefixes are allocated, after 2011, %until they are advertised in BGP}
+%\label{fig:densityAfter2001}
+%\end{figure}
 
 \begin{figure}[!h]
 \centering
