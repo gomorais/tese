@@ -1,10 +1,12 @@
 \documentclass[11pt,a4paper]{scrreprt}
+
 \linespread{1.3}
 \usepackage{graphicx}
 \usepackage{rotating}
 \usepackage{subcaption}
 \usepackage{amsmath}
 \usepackage{mathtools}
+\usepackage[usenames, dvipsnames]{color}
 
 \usepackage[scaled]{helvet}
 \renewcommand*\familydefault{\sfdefault}
@@ -14,24 +16,56 @@
 \graphicspath{ {/home/morais/Documents/tese/tese/paper/img/} }
 
 %Gummi|061|=)
+\pagenumbering{roman}
 \title{\textbf{Measuring the effects of IPv4 address exhaustion on allocation and routing dynamics}}
 \author{Goncalo Morais}
 \date{}
 \begin{document}
 \maketitle
 
-\tableofcontents
-\listoffigures
-\listoftables
-
 \setcounter{chapter}{0}
+\clearpage
+\begin{large}
 
-Hiermit erkläre ich, dass ich die vorliegende Arbeit selbständig und eigenhändig sowie ohne unerlaubte fremde Hilfe und ausschließlich unter Verwendung der aufgeführten Quellen und Hilfsmittel angefertig habe.
+\vspace*{6cm}
 
+\noindent
+Hiermit erkl\"{a}re ich, dass ich die vorliegende Arbeit selbst\"{a}ndig und eigenh\"{a}ndig sowie ohne unerlaubte fremde Hilfe und ausschlie\ss lich unter Verwendung der aufgef\"{u}hrten Quellen und Hilfsmittel angefertig habe.
+\vspace{2cm}
+
+\noindent
 Berlin, den
-....
-Unterschrift
 
+\vspace{3cm}
+
+\hspace*{7cm}%
+\dotfill\\
+\hspace*{8.5cm}%
+\textit{(Unterschrift)}
+
+\end{large}
+
+\clearpage
+
+\begin{large}
+
+\vspace*{6cm}
+
+\noindent
+Hereby I declare that I wrote this thesis myself with the help of no more than the mentioned literature and auxiliary means.
+\vspace{2cm}
+
+\noindent
+Berlin, 01.01.2050
+
+\vspace{3cm}
+
+\hspace*{7cm}%
+\dotfill\\
+\hspace*{8.5cm}%
+\textit{(Signature)}
+
+\end{large}
 \chapter*{Abstract}
 
 In order to achieve connectivity in the Internet, the uniqueness of
@@ -45,8 +79,14 @@ to network operators.
 The fact that we are facing IPv4 address exhaustion makes IPv4 addresses an
 increasingly scarce resource. Hence, we assist to changes on IPv4 allocation policies by the Regional Internet Registries (RIRs) and to the appearance of IPv4 transfer markets. We propose to investigate the effects that this is having on the allocation and routing dynamics. Hereby we pay particular attention to how origins of prefixes have been changing, how long it takes for a prefix to be seen in routing after it has been allocated and the routing status of prefixes. We will also infer about the number of ASes that advertise a certain prefix and how this has changed alont the years. We will finish by having a look at how some prefixes are being documented in the Regional Internet Registries and in the Internet Routing Registries. 
 
+\tableofcontents
+\listoffigures
+\listoftables
+
+
 
 \chapter{Introduction}
+\pagenumbering{arabic}
 
 The IP protocol is the principal communications protocol used on the Internet to deliver packets from a source host to a destination host. This is done based on the IP addresses in the packet headers, having each host an unique address. 
 The first version of this protocol and still the most dominant one is IPv4. The format of an IP address is a 32-bit number allowing a use of around 4 billion addresses. With the boom that we have been assisting in the past years regarding devices needing IP addresses in connection with how IPv4 blocks of addresses have been allocated, the number of available blocks has reached a dangerous low value of almost depletion.      
@@ -243,8 +283,20 @@ Here we can see statistics regarding IPv4 address space allocation. There is inf
 \chapter{Datasets}
 
 In order to study the advertised IPv4 address space we used BGP table dumps from RouteViews \cite{RouteViews}. This provided us the required raw BGP data for our analysis. As our requirements were just to have a global overview of the prefixes that are being advertised and its origin, to use only this data source would be enough. In case we had to infer about the BGP paths and try to build an internet map, we would certainly have to use more sources (e.g. BGP table dumps from RIPE), but for our analysis this was not necessary as we could obtain a comprehensive view of the global routing system.
-We used four collectors, after some previous tests, which would give us the best possible overview of the global system for the entire study period. Some other related work \cite{Address_Space_Deaggregation} used just one collector and still obtained significant results, but we wanted to be on the sure side and decided to use four collectors. 
 
+for our purpose, a single collector providing the full
+routing table is sufficient, yet we use the intersection (do you?) using
+four collectors.
+
+For our purpose, a single collector providing the full routing table is suficient, yet we use the intersection of four collectors. They were chosen after some previous tests that are explained further in more detail.
+The information that we retrieve from the BGP data is shown below. 
+\vspace{5mm}
+
+\hspace{1cm} TABLE\_DUMP2\textbar 1393668002\textbar B\textbar 167.142.3.6\textbar 5056\textbar \textcolor{red}{1.8.104.0/24}\textbar \\ \textcolor{red}{5056} 1239 6453 \textcolor{red}{38345}\textbar  IGP\textbar 167.142.3.6\textbar 0\textbar 0\textbar \textbar NAG\textbar 38345 209.58.75.66\textbar
+
+\vspace{5mm}
+
+In red are marked the relevant field for our study. The first field in red is the prefix that is being advertised, the second field is the collector and the third field is the AS that is originating the advertised prefix.
 To be able to study the IPv4 address space allocation history, we used the allocation files \cite{Potaroo} provide by the RIRs. These files contain information about address allocation and are publiched in the RIR Statistics Exchange Format.
 How Allocation Data is Published \cite{ALLOC_FILES}. Each RIR publishes a file containing its allocations. The files are CSV formatted using a pipe "\textbar" as field separator and have the following format:
 \vspace{5mm}
@@ -294,7 +346,7 @@ Our first approach was to analyze the number of prefixes that changed origin dur
 
 \begin{figure}[!h]
 \centering
-\includegraphics[scale=0.35]{comparePrefixes.pdf}
+\includegraphics[width=0.8\linewidth]{comparePrefixes.pdf}
 \caption{Observed number of monthly
 origin-origin pair changes}
 \label{fig:comparePrefixes}
@@ -310,7 +362,7 @@ By deaggreting the advertised prefixes into /24s we can get an idea of the size 
 
 \begin{figure}[!h]
 \centering
-\includegraphics[scale=0.35]{comparePrefixes_24.pdf}
+\includegraphics[width=0.8\linewidth]{comparePrefixes_24.pdf}
 \caption{Observed number of monthly
 /24s that change their origin}
 \label{fig:comparePrefixes_24}
@@ -325,7 +377,7 @@ The next step was to aggregate the origin changes. For that we went back to our 
 
 \begin{figure}[!h]
 \centering
-\includegraphics[scale=0.35]{compareAggregation.pdf}
+\includegraphics[width=0.8\linewidth]{compareAggregation.pdf}
 \caption{Observed number of monthly
 unique origin-origin pair changes, after aggregating equal origin-origin pairs}
 \label{fig:compareAggregation}
@@ -338,7 +390,7 @@ The next step was to deaggregate again every prefix found in the BGP data into s
 
 \begin{figure}[!h]
 \centering
-\includegraphics[scale=0.35]{compareAggregation_24.pdf}
+\includegraphics[width=0.8\linewidth]{compareAggregation_24.pdf}
 \caption{Observed number of monthly
 /24s that change their origin, after aggregating equal origin-origin pairs}
 \label{fig:compareAggregation24}
@@ -362,7 +414,7 @@ Our next analysis inferred on the number of days that passed sinced a prefix was
 
 \begin{figure}[!h]
 \centering
-\includegraphics[scale=0.35]{densityGlobal.pdf}
+\includegraphics[width=0.8\linewidth]{densityGlobal.pdf}
 \caption{Density plot of days that passed since prefixes are allocated until they are advertised in BGP}
 \label{fig:densityGlobal}
 \end{figure}
@@ -391,7 +443,7 @@ In  Figure \ref{fig:densityYearlyShort} are shown the results for the time perio
 
 \begin{figure}[!h]
 \centering
-\includegraphics[scale=0.35]{densityYearlyShort.pdf}
+\includegraphics[width=0.8\linewidth]{densityYearlyShort.pdf}
 \caption{Observed average number of days that passed since prefixes are allocated until they are advertised in BGP, after 2001}
 \label{fig:densityYearlyShort}
 \end{figure}
@@ -428,7 +480,7 @@ Regarding the number of partially routed prefixes and not routed prefixes we can
 
 \begin{figure}[!h]
 \centering
-\includegraphics[scale=0.35]{routeStatusOld.pdf}
+\includegraphics[width=0.8\linewidth]{routeStatusOld.pdf}
 \caption{Number of allocated prefixes, allocated before 1997, that are being advertised in BGP and their routing status}
 \label{fig:routingStatusOld}
 \end{figure}
@@ -442,7 +494,7 @@ After analysing the "legacy" address blocks we move to the new address blocks or
 
 \begin{figure}[!h]
 \centering
-\includegraphics[scale=0.35]{routeStatusNew.pdf}
+\includegraphics[width=0.8\linewidth]{routeStatusNew.pdf}
 \caption{Number of allocated prefixes, allocated after 1997, that are being advertised in BGP and their routing status}
 \label{fig:routingStatusNew}
 \end{figure}
@@ -464,7 +516,7 @@ Our last RIR to be analyzed is RIPENCC, which is shown in Figure \ref{fig:routin
 
 \begin{figure}[!h]
 \centering
-\includegraphics[scale=0.35]{routeStatusRelativeFull.pdf}
+\includegraphics[width=0.8\linewidth]{routeStatusRelativeFull.pdf}
 \caption{RIRs comparison of prefixes that are being fully routed}
 \label{fig:routingStatusRelativeFull}
 \end{figure}
@@ -479,7 +531,7 @@ The next comparison was regarding the partially routed prefixes. It can be seen 
 
 \begin{figure}[!h]
 \centering
-\includegraphics[scale=0.35]{routeStatusRelativeNot.pdf}
+\includegraphics[width=0.8\linewidth]{routeStatusRelativeNot.pdf}
 \caption{RIRs comparison of prefixes that are not being routed}
 \label{fig:routingStatusRelativeNot}
 \end{figure}
@@ -492,7 +544,7 @@ In Figure \ref{fig:heatmapLegacy} we can see a heatmap showing the mumber of /24
 
 \begin{figure}[!h]
 \centering
-\includegraphics[scale=0.1]{heatmapLegacy.pdf}
+\includegraphics[width=0.8\linewidth]{heatmapLegacy.pdf}
 \caption{Heatmap showing number of /24s being advertised by each /8 "Legacy" prefix}
 \label{fig:heatmapLegacy}
 \end{figure}
@@ -501,7 +553,7 @@ We can see that more than half of these prefixes were already being routed in 20
 
 \begin{figure}[!h]
 \centering
-\includegraphics[scale=0.1]{heatmapAllocated.pdf}
+\includegraphics[width=0.8\linewidth]{heatmapAllocated.pdf}
 \caption{Heatmap showing number of /24s being advertised by each /8 "Allocated" prefix}
 \label{fig:heatmapAllocated}
 \end{figure}
@@ -516,7 +568,7 @@ We used the allocation files to obtain all the prefixes that were allocated, dea
 
 \begin{figure}[!h]
 \centering
-\includegraphics[scale=0.35]{multipleAsesGlobal.pdf}
+\includegraphics[width=0.8\linewidth]{multipleAsesGlobal.pdf}
 \caption{Observed number of allocated prefixes being advertised by more than one AS}
 \label{fig:multipleAsesGlobal}
 \end{figure}
@@ -528,7 +580,7 @@ To have an idea about the behaviour of old prefixes we decided to divide, as bef
 
 \begin{figure}[!h]
 \centering
-\includegraphics[scale=0.35]{multipleAsesOldGlobal.pdf}
+\includegraphics[width=0.8\linewidth]{multipleAsesOldGlobal.pdf}
 \caption{Observed number of allocated prefixes, allocated before 1997, being advertised by more than one AS}
 \label{fig:multipleAsesOldGlobal}
 \end{figure}
@@ -540,7 +592,7 @@ In Figure \ref{fig:multipleAsesNewGlobal} are shown the results for allocations 
 
 \begin{figure}[!h]
 \centering
-\includegraphics[scale=0.35]{multipleAsesNewGlobal.pdf}
+\includegraphics[width=0.8\linewidth]{multipleAsesNewGlobal.pdf}
 \caption{Observed number of allocated prefixes, allocated after 1997, being advertised by more than one AS}
 \label{fig:multipleAsesNewGlobal}
 \end{figure}
@@ -557,7 +609,7 @@ We can see that the majority of blocks that were being advertised since the begg
 
 \begin{figure}[!h]
 \centering
-\includegraphics[scale=0.1]{heatmapLegacyMulti.pdf}
+\includegraphics[width=0.8\linewidth]{heatmapLegacyMulti.pdf}
 \caption{Heatmap showing number of ASes advertising prefixes for each /8 "Legacy" prefix}
 \label{fig:heatmapLegacyMulti}
 \end{figure}
@@ -567,7 +619,7 @@ We see that the majority of the prefixes were not being advertised by any AS in 
 
 \begin{figure}[!h]
 \centering
-\includegraphics[scale=0.1]{heatmapAllocatedMulti.pdf}
+\includegraphics[width=0.8\linewidth]{heatmapAllocatedMulti.pdf}
 \caption{Heatmap showing number of ASes advertising prefixes for each /8 "Allocated" prefix}
 \label{fig:heatmapAllocatedMulti}
 \end{figure}
@@ -581,7 +633,7 @@ To start our observation in the "legacy" blocks we invetigated how many ASes wer
 
 \begin{figure}[!h]
 \centering
-\includegraphics[scale=0.35]{oldNetworks.pdf}
+\includegraphics[width=0.8\linewidth]{oldNetworks.pdf}
 \caption{Observed number of ASes for the ten prefixes being advertised by more addresses, allocated before 1997}
 \label{fig:oldNetworks}
 \end{figure}
@@ -657,7 +709,7 @@ For this reasons works in measurement play an important role in understanding th
 youtube\_1.shtml
 
 \bibitem{Address_Space_Deaggregation}
-	L. Cittadini, W. Mühlbauer, S. Uhlig, R. Bush, P. Francois and O.Maennel,
+	L. Cittadini, W. M\"{u}hlbauer, S. Uhlig, R. Bush, P. Francois and O.Maennel,
 	\emph{Evolution of Internet Address Space Deaggregation: Myths and Reality}.
 	IEEE JSAC, Aug 2010.
 
@@ -1049,7 +1101,7 @@ source:   	&      RADB\\
 
 \begin{figure}[!h]
 \centering
-\includegraphics[scale=0.35]{compareAggregationCycles.pdf}
+\includegraphics[width=0.8\linewidth]{compareAggregationCycles.pdf}
 \caption{Observed number of monthly
 unique origin-origin pair changes, after origin-origin pair aggregation and origin-origin cycles}
 \label{fig:compareAggregationCycles}
@@ -1058,7 +1110,7 @@ unique origin-origin pair changes, after origin-origin pair aggregation and orig
 
 \begin{figure}[!h]
 \centering
-\includegraphics[scale=0.35]{compareAggregationCycles_24.pdf}
+\includegraphics[width=0.8\linewidth]{compareAggregationCycles_24.pdf}
 \caption{Observed number of monthly
 unique origin-origin pair changes, after origin-origin pair aggregation and origin-origin cycles [/24 blocks]}
 \label{fig:compareAggregationCycles24}
@@ -1068,7 +1120,7 @@ unique origin-origin pair changes, after origin-origin pair aggregation and orig
 
 \begin{figure}[!h]
 \centering
-\includegraphics[scale=0.35]{densityGlobal2001.pdf}
+\includegraphics[width=0.8\linewidth]{densityGlobal2001.pdf}
 \caption{Density plot of days that passed since prefixes are allocated, after 2001, until they are advertised in BGP}
 \label{fig:densityGlobal2001}
 \end{figure}
@@ -1082,7 +1134,7 @@ unique origin-origin pair changes, after origin-origin pair aggregation and orig
 
 \begin{figure}[!h]
 \centering
-\includegraphics[scale=0.35]{densityYearly.pdf}
+\includegraphics[width=0.8\linewidth]{densityYearly.pdf}
 \caption{Observed average number of days that passed since prefixes are allocated until they are advertised in BGP along the years}
 \label{fig:densityYearly}
 \end{figure}
@@ -1094,120 +1146,119 @@ unique origin-origin pair changes, after origin-origin pair aggregation and orig
 
 \begin{figure}[!h]
 \centering
-\includegraphics[scale=0.35]{routeStatusOld8.pdf}
+\includegraphics[width=0.8\linewidth]{routeStatusOld8.pdf}
 \caption{Amount of address space of allocated prefixes, allocated before 1997, that is being advertised in BGP in /8s, according to prefixes routing status}
 \label{fig:routingStatusOld8}
 \end{figure}
 
 \begin{figure}[!h]
 \centering
-\includegraphics[scale=0.35]{routeStatusNew8.pdf}
+\includegraphics[width=0.8\linewidth]{routeStatusNew8.pdf}
 \caption{Amount of address space of allocated prefixes, allocated after 1997, that is being advertised in BGP in /8s, according to prefixes routing status}
 \label{fig:routingStatusNew8}
 \end{figure}
 
 \begin{figure}[!h]
 \centering
-\includegraphics[scale=0.35]{routeStatusArin.pdf}
+\includegraphics[width=0.8\linewidth]{routeStatusArin.pdf}
 \caption{Number of allocated prefixes, in ARIN, that are being advertised in BGP and their routing status}
 \label{fig:routingStatusArin}
 \end{figure}
 
 \begin{figure}[!h]
 \centering
-\includegraphics[scale=0.35]{routeStatusArin8.pdf}
+\includegraphics[width=0.8\linewidth]{routeStatusArin8.pdf}
 \caption{Amount of address space of allocated prefixes, in ARIN, that is being advertised in BGP in /8s, according to prefixes routing status}
 \label{fig:routingStatusArin8}
 \end{figure}
 
 \begin{figure}[!h]
 \centering
-\includegraphics[scale=0.35]{routeStatusAfrinic.pdf}
+\includegraphics[width=0.8\linewidth]{routeStatusAfrinic.pdf}
 \caption{Number of allocated prefixes, in AFRINIC, that are being advertised in BGP and their routing status}
 \label{fig:routingStatusAfrinic}
 \end{figure}
 
 \begin{figure}[!h]
 \centering
-\includegraphics[scale=0.35]{routeStatusAfrinic8.pdf}
+\includegraphics[width=0.8\linewidth]{routeStatusAfrinic8.pdf}
 \caption{Amount of address space of allocated prefixes, in AFRINIC, that is being advertised in BGP in /8s, according to prefixes routing status}
 \label{fig:routingStatusAfrinic8}
 \end{figure}
 
 \begin{figure}[!h]
 \centering
-\includegraphics[scale=0.35]{routeStatusApnic.pdf}
+\includegraphics[width=0.8\linewidth]{routeStatusApnic.pdf}
 \caption{Number of allocated prefixes, in APNIC, that are being advertised in BGP and their routing status}
 \label{fig:routingStatusApnic}
 \end{figure}
 
 \begin{figure}[!h]
 \centering
-\includegraphics[scale=0.35]{routeStatusApnic8.pdf}
+\includegraphics[width=0.8\linewidth]{routeStatusApnic8.pdf}
 \caption{Amount of address space of allocated prefixes, in APNIC, that is being advertised in BGP in /8s, according to prefixes routing status}
 \label{fig:routingStatusApnic8}
 \end{figure}
 
 \begin{figure}[!h]
 \centering
-\includegraphics[scale=0.35]{routeStatusLacnic.pdf}
+\includegraphics[width=0.8\linewidth]{routeStatusLacnic.pdf}
 \caption{Number of allocated prefixes, in LACNIC, that are being advertised in BGP and their routing status}
 \label{fig:routingStatusLacnic}
 \end{figure}
 
 \begin{figure}[!h]
 \centering
-\includegraphics[scale=0.35]{routeStatusLacnic8.pdf}
+\includegraphics[width=0.8\linewidth]{routeStatusLacnic8.pdf}
 \caption{Amount of address space of allocated prefixes, in LACNIC, that is being advertised in BGP in /8s, according to prefixes routing status}
 \label{fig:routingStatusLacnic8}
 \end{figure}
 
-\begin{figure}[!h]
+%\begin{figure}[!h]
+%\centering
+%\begin{subfigure}{.5\textwidth}
+%  \centering
+%  \includegraphics[width=0.8\linewidth]{routeStatusRipe.pdf}
+%  \caption{Number of allocated prefixes, in RIPENCC, that are being advertised in %BGP and their routing status}
+%  \label{fig:routingStatusRipe}
+%\end{subfigure}%
+%\begin{subfigure}{.5\textwidth}
+%  \centering
+%  \includegraphics[width=0.8\linewidth]{routeStatusRipe8.pdf}
+%  \caption{Amount of address space of allocated prefixes, in RIPENCC, that is being %advertised in BGP in /8s, according to prefixes routing status}
+%  \label{fig:routingStatusRipe8}
+%\end{subfigure}
+%\caption{Observed allocated prefixes in RIPENCC}
+%\label{fig:test}
+%\end{figure}
+
+
+\begin{figure}[ht!]
 \centering
-\begin{subfigure}{.5\textwidth}
-  \centering
-  \includegraphics[scale=0.19]{routeStatusRipe.pdf}
-  \caption{Number of allocated prefixes, in RIPENCC, that are being advertised in BGP and their routing status}
-  \label{fig:routingStatusRipe}
-\end{subfigure}%
-\begin{subfigure}{.5\textwidth}
-  \centering
-  \includegraphics[scale=0.19]{routeStatusRipe8.pdf}
-  \caption{Amount of address space of allocated prefixes, in RIPENCC, that is being advertised in BGP in /8s, according to prefixes routing status}
-  \label{fig:routingStatusRipe8}
-\end{subfigure}
-\caption{Observed allocated prefixes in RIPENCC}
-\label{fig:test}
+\includegraphics[width=0.8\linewidth]{routeStatusRipe.pdf}
+\caption{Number of allocated prefixes, in RIPENCC, that are being advertised in BGP and their routing status}
+\label{fig:routingStatusRipe}
+\end{figure}
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=0.8\linewidth]{routeStatusRipe8.pdf}
+\caption{Amount of address space of allocated prefixes, in RIPENCC, that is being advertised in BGP in /8s, according to prefixes routing status}
+\label{fig:routingStatusRipe8}
 \end{figure}
 
 
-%\begin{figure}[ht!]
-%\centering
-%\includegraphics[scale=0.35]{routeStatusRipe.pdf}
-%\caption{Number of allocated prefixes, in RIPENCC, that are being advertised in BGP %and their routing status}
-%\label{fig:routingStatusRipe}
-%\end{figure}
-
-%\begin{figure}[ht!]
-%\centering
-%\includegraphics[scale=0.35]{routeStatusRipe8.pdf}
-%\caption{Amount of address space of allocated prefixes, in RIPENCC, that is being %advertised in BGP in /8s, according to prefixes routing status}
-%\label{fig:routingStatusRipe8}
-%\end{figure}
-
-
 \begin{figure}[!h]
 \centering
-\includegraphics[scale=0.35]{routeStatusRelativePart.pdf}
+\includegraphics[width=0.8\linewidth]{routeStatusRelativePart.pdf}
 \caption{RIRs comparison of prefixes that are being partially routed}
 \label{fig:routingStatusRelativePart}
 \end{figure}
 
-\begin{sidewaysfigure}[!h]
-
-\includegraphics[scale=0.15]{heatmapAllocated.pdf}
-\caption{Heatmap showing number of /24s being advertised by each /8 "Allocated" prefix}
-\label{fig:heatmapAllocatedSideWays}
-\end{sidewaysfigure}
+%\begin{sidewaysfigure}[!h]
+%\includegraphics[scale=0.15]{heatmapAllocated.pdf}
+%\caption{Heatmap showing number of /24s being advertised by each /8 "Allocated" %prefix}
+%\label{fig:heatmapAllocatedSideWays}
+%\end{sidewaysfigure}
 
 \end{document}

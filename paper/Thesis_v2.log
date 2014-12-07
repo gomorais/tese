@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2014.8.19)  25 SEP 2014 18:34
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2014.8.19)  16 OCT 2014 21:09
 entering extended mode
  %&-line parsing enabled.
 **Thesis_v2.tex
@@ -12,31 +12,102 @@ skrit, italian, latin, latvian, lithuanian, mongolian2a, mongolian, bokmal, nyn
 orsk, romanian, irish, coptic, serbian, turkish, welsh, esperanto, uppersorbian
 , estonian, indonesian, interlingua, icelandic, kurmanji, slovenian, polish, po
 rtuguese, spanish, galician, catalan, swedish, ukenglish, pinyin, loaded.
-(/usr/share/texmf-texlive/tex/latex/base/report.cls
-Document Class: report 2007/10/19 v1.4h Standard LaTeX document class
-(/usr/share/texmf-texlive/tex/latex/base/size11.clo
-File: size11.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
-)
-\c@part=\count79
-\c@chapter=\count80
-\c@section=\count81
-\c@subsection=\count82
-\c@subsubsection=\count83
-\c@paragraph=\count84
-\c@subparagraph=\count85
-\c@figure=\count86
-\c@table=\count87
-\abovecaptionskip=\skip41
-\belowcaptionskip=\skip42
-\bibindent=\dimen102
-)
-(/usr/share/texmf-texlive/tex/latex/graphics/graphicx.sty
-Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+(/usr/share/texmf-texlive/tex/latex/koma-script/scrreprt.cls
+Document Class: scrreprt 2009/07/24 v3.04a KOMA-Script document class (report)
+(/usr/share/texmf-texlive/tex/latex/koma-script/scrkbase.sty
+Package: scrkbase 2009/07/24 v3.04a KOMA-Script package (KOMA-Script-dependent 
+basics and keyval usage)
+
+(/usr/share/texmf-texlive/tex/latex/koma-script/scrbase.sty
+Package: scrbase 2009/07/24 v3.04a KOMA-Script package (KOMA-Script-independent
+ basics and keyval usage)
 
 (/usr/share/texmf-texlive/tex/latex/graphics/keyval.sty
 Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
 \KV@toks@=\toks14
 )
+(/usr/share/texmf-texlive/tex/latex/koma-script/scrlfile.sty
+Package: scrlfile 2009/03/25 v3.03 KOMA-Script package (loading files)
+
+Package scrlfile, 2009/03/25 v3.03 KOMA-Script package (loading files)
+                  Copyright (C) Markus Kohm
+
+))) (/usr/share/texmf-texlive/tex/latex/koma-script/tocbasic.sty
+Package: tocbasic 2009/06/08 v3.03b KOMA-Script package (handling toc-files)
+)
+Package tocbasic Info: omitting babel extension for `toc'
+(tocbasic)             because of feature `nobabel' available
+(tocbasic)             for `toc' on input line 117.
+Package tocbasic Info: omitting babel extension for `lof'
+(tocbasic)             because of feature `nobabel' available
+(tocbasic)             for `lof' on input line 118.
+Package tocbasic Info: omitting babel extension for `lot'
+(tocbasic)             because of feature `nobabel' available
+(tocbasic)             for `lot' on input line 119.
+Package scrreprt Info: You've used obsolete option `11pt'.
+(scrreprt)             \KOMAExecuteOptions{fontsize=11pt} will be
+(scrreprt)             used instead.
+(scrreprt)             You may simply replace `11pt'
+(scrreprt)             by `fontsize=11pt'.
+Class scrreprt Info: File `scrsize11pt.clo' used to setup font sizes on input l
+ine 1271.
+
+(/usr/share/texmf-texlive/tex/latex/koma-script/scrsize11pt.clo
+File: scrsize11pt.clo 2009/07/24 v3.04a KOMA-Script font size class option (11p
+t)
+)
+(/usr/share/texmf-texlive/tex/latex/koma-script/typearea.sty
+Package: typearea 2009/07/24 v3.04a KOMA-Script package (type area)
+
+Package typearea, 2009/07/24 v3.04a KOMA-Script package (type area)
+                  Copyright (C) Frank Neukam, 1992-1994
+                  Copyright (C) Markus Kohm, 1994-
+
+\ta@bcor=\skip41
+\ta@div=\count79
+Package typearea Info: You've used standard option `a4paper'.
+(typearea)             This is correct!
+(typearea)             Internaly I'm using `paper=a4'.
+(typearea)             If you'd like to set the option with \KOMAoptions,
+(typearea)             you'd have to use `paper=a4' there
+(typearea)             instead of `a4paper', too.
+\ta@hblk=\skip42
+\ta@vblk=\skip43
+\ta@temp=\skip44
+Package typearea Info: These are the values describing the layout:
+(typearea)             DIV  = 10
+(typearea)             BCOR = 0.0pt
+(typearea)             \paperwidth      = 597.50793pt
+(typearea)              \textwidth      = 418.25555pt
+(typearea)              DIV departure   = -6%
+(typearea)              \evensidemargin = 17.3562pt
+(typearea)              \oddsidemargin  = 17.3562pt
+(typearea)             \paperheight     = 845.04694pt
+(typearea)              \textheight     = 595.80026pt
+(typearea)              \topmargin      = -25.16531pt
+(typearea)              \headheight     = 17.0pt
+(typearea)              \headsep        = 20.40001pt
+(typearea)              \topskip        = 11.0pt
+(typearea)              \footskip       = 47.60002pt
+(typearea)              \baselineskip   = 13.6pt
+(typearea)              on input line 1115.
+)
+\c@part=\count80
+\c@chapter=\count81
+\c@section=\count82
+\c@subsection=\count83
+\c@subsubsection=\count84
+\c@paragraph=\count85
+\c@subparagraph=\count86
+\abovecaptionskip=\skip45
+\belowcaptionskip=\skip46
+\c@pti@nb@sid@b@x=\box26
+\c@figure=\count87
+\c@table=\count88
+\bibindent=\dimen102
+) (/usr/share/texmf-texlive/tex/latex/graphics/graphicx.sty
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+
 (/usr/share/texmf-texlive/tex/latex/graphics/graphics.sty
 Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
 
@@ -50,7 +121,7 @@ Package graphics Info: Driver file: pdftex.def on input line 91.
 
 (/usr/share/texmf-texlive/tex/latex/pdftex-def/pdftex.def
 File: pdftex.def 2010/03/12 v0.04p Graphics/color for pdfTeX
-\Gread@gobject=\count88
+\Gread@gobject=\count89
 ))
 \Gin@req@height=\dimen103
 \Gin@req@width=\dimen104
@@ -72,117 +143,194 @@ LaTeX Font Info:    ... okay on input line 11.
 
 (/usr/share/texmf-texlive/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count89
+\scratchcounter=\count90
 \scratchdimen=\dimen105
-\scratchbox=\box26
-\nofMPsegments=\count90
-\nofMParguments=\count91
+\scratchbox=\box27
+\nofMPsegments=\count91
+\nofMParguments=\count92
 \everyMPshowfont=\toks15
-\MPscratchCnt=\count92
+\MPscratchCnt=\count93
 \MPscratchDim=\dimen106
-\MPnumerator=\count93
+\MPnumerator=\count94
 \everyMPtoPDFconversion=\toks16
 )
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 12.
+(Font)              <14.4> on input line 13.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 12.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 12.
+(Font)              <7> on input line 13.
  [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-Overfull \hbox (17.16708pt too wide) in paragraph at lines 55--56
-\OT1/cmr/m/n/10.95 coordination/internet-governance/internet-technical-communit
-y/the-rir-system
+
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./Thesis_v2.toc
+Class scrreprt Info: You've told me to use the font selection of the element
+(scrreprt)           `sectioning' that is an alias of element `disposition'
+(scrreprt)            on input line 1.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <10.95> on input line 2.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 2.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 2.
+Class scrreprt Info: You've told me to use the font selection of the element
+(scrreprt)           `sectioning' that is an alias of element `disposition'
+(scrreprt)            on input line 6.
+Class scrreprt Info: You've told me to use the font selection of the element
+(scrreprt)           `sectioning' that is an alias of element `disposition'
+(scrreprt)            on input line 7.
+Class scrreprt Info: You've told me to use the font selection of the element
+(scrreprt)           `sectioning' that is an alias of element `disposition'
+(scrreprt)            on input line 8.
+Class scrreprt Info: You've told me to use the font selection of the element
+(scrreprt)           `sectioning' that is an alias of element `disposition'
+(scrreprt)            on input line 10.
+Class scrreprt Info: You've told me to use the font selection of the element
+(scrreprt)           `sectioning' that is an alias of element `disposition'
+(scrreprt)            on input line 11.
+Class scrreprt Info: You've told me to use the font selection of the element
+(scrreprt)           `sectioning' that is an alias of element `disposition'
+(scrreprt)            on input line 12.
+)
+\tf@toc=\write3
+\openout3 = `Thesis_v2.toc'.
+
+
+[2
+
+] (./Thesis_v2.lof)
+\tf@lof=\write4
+\openout4 = `Thesis_v2.lof'.
+
+ [3
+
+] (./Thesis_v2.lot)
+\tf@lot=\write5
+\openout5 = `Thesis_v2.lot'.
+
+ [4
+
+] [5
+
+]
+Chapter 1.
+
+Overfull \hbox (36.3209pt too wide) in paragraph at lines 64--65
+[]\OT1/cmr/m/n/10.95 The In-ter-net Reg-istry Sys-tem and IANA http://www.ripe.
+net/internet-coordination/internet-
  []
 
-[1] <IR-structure-diagram.png, id=11, 690.58pt x 341.275pt>
-File: IR-structure-diagram.png Graphic file (type png)
 
-<use IR-structure-diagram.png> [2 <./IR-structure-diagram.png>]
-<RIR.jpeg, id=17, 770.88pt x 464.73625pt>
-File: RIR.jpeg Graphic file (type jpg)
- <use RIR.jpeg>
-Overfull \hbox (14.94669pt too wide) in paragraph at lines 78--79
+Overfull \hbox (24.73325pt too wide) in paragraph at lines 64--65
+\OT1/cmr/m/n/10.95 governance/internet-technical-community/the-rir-system and h
+ttps://www.iana.org/numbers 
+ []
+
+
+</home/morais/Documents/tese/tese/paper/img/IR-structure-diagram.png, id=20, 69
+0.58pt x 341.275pt>
+File: /home/morais/Documents/tese/tese/paper/img/IR-structure-diagram.png Graph
+ic file (type png)
+
+<use /home/morais/Documents/tese/tese/paper/img/IR-structure-diagram.png>
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+</home/morais/Documents/tese/tese/paper/img/RIR.jpeg, id=22, 770.88pt x 464.736
+25pt>
+File: /home/morais/Documents/tese/tese/paper/img/RIR.jpeg Graphic file (type jp
+g)
+ <use /home/morais/Documents/tese/tese/paper/img/RIR.jpeg> [6
+
+]
+Overfull \hbox (2.62033pt too wide) in paragraph at lines 87--88
 \OT1/cmr/m/n/10.95 from http://www.ripe.net/internet-coordination/internet-gove
-rnance/internet-
+rnance/internet-technical-
  []
 
 
-Overfull \hbox (35.9342pt too wide) in paragraph at lines 78--79
-\OT1/cmr/m/n/10.95 technical-community/the-rir-system and http://www.ripe.net/l
-ir-services/resource-
+Overfull \hbox (36.0787pt too wide) in paragraph at lines 87--88
+\OT1/cmr/m/n/10.95 community/the-rir-system and http://www.ripe.net/lir-service
+s/resource-management/faq/faq-
  []
 
-
-Overfull \hbox (52.8734pt too wide) in paragraph at lines 85--86
+[7 </home/morais/Documents/tese/tese/paper/img/IR-structure-diagram.png> </home
+/morais/Documents/tese/tese/paper/img/RIR.jpeg>]
+Overfull \hbox (5.05371pt too wide) in paragraph at lines 94--95
 []\OT1/cmr/m/n/10.95 from http://meetings.ripe.net/ripe-42/presentations/ripe42
--lir-rfc2050/sld002.html
+-lir-rfc2050/sld002.html us-
  []
 
-[3 <./RIR.jpeg>] [4] [5]
-<bgpAdvertisement.png, id=27, 622.325pt x 306.14375pt>
-File: bgpAdvertisement.png Graphic file (type png)
 
-<use bgpAdvertisement.png>
-<bgpMaliciousAdvertisement.png, id=28, 602.25pt x 306.14375pt>
-File: bgpMaliciousAdvertisement.png Graphic file (type png)
+Overfull \hbox (39.85048pt too wide) in paragraph at lines 94--95
+\OT1/cmr/m/n/10.95 ing rfc - http://www.rfc-editor.org/rfc/rfc2050.txt and http
+://www.rfc-editor.org/rfc/rfc7020.txt 
+ []
 
-<use bgpMaliciousAdvertisement.png>
+[8]
+</home/morais/Documents/tese/tese/paper/img/bgpAdvertisement.png, id=34, 622.32
+5pt x 306.14375pt>
+File: /home/morais/Documents/tese/tese/paper/img/bgpAdvertisement.png Graphic f
+ile (type png)
 
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-[6 <./bgpAdvertisement.png (PNG copy)>]
-<bgpDeaggregationAdvertisement.png, id=33, 602.25pt x 306.14375pt>
-File: bgpDeaggregationAdvertisement.png Graphic file (type png)
-
-<use bgpDeaggregationAdvertisement.png>
+<use /home/morais/Documents/tese/tese/paper/img/bgpAdvertisement.png>
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[7 <./bgpMaliciousAdvertisement.png (PNG copy)>] [8 <./bgpDeaggregationAdvertis
-ement.png (PNG copy)>] [9]
-Overfull \hbox (99.07936pt too wide) in paragraph at lines 180--181
+[9]
+</home/morais/Documents/tese/tese/paper/img/bgpMaliciousAdvertisement.png, id=3
+8, 602.25pt x 306.14375pt>
+File: /home/morais/Documents/tese/tese/paper/img/bgpMaliciousAdvertisement.png 
+Graphic file (type png)
+
+<use /home/morais/Documents/tese/tese/paper/img/bgpMaliciousAdvertisement.png>
+[10 </home/morais/Documents/tese/tese/paper/img/bgpAdvertisement.png (PNG copy)
+> </home/morais/Documents/tese/tese/paper/img/bgpMaliciousAdvertisement.png (PN
+G copy)>]
+</home/morais/Documents/tese/tese/paper/img/bgpDeaggregationAdvertisement.png, 
+id=42, 602.25pt x 306.14375pt>
+File: /home/morais/Documents/tese/tese/paper/img/bgpDeaggregationAdvertisement.
+png Graphic file (type png)
+
+<use /home/morais/Documents/tese/tese/paper/img/bgpDeaggregationAdvertisement.p
+ng> [11 </home/morais/Documents/tese/tese/paper/img/bgpDeaggregationAdvertiseme
+nt.png (PNG copy)>] [12]
+Overfull \hbox (40.8238pt too wide) in paragraph at lines 189--190
 \OT1/cmr/m/n/10.95 http://www.nanog.org/meetings/nanog51/presentations/Sunday/N
 ANOG51.Talk34.NANOG51 
  []
 
 
-Overfull \hbox (188.44069pt too wide) in paragraph at lines 182--188
+Overfull \hbox (124.13516pt too wide) in paragraph at lines 191--197
 []\OT1/cmr/m/n/10.95 from http://www.nsfnet-legacy.org/about.php http://www.nsf
 .gov/about/history/nsf0050/internet/launch.htm
  []
 
 
-Overfull \hbox (7.06877pt too wide) in paragraph at lines 182--188
+Overfull \hbox (16.06451pt too wide) in paragraph at lines 191--197
 \OT1/cmr/m/n/10.95 http://www.hernandocadett.com/content/stability-and-consiste
-ncy-internet-
+ncy-internet-wide-network-
  []
 
 
-Overfull \hbox (30.34363pt too wide) in paragraph at lines 182--188
-\OT1/cmr/m/n/10.95 wide-network-routing https://www.nsf.gov/news/news[]summ.jsp
-?cntn[]id=103050
+Overfull \hbox (147.79324pt too wide) in paragraph at lines 191--197
+\OT1/cmr/m/n/10.95 routing https://www.nsf.gov/news/news[]summ.jsp?cntn[]id=103
+050 http://www.merit.edu/research/nsfnet[]article.php
  []
 
 
-Overfull \hbox (143.65808pt too wide) in paragraph at lines 182--188
-\OT1/cmr/m/n/10.95 http://www.merit.edu/research/nsfnet[]article.php http://www
-.merit.edu/services/meritradb/history.php 
- []
+</home/morais/Documents/tese/tese/paper/img/nsfnet_topology.png, id=49, 578.16p
+t x 333.245pt>
+File: /home/morais/Documents/tese/tese/paper/img/nsfnet_topology.png Graphic fi
+le (type png)
 
-<nsfnet_topology.png, id=43, 578.16pt x 333.245pt>
-File: nsfnet_topology.png Graphic file (type png)
- <use nsfnet_topology.png>
+<use /home/morais/Documents/tese/tese/paper/img/nsfnet_topology.png>
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[10] [11 <./nsfnet_topology.png (PNG copy)>]
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <10.95> on input line 222.
- [12]
-Overfull \hbox (277.50491pt too wide) in paragraph at lines 247--286
+[13] [14 </home/morais/Documents/tese/tese/paper/img/nsfnet_topology.png (PNG c
+opy)>]
+Overfull \hbox (219.24936pt too wide) in paragraph at lines 256--295
  [][] 
  []
 
@@ -192,176 +340,235 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[13]
-
-LaTeX Warning: Text page 14 contains only floats.
-
-[14]
-Overfull \hbox (277.20073pt too wide) in paragraph at lines 329--355
- [][] 
- []
-
-[15] [16] <ipv4inRir.png, id=67, 1075.1367pt x 725.109pt>
-File: ipv4inRir.png Graphic file (type png)
- <use ipv4inRir.png>
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-[17]
-Overfull \hbox (77.39212pt too wide) in paragraph at lines 427--428
-\OT1/cmr/m/n/10.95 the Re-gional In-ter-net Ad-dress Reg-istries http://www.int
-ernetgovernance.org/wordpress/wp-
- []
-
-[18 <./ipv4inRir.png (PNG copy)>]
-Overfull \hbox (204.65561pt too wide) in paragraph at lines 431--432
-\OT1/cmr/m/n/10.95 IPv4 Num-ber Mar-ket http://www.internetgovernance.org/wordp
-ress/wp-content/uploads/IPv4marketTPRC20122.pdf 
- []
-
-[19] [20] <peers1.pdf, id=81, 1084.05pt x 722.7pt>
-File: peers1.pdf Graphic file (type pdf)
- <use peers1.pdf>
-Overfull \hbox (73.61232pt too wide) in paragraph at lines 496--497
+[15] [16]
+Overfull \hbox (218.94518pt too wide) in paragraph at lines 338--364
  [][] 
  []
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<peers2.pdf, id=82, 1084.05pt x 722.7pt>
-File: peers2.pdf Graphic file (type pdf)
- <use peers2.pdf>
-Overfull \hbox (73.61232pt too wide) in paragraph at lines 503--504
- [][] 
- []
+[17] [18]
+Chapter 2.
 
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-<comparePrefixes.pdf, id=83, 1084.05pt x 722.7pt>
-File: comparePrefixes.pdf Graphic file (type pdf)
- <use comparePrefixes.pdf>
-Overfull \hbox (73.61232pt too wide) in paragraph at lines 510--511
- [][] 
- []
-
+</home/morais/Documents/tese/tese/paper/img/ipv4inRir.png, id=69, 1075.1367pt x
+ 725.109pt>
+File: /home/morais/Documents/tese/tese/paper/img/ipv4inRir.png Graphic file (ty
+pe png)
+ <use /home/morais/Documents/tese/tese/paper/img/ipv4inRir.png>
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<comparePrefixes_24.pdf, id=84, 1084.05pt x 722.7pt>
-File: comparePrefixes_24.pdf Graphic file (type pdf)
+[19
 
-<use comparePrefixes_24.pdf>
-Overfull \hbox (73.61232pt too wide) in paragraph at lines 517--518
- [][] 
+] [20 </home/morais/Documents/tese/tese/paper/img/ipv4inRir.png (PNG copy)>]
+Overfull \hbox (80.21332pt too wide) in paragraph at lines 440--441
+\OT1/cmr/m/n/10.95 Mar-ket http://www.internetgovernance.org/wordpress/wp-conte
+nt/uploads/IPv4marketTPRC20122.pdf 
  []
 
+[21] [22]
+Chapter 3.
+[23
 
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-<compareAggregation.pdf, id=85, 1084.05pt x 722.7pt>
-File: compareAggregation.pdf Graphic file (type pdf)
-
-<use compareAggregation.pdf>
-Overfull \hbox (73.61232pt too wide) in paragraph at lines 524--525
- [][] 
- []
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-<compareAggregation_24.pdf, id=86, 1084.05pt x 722.7pt>
-File: compareAggregation_24.pdf Graphic file (type pdf)
-
-<use compareAggregation_24.pdf>
-Overfull \hbox (73.61232pt too wide) in paragraph at lines 531--532
- [][] 
- []
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-<compareAggregationCycles.pdf, id=87, 1084.05pt x 722.7pt>
-File: compareAggregationCycles.pdf Graphic file (type pdf)
-
-<use compareAggregationCycles.pdf>
-Overfull \hbox (73.61232pt too wide) in paragraph at lines 538--539
- [][] 
- []
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-<compareAggregationCycles_24.pdf, id=88, 1084.05pt x 722.7pt>
-File: compareAggregationCycles_24.pdf Graphic file (type pdf)
-
-<use compareAggregationCycles_24.pdf>
-Overfull \hbox (73.61232pt too wide) in paragraph at lines 545--546
- [][] 
- []
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-[21] [22 <./peers1.pdf>] [23 <./peers2.pdf>] [24 <./comparePrefixes.pdf>]
-[25 <./comparePrefixes_24.pdf>] [26 <./compareAggregation.pdf>] [27 <./compareA
-ggregation_24.pdf>] [28 <./compareAggregationCycles.pdf>] [29 <./compareAggrega
-tionCycles_24.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 562--566
-[]\OT1/cmr/m/n/10.95 Rensys Blog, \OT1/cmr/m/it/10.95 Pak-istan Hi-jacks YouTub
-e\OT1/cmr/m/n/10.95 . [On-line]. Avail-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 562--566
-\OT1/cmr/m/n/10.95 able: http://www.renesys.com/blog/2008/02/pakistan[]hijacks[
 ]
+Chapter 4.
+
+</home/morais/Documents/tese/tese/paper/img/peers1.pdf, id=86, 1084.05pt x 722.
+7pt>
+File: /home/morais/Documents/tese/tese/paper/img/peers1.pdf Graphic file (type 
+pdf)
+ <use /home/morais/Documents/tese/tese/paper/img/peers1.pdf>
+Overfull \hbox (15.35677pt too wide) in paragraph at lines 517--518
+ [][] 
+ []
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+</home/morais/Documents/tese/tese/paper/img/peers2.pdf, id=87, 1084.05pt x 722.
+7pt>
+File: /home/morais/Documents/tese/tese/paper/img/peers2.pdf Graphic file (type 
+pdf)
+ <use /home/morais/Documents/tese/tese/paper/img/peers2.pdf>
+Overfull \hbox (15.35677pt too wide) in paragraph at lines 526--527
+ [][] 
+ []
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[24
+
+] [25 </home/morais/Documents/tese/tese/paper/img/peers1.pdf>] [26 </home/morai
+s/Documents/tese/tese/paper/img/peers2.pdf>]
+Chapter 5.
+
+</home/morais/Documents/tese/tese/paper/img/comparePrefixes.pdf, id=110, 1084.0
+5pt x 722.7pt>
+File: /home/morais/Documents/tese/tese/paper/img/comparePrefixes.pdf Graphic fi
+le (type pdf)
+
+<use /home/morais/Documents/tese/tese/paper/img/comparePrefixes.pdf>
+Overfull \hbox (15.35677pt too wide) in paragraph at lines 539--540
+ [][] 
+ []
+
+
+</home/morais/Documents/tese/tese/paper/img/comparePrefixes_24.pdf, id=111, 108
+4.05pt x 722.7pt>
+File: /home/morais/Documents/tese/tese/paper/img/comparePrefixes_24.pdf Graphic
+ file (type pdf)
+
+<use /home/morais/Documents/tese/tese/paper/img/comparePrefixes_24.pdf>
+Overfull \hbox (15.35677pt too wide) in paragraph at lines 546--547
+ [][] 
+ []
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+</home/morais/Documents/tese/tese/paper/img/compareAggregation.pdf, id=112, 108
+4.05pt x 722.7pt>
+File: /home/morais/Documents/tese/tese/paper/img/compareAggregation.pdf Graphic
+ file (type pdf)
+
+<use /home/morais/Documents/tese/tese/paper/img/compareAggregation.pdf>
+Overfull \hbox (15.35677pt too wide) in paragraph at lines 553--554
+ [][] 
+ []
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+</home/morais/Documents/tese/tese/paper/img/compareAggregation_24.pdf, id=113, 
+1084.05pt x 722.7pt>
+File: /home/morais/Documents/tese/tese/paper/img/compareAggregation_24.pdf Grap
+hic file (type pdf)
+
+<use /home/morais/Documents/tese/tese/paper/img/compareAggregation_24.pdf>
+Overfull \hbox (15.35677pt too wide) in paragraph at lines 560--561
+ [][] 
+ []
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+</home/morais/Documents/tese/tese/paper/img/compareAggregationCycles.pdf, id=11
+4, 1084.05pt x 722.7pt>
+File: /home/morais/Documents/tese/tese/paper/img/compareAggregationCycles.pdf G
+raphic file (type pdf)
+
+<use /home/morais/Documents/tese/tese/paper/img/compareAggregationCycles.pdf>
+Overfull \hbox (15.35677pt too wide) in paragraph at lines 567--568
+ [][] 
+ []
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+</home/morais/Documents/tese/tese/paper/img/compareAggregationCycles_24.pdf, id
+=115, 1084.05pt x 722.7pt>
+File: /home/morais/Documents/tese/tese/paper/img/compareAggregationCycles_24.pd
+f Graphic file (type pdf)
+
+<use /home/morais/Documents/tese/tese/paper/img/compareAggregationCycles_24.pdf
+>
+Overfull \hbox (15.35677pt too wide) in paragraph at lines 574--575
+ [][] 
+ []
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+</home/morais/Documents/tese/tese/paper/img/routingStatusGlobal.pdf, id=116, 10
+84.05pt x 722.7pt>
+File: /home/morais/Documents/tese/tese/paper/img/routingStatusGlobal.pdf Graphi
+c file (type pdf)
+
+<use /home/morais/Documents/tese/tese/paper/img/routingStatusGlobal.pdf>
+Overfull \hbox (15.35677pt too wide) in paragraph at lines 581--582
+ [][] 
+ []
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[27
+
+ </home/morais/Documents/tese/tese/paper/img/comparePrefixes.pdf>] [28 </home/m
+orais/Documents/tese/tese/paper/img/comparePrefixes_24.pdf>] [29 </home/morais/
+Documents/tese/tese/paper/img/compareAggregation.pdf>] [30 </home/morais/Docume
+nts/tese/tese/paper/img/compareAggregation_24.pdf>] [31 </home/morais/Documents
+/tese/tese/paper/img/compareAggregationCycles.pdf>] [32 </home/morais/Documents
+/tese/tese/paper/img/compareAggregationCycles_24.pdf>] [33 </home/morais/Docume
+nts/tese/tese/paper/img/routingStatusGlobal.pdf>]
+Chapter 6.
+[34
+
+] [35
+
+]
+Chapter 7.
+
+Underfull \hbox (badness 10000) in paragraph at lines 598--602
+[]\OT1/cmr/m/n/10.95 Rensys Blog, \OT1/cmr/m/it/10.95 Pak-istan Hi-jacks YouTub
+e\OT1/cmr/m/n/10.95 . [On-line]. Avail-able:
  []
 
 Missing character: There is no Ã in font cmr10!
 Missing character: There is no ¼ in font cmr10!
 
-Underfull \hbox (badness 3250) in paragraph at lines 578--581
+Underfull \hbox (badness 10000) in paragraph at lines 614--617
 []\OT1/cmr/m/n/10.95 IANA, \OT1/cmr/m/it/10.95 IANA IPv4 Ad-dress Space Reg-ist
-ry\OT1/cmr/m/n/10.95 . [On-line]. Avail-
+ry\OT1/cmr/m/n/10.95 . [On-line]. Avail-able:
  []
 
 
-Underfull \hbox (badness 1748) in paragraph at lines 578--581
-\OT1/cmr/m/n/10.95 able: http://www.iana.org/assignments/ipv4-address-space/ipv
-4-
+Underfull \hbox (badness 10000) in paragraph at lines 614--617
+\OT1/cmr/m/n/10.95 http://www.iana.org/assignments/ipv4-address-space/ipv4-addr
+ess-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 583--586
+Underfull \hbox (badness 10000) in paragraph at lines 619--622
 []\OT1/cmr/m/n/10.95 G. Hus-ton, \OT1/cmr/m/it/10.95 IPv4 Ad-dress Re-port\OT1/
 cmr/m/n/10.95 . [On-line]. Avail-able:
  []
 
-[30
 
-] [31] (./Thesis_v2.aux)
+Underfull \hbox (badness 4391) in paragraph at lines 629--632
+[]\OT1/cmr/m/n/10.95 Whois, \OT1/cmr/m/it/10.95 WHOIS Pro-to-col Spec-i-fi-ca-t
+ion - RFC3912\OT1/cmr/m/n/10.95 . [On-line]. Avail-able:
+ []
 
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+Missing character: There is no â in font cmr10!
+Missing character: There is no € in font cmr10!
+Missing character: There is no “ in font cmr10!
+[36
 
- ) 
+] [37] (./Thesis_v2.aux) ) 
 Here is how much of TeX's memory you used:
- 1043 strings out of 493848
- 14021 string characters out of 1152823
- 69194 words of memory out of 3000000
- 4350 multiletter control sequences out of 15000+50000
- 10070 words of font info for 35 fonts, out of 3000000 for 9000
+ 2003 strings out of 493848
+ 32981 string characters out of 1152823
+ 112215 words of memory out of 3000000
+ 5282 multiletter control sequences out of 15000+50000
+ 9430 words of font info for 33 fonts, out of 3000000 for 9000
  714 hyphenation exceptions out of 8191
- 25i,7n,19p,1370b,201s stack positions out of 5000i,500n,10000p,200000b,50000s
-</usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/sha
-re/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-te
-xlive/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-texlive/fonts/
-type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-texlive/fonts/type1/public
-/amsfonts/cm/cmti10.pfb>
-Output written on Thesis_v2.pdf (32 pages, 492211 bytes).
+ 36i,7n,43p,1370b,244s stack positions out of 5000i,500n,10000p,200000b,50000s
+</usr/share/texmf-texlive/fonts/type1/public/amsfonts
+/cm/cmr10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr12.pf
+b></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/s
+hare/texmf-texlive/fonts/type1/public/amsfonts/cm/cmti10.pfb>
+Output written on Thesis_v2.pdf (37 pages, 499697 bytes).
 PDF statistics:
- 190 PDF objects out of 1000 (max. 8388607)
+ 211 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 76 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 81 words of extra memory for PDF output out of 10000 (max. 10000000)
 
