@@ -7,10 +7,14 @@
 \usepackage{amsmath}
 \usepackage{mathtools}
 \usepackage[usenames, dvipsnames]{color}
+\usepackage[titletoc]{appendix}
 
 \usepackage[scaled]{helvet}
 \renewcommand*\familydefault{\sfdefault}
 \usepackage[T1]{fontenc}
+\usepackage{chngcntr}
+\counterwithout{figure}{chapter}
+\counterwithout{table}{chapter}
 
 
 \graphicspath{ {/home/morais/Documents/tese/tese/paper/img/} }
@@ -90,13 +94,13 @@ increasingly scarce resource. Hence, we assist to changes on IPv4 allocation pol
 
 The IP protocol is the principal communications protocol used on the Internet to deliver packets from a source host to a destination host. This is done based on the IP addresses in the packet headers, having each host an unique address. 
 The first version of this protocol and still the most dominant one is IPv4. The format of an IP address is a 32-bit number allowing a use of around 4 billion addresses. With the boom that we have been assisting in the past years regarding devices needing IP addresses in connection with how IPv4 blocks of addresses have been allocated, the number of available blocks has reached a dangerous low value of almost depletion.      
-In February 2011 the organization responsible to allocate blocks of addresses to further use, the Internet Assigned Numbers Authority (IANA) allocated the last block of addresses to the Regional Internet Registries (RIR) which are in turn reponsible for allocating in their region. Each RIR asks IANA for more IP addresses by need and since the data this is no longer possible. Furthermore some RIRs have already reached a critical point and have a limited number of addresses. It means that we are facing a IPv4 address exhaustion problem and with the transition to IPv6 still not completed, we still need IPv4 addresses to supply the growing Internet market. To supply the demand IPv4 address transfer markets appeared, which are subject of debate. There are markets regulated by the RIRs, but it is not known if address space holders will adhere to the RIR policies and, most probably, IPv4 addresses will change hands without RIR knowledge.
-All these factors can cause fragmentation of the address space and larger IPv4 routing tables. Also in terms of security can be a problem that resources change hands without any kind of control, because it makes it harder to identify if the address being advertised was really allocated to the one advertising it. 
+In February 2011 the Internet Assigned Numbers Authority (IANA), which is the organization responsible to allocate blocks of addresses to further use, allocated the last block of addresses to the Regional Internet Registries (RIRs). The RIRs are in turn reponsible for allocating addresses in the region they are responsible for. If a RIR requires blocks of addresses for further allocation, it asks IANA for IP addresses, but since 2011 this is no longer possible. Furthermore some RIRs have already reached a critical point and have a limited number of addresses. It means that we are facing a IPv4 address exhaustion problem and with the transition to IPv6 still not completed, we still need IPv4 addresses to supply the growing Internet market. To supply the demand, IPv4 address transfer markets appeared, but these are subject of debate. There are markets regulated by the RIRs, but it is not known if address space holders will adhere to the RIR policies and, if not, IPv4 addresses will change hands without RIR knowledge.
+All these factors can cause fragmentation of the address space and larger IPv4 routing tables. Also the fact that resources change hands without any kind of control can constitute a security problem, as it makes it harder to identify if the address being advertised was really allocated to the one advertising it. 
 Therefore it is important to understand what is happening with the IPv4 address space. 
 
 \subsubsection{Problem Statement}
 
-Being aware of IPv4 address exaushtion and knowing that there is still a growing need for IPv4 addresses, we propose in this thesis to analyze its effects on the routing and allocation dynamics. We this in our mind, we will start by observing how prefix origins have been changing along the time and infer on wether these changes on a prefix origin have been growing. We will study if there has been an impact on the time that takes since a prefix is allocated until it is effectivily routed and what are the routing status of allocated prefixes. Here we will take a look if a prefix is being fully routed or if just a part of it or if not at all. We will be interested in comparing this behavior between new allocated prefixes and old allocated prefixes, where we consider old prefixes to be legacy allocations. We expect to see differences specially in the behaviour of old allocations prefixes expecting to see an increase in the number of subnets being routed. 
+Being aware of IPv4 address exaushtion and knowing that there is still a growing need for IPv4 addresses, we propose in this thesis to analyze its effects on the routing and allocation dynamics. With this in our mind, we will start by observing how prefix origins have been changing along the time and infer on wether these changes have been growing. We will move on to study if there has been an impact on the time that takes since a prefix is allocated until it is effectivily advertised and what are the routing status of allocated prefixes. Here we will consider the routing status of a prefix to be fully routed, if the entire allocated address space is advertised, partly routed, if only part of it is advertise and not routed, if the entire address space is not advertised at all. We will be interested in comparing this behavior between new allocated prefixes and old allocated prefixes, where we consider old prefixes to be legacy allocations. We expect to see differences specially in the behaviour of old allocations prefixes expecting to see an increase in the number of subnets being routed. 
 We will also study whether prefixes are being advertised by one AS or by multiple ASes for different subnets. We will again make a distinction between new and old allocations and expect also to find differences in the behaviour along the study period. We will finish by having a glance at how old prefixes and their subnets being advertised are registered in Whois and RADB.This information might be relevant not only for security reasons, but also for troubleshooting.   
 
 
@@ -114,11 +118,11 @@ The internet has a decentralized architecture composed of many interconnected ne
 
 Although BGP has been deployed since the comercialization of the Internet, and version 4 of the protocol has been used for over a decade, it doesn't provide any kind of performance or security guarantees. This limition has already contributed to instabilities and outages \cite{Misdirection} such as a youtube outage caused by Pakistan Telekom \cite{Pakistan}. 
 
-	Thousands ASes make part of the internet and use BGP to exchange information about how to reach blocks of destination IP addresses, which are called IP prefixes. Everytime a new route is available a BGP-speaking router sends an announcement message and when a route no longer exists, it sends a withdrawal message (incremental protocol). BGP is considered a path-vector protocol, because each AS adds its own AS number to the beginning of the AS path before advertising the route to the next AS. Each router will then select one preferred BGP route for each destination prefix. When selecting a route complex policies may be applied which will also decide whether to advertise the route to a neighboring router in another AS.   
+Thousands of ASes make part of the internet and use BGP to exchange information about how to reach blocks of destination IP addresses, which are called IP prefixes. Everytime a new route is available a BGP-speaking router sends an announcement message and when a route no longer exists, it sends a withdrawal message (incremental protocol). BGP is considered a path-vector protocol, because each AS adds its own AS number to the beginning of the AS path before advertising the route to the next AS. Each router will then select one preferred BGP route for each destination prefix. When selecting a route complex policies may be applied which will also decide whether to advertise the route to a neighboring router in another AS.   
 
 \subsection{IP prefixes and AS Numbers}
 	
-	An IP address is a 32-bit number, normally represented in dotted-decimal notation (168.1.2.3), where each of the four octets is represented by a seperate integer. When addresses are assigned to institutions they are blocks of adjacent addresses, which will be represented by the first address of the block and a mask length. The prefix 168.1.2.0/24 contains all the addresses where the first three octets are 168.1.2 and the fourth octet is between 0 and 255, meaning all the addresses between 168.1.2.0 and 168.1.2.255. Allocating addresses in blocks also has the advantage that these blocks can be advertised by routers as a block, instead of having to advertise every IP address, leading to smaller routing tables and less route advertisements. IP prefixes may be contained within another, when that happens an IP router decides to forward a data packet by choosing the longest prefix match according to the destination IP address of that packet. For example, if a router has routing information for two prefixes 168.1.0.0/16 and 168.1.2.0/24 and needs to forward a packet with the destination IP address 168.1.2.3 it will choose the more specific prefix 168.1.2.0/24. 
+An IP address is a 32-bit number, normally represented in dotted-decimal notation (168.1.2.3), where each of the four octets is represented by a seperate integer. When addresses are assigned to institutions they are blocks of adjacent addresses, which will be represented by the first address of the block and a mask length. The prefix 168.1.2.0/24 contains all the addresses where the first three octets are 168.1.2 and the fourth octet is between 0 and 255, meaning all the addresses between 168.1.2.0 and 168.1.2.255. Allocating addresses in blocks also has the advantage that these blocks can be advertised by routers as a block, instead of having to advertise every IP address, leading to smaller routing tables and less route advertisements. IP prefixes may be contained within another, when that happens an IP router decides to forward a data packet by choosing the longest prefix match according to the destination IP address of that packet. For example, if a router has routing information for two prefixes 168.1.0.0/16 and 168.1.2.0/24 and needs to forward a packet with the destination IP address 168.1.2.3 it will choose the more specific prefix 168.1.2.0/24. 
 
 AS numbers are assigned in a similar manner where from 1 to 64511 are public and have Internet-wide scope. Each number corresponds to only one AS. These numbers can appear in the AS-path attribute of BGP advertisements. Some institutions may not need an unique AS number, for example, if it connects to a single upstream provider that has the responsibility of providing connectivity to the rest of the Internet. In this case the customer may be assigned a private AS number with ranges from 64512 to 65535 for BGP communication with its provider. The provider would then advertise the routes on behalf of the customer. This allows providers to reuse the same private AS number for their customers.
 
@@ -283,10 +287,6 @@ Here we can see statistics regarding IPv4 address space allocation. There is inf
 \chapter{Datasets}
 
 In order to study the advertised IPv4 address space we used BGP table dumps from RouteViews \cite{RouteViews}. This provided us the required raw BGP data for our analysis. As our requirements were just to have a global overview of the prefixes that are being advertised and its origin, to use only this data source would be enough. In case we had to infer about the BGP paths and try to build an internet map, we would certainly have to use more sources (e.g. BGP table dumps from RIPE), but for our analysis this was not necessary as we could obtain a comprehensive view of the global routing system.
-
-for our purpose, a single collector providing the full
-routing table is sufficient, yet we use the intersection (do you?) using
-four collectors.
 
 For our purpose, a single collector providing the full routing table is suficient, yet we use the intersection of four collectors. They were chosen after some previous tests that are explained further in more detail.
 The information that we retrieve from the BGP data is shown below. 
@@ -877,9 +877,10 @@ http://www.kuriositaet.de/ip/ip\_service.html
 	
 \end{thebibliography}	
 
-\chapter{Appendix A}
+\begin{appendices}
+\chapter{RIPE-181}
 
-\subsubsection{RIPE-181}
+%\subsubsection{RIPE-181}
 
 The \cite{RFC_1786}, which was originally published as a RIPE document (RIPE-181), describes the original database formats that were used by RIPE NCC to store routing policy in its database. As mentioned before RIPE also serves as an allocation registry, which means that its database also contains non-routing oriented objects. 
 This documents was also referred as ripe-81++ as it was an update to the original 'ripe-81' proposal for representing and storing routing polices in the RIPE database. Several extensions proposed by Merit Inc. were incorporated into this document and it provided a generalized IP routing policy representation to be used by the Internet routing registries. As it's purpose is to be a general document for Internet routing registries, one can replace the RIPE routing registries by "Regional routing registry".
@@ -1095,7 +1096,7 @@ source:   	&      RADB\\
 \label{table:6}
 \end{table}
 
-\chapter{Appendix B}
+\chapter{Analysis}
 
 \section{BGP Origin Dynamics}
 
@@ -1260,5 +1261,6 @@ unique origin-origin pair changes, after origin-origin pair aggregation and orig
 %\caption{Heatmap showing number of /24s being advertised by each /8 "Allocated" %prefix}
 %\label{fig:heatmapAllocatedSideWays}
 %\end{sidewaysfigure}
+\end{appendices}
 
 \end{document}
