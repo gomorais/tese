@@ -28,6 +28,12 @@
 \maketitle
 
 \setcounter{chapter}{0}
+\begin{large}
+\begin{center}
+\chapter*{\centerline{Acknowledgements}}
+\end{center}
+
+\end{large}
 \clearpage
 \begin{large}
 
@@ -70,18 +76,18 @@ Berlin, 01.01.2050
 \textit{(Signature)}
 
 \end{large}
-\chapter*{Abstract}
+\chapter*{\centerline{Abstract}}
 
 In order to achieve connectivity in the Internet, the uniqueness of
-globally routed IP address blocks must be ensured.BGP, the de facto
+globally routed IP address blocks must be ensured. BGP, the de facto
 standard protocol used to enable connectivity between networks does not
 provide mechanisms for resource certification, e.g., to enforce the
-usage of certain IP address blocks only by their respective holder.Hence, a body of largely decoupled registry mechanisms has evolved over
+usage of certain IP address blocks only by their respective holder. Hence, a body of largely decoupled registry mechanisms has evolved over
 the years, aiming at providing accurate address-block registration data
 to network operators.
 
 The fact that we are facing IPv4 address exhaustion makes IPv4 addresses an
-increasingly scarce resource. Hence, we assist to changes on IPv4 allocation policies by the Regional Internet Registries (RIRs) and to the appearance of IPv4 transfer markets. We propose to investigate the effects that this is having on the allocation and routing dynamics. Hereby we pay particular attention to how origins of prefixes have been changing, how long it takes for a prefix to be seen in routing after it has been allocated and the routing status of prefixes. We will also infer about the number of ASes that advertise a certain prefix and how this has changed alont the years. We will finish by having a look at how some prefixes are being documented in the Regional Internet Registries and in the Internet Routing Registries. 
+increasingly scarce resource. Hence, we assist to changes on IPv4 allocation policies by the Regional Internet Registries (RIRs) and to the appearance of IPv4 transfer markets. We propose to investigate the effects that this is having on the allocation and routing dynamics. Hereby we pay particular attention to how origins of prefixes have been changing, how long it takes for a prefix to be seen in routing after it has been allocated and the routing status of prefixes. We will also infer about the number of ASes that advertise allocated blocks of addresses and how this has changed along the years. We will finish by having a look at how some prefixes are being documented in registry mechanisms such as the Regional Internet Registries and the Internet Routing Registries. 
 
 \tableofcontents
 \listoffigures
@@ -182,7 +188,14 @@ The Internet Assigned Numbers Authority, also known as IANA, is responsible for 
 \label{fig:ir_structure_diagram}
 \end{figure}
 
-IP addresses are assigned in hierarchical manner as shown in Figure \ref{fig:ir_structure_diagram}. Internet Service Providers obtain allocations of addresses from a Local Internet Registry (LIR), a National Internet Registry (NIR) or from the corresponding Regional Internet Registry (RIR) and in turn they assign IP addresses to end users. IANA's main purpose is to allocate IP addresses from pools of unallocated addresses to the Regional Internet Registries according to their needs. IANA does not make allocation of IP addresses directly to ISPs or users except for allocations of multicast addresses or protocol specific needs. If a RIR requires further IP addresses for allocation, IANA makes an additional allocation to the RIR. There are five RIRs, each one responsible for a specific region: AFRINIC for Africa Region, APNIC for Asia Pacific Region, ARIN for North America Region, LACNIC for Latin America and the Caribbean Regions, RIPE NCC for Europe, Middle East and Central Asia Regions. The five RIRs are represented in Figure \ref{fig:rirs_image}.
+IP addresses are assigned in hierarchical manner as shown in Figure \ref{fig:ir_structure_diagram}. Internet Service Providers obtain allocations of addresses from a Local Internet Registry (LIR), a National Internet Registry (NIR) or from the corresponding Regional Internet Registry (RIR) and in turn they assign IP addresses to end users. IANA's main purpose is to allocate IP addresses from pools of unallocated addresses to the Regional Internet Registries according to their needs. IANA does not make allocation of IP addresses directly to ISPs or users except for allocations of multicast addresses or protocol specific needs. If a RIR requires further IP addresses for allocation, IANA makes an additional allocation to the RIR. 
+
+Before the Regional Internet Registries (RIRs) were created, large blocks of addresses were given to universities, corporations and ISPs by the National Science Foundation. These addresses are nowadays administered by the individual RIRs. These early allocated IPv4 blocks of addresses are referred to as "legacy" blocks and the holders of these blocks are called "legacy holders". In \cite{IANA_Address_Space} we can see the IPv4 blocks distribution.
+
+
+\subsection{Regional Internet Registries}
+
+There are five RIRs, each one responsible for a specific region: AFRINIC for Africa Region, APNIC for Asia Pacific Region, ARIN for North America Region, LACNIC for Latin America and the Caribbean Regions, RIPE NCC for Europe, Middle East and Central Asia Regions. The five RIRs are represented in Figure \ref{fig:rirs_image}.
 
 \begin{figure}[!h]
 \centering
@@ -190,12 +203,6 @@ IP addresses are assigned in hierarchical manner as shown in Figure \ref{fig:ir_
 \caption{Regional Internet Registries Service Regions, source:\cite{FIG_GLOBAL_IRS}}
 \label{fig:rirs_image}
 \end{figure}
-
-Before the Regional Internet Registries (RIRs) were created, large blocks of addresses were given to universities, corporations and ISPs by the National Science Foundation. These addresses are nowadays administered by the individual RIRs. These early allocated IPv4 blocks of addresses are referred to as "legacy" blocks and the holders of these blocks are called "legacy holders". In \cite{IANA_Address_Space} we can see the IPv4 blocks distribution.
-
-
-\subsection{Regional Internet Registries}
-
 
 Among the tasks of a RIR are the coordination and representation of the members in its region. RIRs work together in order to develop consistent policies and promote best current practice for the Internet. As mentioned before RIRs are also responsible for allocating and assigning IP addresses within their respective regions. 
 
@@ -286,9 +293,9 @@ Here we can see statistics regarding IPv4 address space allocation. There is inf
 
 \chapter{Datasets}
 
-In order to study the advertised IPv4 address space we used BGP table dumps from RouteViews \cite{RouteViews}. This provided us the required raw BGP data for our analysis. As our requirements were just to have a global overview of the prefixes that are being advertised and its origin, to use only this data source would be enough. In case we had to infer about the BGP paths and try to build an internet map, we would certainly have to use more sources (e.g. BGP table dumps from RIPE), but for our analysis this was not necessary as we could obtain a comprehensive view of the global routing system.
+In order to study the advertised IPv4 address space we used BGP table dumps from RouteViews \cite{RouteViews}. This provided us the required raw BGP data for our analysis. As our requirements were just to have a global overview of the prefixes that are being advertised and their origins, it was enought to use only this data source. In case we had to infer about the BGP paths and try to build an internet map, we would certainly have to use more sources (e.g. BGP table dumps from RIPE), but for our analysis this was not necessary as we could obtain a comprehensive view of the global routing system by just using RouteViews.
 
-For our purpose, a single collector providing the full routing table is suficient, yet we use the intersection of four collectors. They were chosen after some previous tests that are explained further in more detail.
+For our purpose, a single collector providing the full routing table would be sufficient suficient, yet we useed the intersection of four collectors. They were chosen after some previous tests that are explained further in more detail.
 The information that we retrieve from the BGP data is shown below. 
 \vspace{5mm}
 
@@ -296,9 +303,10 @@ The information that we retrieve from the BGP data is shown below.
 
 \vspace{5mm}
 
-In red are marked the relevant field for our study. The first field in red is the prefix that is being advertised, the second field is the collector and the third field is the AS that is originating the advertised prefix.
-To be able to study the IPv4 address space allocation history, we used the allocation files \cite{Potaroo} provide by the RIRs. These files contain information about address allocation and are publiched in the RIR Statistics Exchange Format.
-How Allocation Data is Published \cite{ALLOC_FILES}. Each RIR publishes a file containing its allocations. The files are CSV formatted using a pipe "\textbar" as field separator and have the following format:
+In red are marked the relevant fields for our study. The first field in red is the prefix being advertised, the second field is peer AS and the third field is the AS that is originating the advertised prefix.
+
+To be able to study the IPv4 address space allocation history, we used the allocation files \cite{Potaroo} provide by the RIRs. Each RIR publishes a file containing that contain information about their address allocations and are published with the specific format referred in the RIR Statistics Exchange Format \cite{ALLOC_FILES}. The file consists of comments, file header lines, and records,
+one record per line. Relevant for us are the records, which are CSV formatted using a pipe "\textbar" as field separator and have the following format:
 \vspace{5mm}
 
 \hspace{1cm}	 registry\textbar cc\textbar type\textbar start\textbar value\textbar date\textbar status [\textbar extensions...]
@@ -312,12 +320,11 @@ How Allocation Data is Published \cite{ALLOC_FILES}. Each RIR publishes a file c
 
 \vspace{5mm}
 
-We used the Whois \cite{Whois} query and response protocol used for querying databases to obtain information about a domain name, an IP address block and an autonomous system. 
+Another important tool was the Whois \cite{Whois} query and response protocol used for querying databases to obtain information about a domain name, an IP address block and an autonomous system. This tool was important to try to understand if advertised prefixes are in fact registered or not.   
 
-We used Merit RADB \cite{RADB} which is a public registry of network routing information as an Internet Registries data source. The choice was to use RADB because its mission is to mirror all Internet Registries  databases to provide the most complete view possible of the entire IRR. 
+To study the IRR we used Merit RADB \cite{RADB} which is a public registry of network routing information as an Internet Registries data source. The choice was to use RADB because its mission is to mirror all Internet Registries  databases to provide the most complete view possible of the entire IRR. Also RADB exists for quite some time and the probability of having information about legacy address blocks was higher.  
 
 \section{Data cleaning}
-The RouteViews collectors contains the bgp information provided by the peer ASes. For our case study, most of the information is redundant. As we intend to analyze the prefixes that are being advertised and who is advertising them (origin), this information will be provided by most of the peer Ases. The first step to arrange our data and remove redundant information was to identify the most relevant peers. These would be the ones that would provide us the most complete view of the entire internet reagarding the number of prefixes that are advertising and how reliable they were throughout the entire time period of our analises. In Figure \ref{fig:peers1} it is shown all the information gathered from 2001 until 2014. 
 
 \begin{figure}[!h]
 \centering
@@ -326,7 +333,9 @@ The RouteViews collectors contains the bgp information provided by the peer ASes
 \label{fig:peers1}
 \end{figure}
 
-It is possible to see that a great number of peers provide less information than others and also that a high number of peers don't provide information whitout breaks throughout the time period. We then procceeded to remove all the peers that delivered a lower number of advertised prefixes or that didn't deliver information at a determined point in time. The result is shown in Figure \ref{fig:peers2}.  
+The RouteViews collectors contain the bgp information provided by the peer ASes. For our case study, most of the information is redundant, because we intend to analyze the prefixes that are being advertised and who is advertising them (origin) and this information will be provided by most of the peer Ases. The first step to arrange our data and remove redundant information was to identify the most relevant peers. These would be the ones that would provide us the most complete view of the entire internet reagarding the number of prefixes that are being advertised and also how reliable they were throughout the entire time period of our analises. In Figure \ref{fig:peers1} it is shown all the information gathered from 2001 until 2014. 
+
+It is possible to see that a great number of peers provide much less information regarding the number of prefixes being advertised than others and also that a high number of peers don't provide information whitout breaks throughout the time period. We then procceeded to remove all the peers that delivered a lower number of advertised prefixes or that didn't deliver information at a determined point in time. The result is shown in Figure \ref{fig:peers2}.  
 
 \begin{figure}[!h]
 \centering
@@ -335,7 +344,7 @@ It is possible to see that a great number of peers provide less information than
 \label{fig:peers2}
 \end{figure}
 
-By doing this we reduced drastically the amount of data that would have to be analyzed and at the same time we would have a dataset capable of ensuring the best possible data quality. 
+By forcing that all the peers to be considered would not have a point in time without delivering data we expected to ensure a study period without missing data and by choosing the peers that showed more prefixes being advertised we expected to get the most complete view of the entire Internet. Nevertheless this data is always not constant and very noisy, but this way we tried to ensure a dataset capable of guarantee the best possible data quality. 
 
 \chapter{Analysis \& Results}
 
@@ -673,22 +682,22 @@ Having a complete and update information about prefix holders is of extreme impo
 \clearpage
 \chapter{Conclusion}
 
-In this thesis we started by analyzing the BGP origin dynamics. Here we observed the changes in origin-origin pairs, then we aggregated this origin-origin pairs to obtain just unique pairs and finished we removing origin-origin pairs that showed cycles in their behaviour. By cycles we mean are situations where a prefix is advertise by AS1, for example than is advertised by AS2 and then again by AS1. We observed that the number of origin-origin changes is quite small, 1500 when compared to the total of around 500 000 prefixes. We could notice an increasing tendency in the number of prefixes that changed its origin AS and although the number of prefixes that has been allocated has also been increasing, which could in turn increase the probability of having more changes, we noticed that from 2001 until 2005 the number of changes decreased while also more prefixes were being allocated. The fact that we are facing IPv4 address exhaustion and in recent years allocation policies by the RIRs have changed, this could indicate that an increase in the number of origin changes would happen mainly due to transfers, but there are several other reasons for prefix origin changes such as BGP misconfigurations, prefix hijacks or simply because the same organization holds several AS numbers. These other reasons we tried to tackle by aggregating origin-origin pairs and by removing pairs and we could still notice an increasing tendency in origin changes.
+In this thesis we started by analyzing the BGP origin dynamics. Here we observed the changes in origin-origin pairs, then we aggregated this origin-origin pairs to obtain just unique pairs and finished we removing origin-origin pairs that showed cycles in their behaviour. By cycles we mean situations where a prefix is advertised by AS1 for example, than is advertised by AS2 and then again by AS1. We observed that the number of origin-origin changes is quite small, 1500 when compared to the total of around 500 000 prefixes. We could notice an increasing tendency in the number of prefixes that changed its origin AS and although the number of prefixes that has been allocated has also been increasing, which could in turn increase the probability of having more changes, we noticed that from 2001 until 2005 the number of changes decreased while also more prefixes were being allocated. The fact that we are facing IPv4 address exhaustion and in recent years allocation policies by the RIRs have changed, this could indicate that an increase in the number of origin changes would happen mainly due to transfers, but there are several other reasons for prefix origin changes such as BGP misconfigurations, prefix hijacks or simply because the same organization holds several AS numbers. These other reasons we tried to tackle by aggregating origin-origin pairs and by removing pairs and we could still notice an increasing tendency in origin changes.
 
-We proceeded to study the prefix allocation dynamics. We focussed on observing the number of days that took for one prefix since it was allocated until it was seen in BGP routing data. We divided the study into two groups, one for prefixes allocated before 2011 and the other for prefixes allocated after. We found that in average it took less days for a prefix allocated after 2011 to be seen in routing. Nevertheless one has to be carefull when analyzing this, because the time span of prefixes allocated before 2011 is bigger as the ones allocated after, this can cause that prefixes that take longer to be seen in routing increase the average time.
+We proceeded to study the prefix allocation dynamics. We focussed on observing the number of days that took for one prefix since it was allocated until it was seen in BGP routing data. We divided the study into two groups, one for prefixes allocated before 2011, the date when the pool of IPv4 addresses administred by the Internet Assigned Numbers Authority (IANA) was fully allocated, and one for prefixes allocated after. We found that in average it took less days for a prefix allocated after 2011 to be seen in routing. Nevertheless one has to be carefull when analyzing this, because the time span of prefixes allocated before 2011 is bigger as the ones allocated after, this can cause that prefixes that take longer to be seen in routing increase the average time.
 
-Our next step was to observe the routing dynamics of allocated prefixes. We divided the prefixes into three categories, "full routed prefixes" where the ones that had all their address space being advertised, "partially routed prefixes", the ones that had part of their address space advertised and "not routed prefixes", the ones that had no address space being advertised. We saw that the number of fully routed prefixes has been increasing proportionally to the prefixes that were being allocated along the time period. The number of not routed and partially prefixes remained pratically constant. We then decided to divide the prefixes into allocated before 1997 and after 1997. We could clearly see that the majority of the not routed prefixes were allocated before 1997, which means that the new prefixes that are being allocated are advertised more rapidly, possibly indicating that the new holders of prefixes are definitely in need of IPv4 addresses. After dividing the allocated prefixes into the responsible RIR for their allocation, we could see that the majority of not routed prefixes are located in the ARIN region.
+Our next step was to observe the routing dynamics of allocated prefixes. We divided the prefixes into three categories, "full routed prefixes" were the ones that had all their address space being advertised, "partially routed prefixes" the ones that had part of their address space advertised and "not routed prefixes" the ones that had no address space being advertised. We saw that the number of fully routed prefixes has been increasing proportionally to the prefixes that were being allocated along the time period. The number of not routed and partially prefixes remained pratically constant. We then decided to divide the prefixes into allocated before 1997 and after 1997. We could clearly see that the majority of the not routed prefixes were allocated before 1997, which means that the new prefixes that are being allocated are advertised more rapidly, possibly indicating that the new holders of prefixes are definitely in need of IPv4 addresses. After dividing the allocated prefixes into the responsible RIR for their allocation, we could see that the majority of not routed prefixes are located in the ARIN region.
 
-We moved to analyzing the number of allocated prefixes that are being advertised by more than one AS. We could see an increasing trend in the number of prefixes being advertised by more than one AS. This trend was not proportionally to the number of prefixes allocated, which was expected as the allocation policies of RIRs have changed and smaller prefixes have been allocated, decreasing the possibility of sharing address space. By dividing the allocations into before and after 1997, we noticed that the allocations after show a higher increase rate of prefixes being advertised by multiple ASes. Nevertheless the fact that old prefixes are also showing signs of being advertised by more ASes cought our attention, so we took the step of analizing what is happening there.
+We moved to analyzing the number of allocated prefixes that are being advertised by more than one AS. We could see an increasing trend in the number of prefixes being advertised by more than one AS. This trend was not proportionally to the number of prefixes allocated, which was expected as the allocation policies of RIRs have changed and smaller prefixes have been allocated, decreasing the possibility of sharing address space. By dividing the allocations into before and after 1997, we noticed that the allocations after 1997 show a higher increase rate of prefixes being advertised by multiple ASes. Nevertheless the fact that old prefixes are also showing signs of being advertised by more ASes cought our attention, so we took the step of analizing what is happening there.
 
-We chose the ten prefixes from the old allocations that show an higher number of multiple ASes and from these ten we picked three for a more detailed analysis. We checked what subnets were being advertised for each of these prefixes and inferred how many of them were registered in Whois and RADB. We saw that for two of them we could get a positive match for around half of the subnets in Whois, while for the other we didn't get any match. In case of RADB we noticed that around one quarter of the subnets had a positive match. 
+We chose the ten prefixes from the old allocations that showed an higher number of multiple ASes and from these ten we picked three for a more detailed analysis. We checked what subnets were being advertised for each of these prefixes and inferred how many of them were registered in Whois and RADB. We saw that for two of them we could get a positive match for around half of the subnets in Whois, while for the other we didn't get any match. In case of RADB we noticed that around one quarter of the subnets had a positive match. RADB is just one of the databases in the IRR and comparing the subnets with the entire IRR databases can produce better results.
 
 Taking into account that the IPv4 is getting more and more crowded it would be important to have tools that would allow to know if an origin advertising a prefix is in fact the holder of that prefix.  
 
 \subsubsection{Future Work}
 
-As we have seen the IPv4 address space is getting more and more crowded over time. IPv4 address exhaustion is a reality as well as the fact that we still need to use IPv4 and solutions, such as IPv4 transfer markets might play an important role. For such a market to work, tools as IRR can be ver useful and it would be very important to see how this tools are in fact reliable. Also due to the lack of IPv4 addresses an exhaustive work on address utilization might help to discover if there are in fact addresses that can be reutilized and where are they located.
-For this reasons works in measurement play an important role in understanding the real state of IPv4 addresses and how to utilize them in an effective way.
+As we have seen the IPv4 address space is getting more and more crowded over time. IPv4 address exhaustion is a reality as well as the fact that we still need to use IPv4 and solutions such as IPv4 transfer markets might play an important role. For such a market to work, tools as IRR can be ver useful and it would be very important to see how this tools are in fact reliable. Also due to the lack of IPv4 addresses an exhaustive work on address utilization might help to discover if there are in fact addresses that can be reutilized and where are they located.
+For this reasons future works in measurement play an important role in understanding the real state of IPv4 addresses and how to utilize them in an effective way.
 
 \bibliographystyle{plain}
 \renewcommand\bibname{\chapter{References}}
@@ -867,13 +876,6 @@ IPv4 Grey Market}.
 	\emph{RIR Statistics Exchange Format}.
 	[Online]. Available: ftp://ftp.ripe.net/pub/stats/arin/README
 	
-
-https://www.arin.net/knowledge/statistics/nro\_extended\_stats\_format.pdf
-http://www-public.it-sudparis.eu/~maigron/RIR\_Stats/
-http://www.kuriositaet.de/ip/ip\_service.html
-
-	
-	https://www.arin.net/resources/transfers/transfer\_market.html
 	
 \end{thebibliography}	
 
